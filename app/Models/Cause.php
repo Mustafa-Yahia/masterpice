@@ -1,0 +1,15 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Cause extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title', 'description', 'image', 'raised_amount', 'goal_amount', 'end_time'
+    ];
+}
