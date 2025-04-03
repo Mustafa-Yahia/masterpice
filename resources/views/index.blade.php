@@ -298,7 +298,6 @@
                 <div class="text" style="color: #fff;">ساعد في تقديم الأمل للمرضى، الطلاب، والمحتاجين. تبرع اليوم لتكون جزءًا من التغيير!</div>
             </div>
 
-
             <!-- Carousel -->
             <div id="causesCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
@@ -308,7 +307,7 @@
                                 <div class="row clearfix">
                                     @foreach($chunk as $cause)
                                         <div class="col-lg-4 col-md-6 col-sm-12">
-                                            <div class="cause-block-two inner-box shadow-sm p-3 mb-4 bg-white rounded text-center {{ $cause->raised_amount >= $cause->goal_amount ? 'goal-achieved' : '' }}">
+                                            <div class="cause-block-two inner-box shadow-sm p-3 mb-4 bg-white rounded text-center {{ ($cause->raised_amount >= $cause->goal_amount || new Date() > new Date($cause->end_time)) ? 'goal-achieved' : '' }}">
                                                 <div class="image-box" style="overflow: hidden; border-radius: 8px;">
                                                     <figure class="image">
                                                         <a href="{{ route('cause.show', $cause->id) }}">
@@ -322,45 +321,74 @@
                                                 <p class="text-muted text-truncate">{{ $cause->description }}</p>
 
                                                 <!-- Progress Bar -->
-                                                <div class="progress" style="height: 10px; border-radius: 20px; position: relative;">
-                                                    <div class="progress-bar" role="progressbar"
-                                                        style="width: {{ min(($cause->raised_amount / $cause->goal_amount) * 100, 100) }}%;
-                                                            background-color:
-                                                            {{
-                                                                ($cause->raised_amount / $cause->goal_amount) * 100 <= 49 ? '#dc3545' :
-                                                                (($cause->raised_amount / $cause->goal_amount) * 100 <= 90 ? '#ffc107' : '#28a745')
-                                                            }};"
-                                                        aria-valuenow="{{ ($cause->raised_amount / $cause->goal_amount) * 100 }}"
-                                                        aria-valuemin="0" aria-valuemax="100">
-                                                      <span class="progress-text" style="position: absolute; width: 100%; text-align: center; color: black; font-weight: bold;">
-                                                        {{ round(($cause->raised_amount / $cause->goal_amount) * 100) }}%
-                                                      </span>
-                                                    </div>
-                                                </div>
+                                                <!-- Progress Bar -->
+<div class="progress" style="height: 15px; border-radius: 20px; position: relative;">
+    <div class="progress-bar
+        {{ ($cause->raised_amount / $cause->goal_amount) * 100 <= 49 ? 'red' :
+        (($cause->raised_amount / $cause->goal_amount) * 100 <= 90 ? 'yellow' : 'green') }}
+        {{ ($cause->raised_amount / $cause->goal_amount) * 100 >= 90 ? 'near-goal' : '' }}"
+        role="progressbar"
+        style="width: {{ min(($cause->raised_amount / $cause->goal_amount) * 100, 100) }}%;"
+        aria-valuenow="{{ ($cause->raised_amount / $cause->goal_amount) * 100 }}"
+        aria-valuemin="0" aria-valuemax="100">
+        <span class="progress-text" style="position: absolute; width: 100%; text-align: center; color: black; font-weight: bold;">
+            {{ round(($cause->raised_amount / $cause->goal_amount) * 100) }}%
+        </span>
+    </div>
+</div>
+
+<!-- رسائل تحفيزية ديناميكية -->
+<div class="donation-message text-center mt-2 font-weight-bold">
+    @php
+        $progress = ($cause->raised_amount / $cause->goal_amount) * 100;
+    @endphp
+    @if($progress < 25)
+        <span style="color: #ff6b6b;">🌱 كن أول من يساهم في الخير!</span>
+    @elseif($progress < 50)
+        <span style="color: #f6c23e;">🚀 نصف الطريق، ساعدنا لنكمل!</span>
+    @elseif($progress < 75)
+        <span style="color: #f39c12;">💪 نحن نقترب! تبرع ولو بالقليل.</span>
+    @elseif($progress < 100)
+        <span style="color: #28a745;">✨ بقي القليل جدًا للوصول للهدف!</span>
+    @else
+        <span style="color: #2ecc71;">🎉 شكرًا لكم، تم تحقيق الهدف!</span>
+    @endif
+</div>
+
+
 
                                                 <!-- Raised and Goal Amount -->
                                                 <small class="d-block mt-2">
                                                     <span style="color: black;">Raised: </span>
-                                                        <span style="color:
-                                                           {{
-                                                              ($cause->raised_amount / $cause->goal_amount) * 100 <= 49 ? '#dc3545' :
-                                                              (($cause->raised_amount / $cause->goal_amount) * 100 <= 90 ? '#ffc107' : '#28a745')
-                                                            }};">
-                                                            ${{ number_format($cause->raised_amount, 2) }}
+                                                    <span style="color:
+                                                        {{
+                                                            ($cause->raised_amount / $cause->goal_amount) * 100 <= 49 ? '#dc3545' :
+                                                            (($cause->raised_amount / $cause->goal_amount) * 100 <= 90 ? '#ffc107' : '#28a745')
+                                                        }};">
+                                                        ${{ number_format($cause->raised_amount, 2) }}
                                                     </span>
-                                                      <span style="color: black;"> / Goal: </span>
-                                                      <span style="color: green;">${{ number_format($cause->goal_amount, 2) }}</span>
+                                                    <span style="color: black;"> / Goal: </span>
+                                                    <span style="color: 3cc88f;">${{ number_format($cause->goal_amount, 2) }}</span>
                                                 </small>
 
-                                                @if($cause->raised_amount >= $cause->goal_amount)
-                                                    <!-- Show check mark icon when goal is achieved -->
-                                                    <div class="goal-achieved-icon">
-                                                        <i class="fas fa-check-circle" style="color: #28a745; font-size: 30px;"></i>
-                                                        <span>الهدف تحقق!</span>
-                                                    </div>
-                                                @endif
+                                                <a href="{{ route('cause.show', $cause->id) }}" class="btn custom-btn mt-3 read-more-btn" data-cause-id="{{ $cause->id }}">اقرأ المزيد</a>
 
-                                                <a href="{{ route('cause.show', $cause->id) }}" class="btn custom-btn mt-3">اقرأ المزيد</a>
+                                                <!-- Countdown Timer -->
+                                                <div class="countdown-timer" data-end-time="{{ $cause->end_time }}" style="font-weight: bold; color: red; margin-top: 10px;">
+                                                    <span class="time-remaining"></span>
+                                                </div>
+
+                                                <!-- "الهدف تحقق!" in the center with icon -->
+                                                <div class="goal-achieved-center" style="display: none; position: absolute; top: 80px; left: 50%; transform: translateX(-50%); z-index: 1000;">
+                                                    <i class="fas fa-check-circle" style="color: #3cc88f; font-size: 50px;"></i>
+                                                    <span style="color: #3cc88f; font-size: 24px; font-weight: bold;">الهدف تحقق!</span>
+                                                </div>
+
+                                                <!-- "شكرًا لتبرعك!" when the time is up and goal not achieved -->
+                                                <div class="goal-time-up-center" style="display: none;  top: 80px;">
+                                                    <i class="fas fa-thumbs-up" style="color: #ffc107; font-size: 50px;"></i>
+                                                    <span style="color: #ffc107; font-size: 24px; font-weight: bold;">شكرًا لتبرعك!</span>
+                                                </div>
                                             </div>
                                         </div>
                                     @endforeach
@@ -390,13 +418,14 @@
     <style>
         .goal-achieved {
             background-color: #d4edda; /* تغيير الخلفية عند تحقيق الهدف */
-            border-color: #28a745;
+            border-color: #3cc88f;
+            opacity: 0.7; /* جعل الـ card مطفأ عند تحقيق الهدف أو انتهاء الوقت */
         }
 
         .goal-achieved-icon {
             margin-top: 15px;
             text-align: center;
-            color: #28a745;
+            color: #3cc88f;
         }
 
         .goal-achieved-icon i {
@@ -412,9 +441,178 @@
         }
 
         .goal-achieved .btn.custom-btn {
-            background-color: #28a745;
+            background-color: #3cc88f;
         }
+
+        .countdown-timer {
+            font-size: 14px;
+            color: #dc3545;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* إضافة تنسيق للأيقونة والنص في المنتصف */
+        .goal-achieved-center, .goal-time-up-center {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 1000;
+        }
+
+        .read-more-btn:disabled {
+            background-color: #ccc;
+            pointer-events: none;
+        }
+
+
+
+        @keyframes progressMove {
+    0% { background-position: 0 0; }
+    100% { background-position: 100px 100px; } /* تخفيف الحركة */
+}
+
+@keyframes glow {
+    0% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); }
+    50% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.5); }
+    100% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+/* تصميم الشريط الرئيسي */
+.progress {
+    height: 15px;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: #e0e0e0;
+    position: relative;
+    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* تحسين شريط التقدم */
+.progress-bar {
+    height: 100%;
+    background-size: 30px 30px;
+    border-radius: 20px;
+    animation: progressMove 6s linear infinite;
+}
+
+/* ألوان أكثر هدوءًا */
+.progress-bar.red { background: repeating-linear-gradient(45deg, #fff5f5 10%, #ff6b6b 40%); }
+.progress-bar.yellow { background: repeating-linear-gradient(45deg, #fffbe6 10%, #f6c23e 40%); }
+.progress-bar.green { background: repeating-linear-gradient(45deg, #e6fbe6 10%, #28a745 40%); }
+
+/* تأثير ناعم عند الاقتراب من الهدف */
+.progress-bar.near-goal {
+    animation: glow 1.5s infinite alternate;
+}
+
+
     </style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const timers = document.querySelectorAll(".countdown-timer");
+
+    function convertToArabicNumerals(number) {
+        const arabicNumerals = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+        return number.toString().split('').map(digit => arabicNumerals[parseInt(digit)]).join('');
+    }
+
+    timers.forEach(timer => {
+        const endTimeAttr = timer.getAttribute("data-end-time");
+        if (!endTimeAttr) return;
+
+        const endTime = new Date(endTimeAttr).getTime();
+        if (isNaN(endTime)) return;
+
+        function updateCountdown() {
+            let now = new Date().getTime();
+            let timeDiff = endTime - now;
+
+            const causeBlock = timer.closest(".cause-block-two");
+            if (!causeBlock) return;
+
+            const goalAchievedText = causeBlock.querySelector(".goal-achieved-center");
+            const goalTimeUpText = causeBlock.querySelector(".goal-time-up-center");
+            const progressBar = causeBlock.querySelector(".progress-bar");
+            const readMoreBtn = causeBlock.querySelector(".read-more-btn");
+
+            let progressWidth = progressBar ? parseInt(progressBar.style.width) || 0 : 0;
+
+            // ✅ إذا كانت نسبة التقدم 100% أثناء العد التنازلي، يتم:
+            if (progressWidth === 100) {
+                if (goalAchievedText) goalAchievedText.style.display = 'block';
+                if (goalTimeUpText) goalTimeUpText.style.display = 'none';
+
+                // ✅ تعطيل زر "اقرأ المزيد" بدون إخفائه
+                if (readMoreBtn) {
+                    readMoreBtn.disabled = true;
+                    readMoreBtn.style.backgroundColor = "#ccc"; // لون مميز
+                    readMoreBtn.style.pointerEvents = "none"; // تعطيل التفاعل
+                }
+            } else {
+                if (goalTimeUpText) goalTimeUpText.style.display = 'none';
+                if (goalAchievedText) goalAchievedText.style.display = 'none';
+
+                // ✅ إعادة تفعيل الزر إذا لم تصل النسبة إلى 100%
+                if (readMoreBtn) {
+                    readMoreBtn.disabled = false;
+                    readMoreBtn.style.backgroundColor = ""; // إعادة اللون الأصلي
+                    readMoreBtn.style.pointerEvents = "auto"; // تمكين التفاعل
+                }
+            }
+
+            if (timeDiff <= 0) {
+                timer.innerHTML = "<span style='color: green;'>انتهى وقت التبرع</span>";
+
+                causeBlock.classList.add("goal-achieved");
+
+                // ✅ عند انتهاء الوقت، يتم عرض الرسالة الصحيحة بناءً على نسبة التقدم
+                if (progressWidth === 100) {
+                    if (goalAchievedText) goalAchievedText.style.display = 'block';
+                    if (goalTimeUpText) goalTimeUpText.style.display = 'none';
+                } else {
+                    if (goalTimeUpText) goalTimeUpText.style.display = 'block';
+                    if (goalAchievedText) goalAchievedText.style.display = 'none';
+                }
+
+                // ✅ تعطيل زر "اقرأ المزيد" عند انتهاء الوقت
+                if (readMoreBtn) {
+                    readMoreBtn.disabled = true;
+                    readMoreBtn.style.backgroundColor = "#ccc";
+                    readMoreBtn.style.pointerEvents = "none";
+                }
+
+                return;
+            }
+
+            let days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            let hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+            timer.querySelector(".time-remaining").innerHTML =
+                `${convertToArabicNumerals(days)} يوم ${convertToArabicNumerals(hours)} ساعة ${convertToArabicNumerals(minutes)} دقيقة ${convertToArabicNumerals(seconds)} ثانية`;
+
+            setTimeout(updateCountdown, 1000);
+        }
+
+        updateCountdown();
+    });
+});
+
+</script>
+
+
+
+
 
 @endsection
 
