@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\CauseController;
+use App\Http\Controllers\DonationController;
 
 
 
@@ -48,3 +49,8 @@ Route::get('/donation/{id}', [DonationCategoryController::class, 'show'])->name(
 
 
 
+Route::post('/donation/confirm', [DonationController::class, 'confirmDonation'])->name('donation.confirm');
+Route::post('/donation/payment', [DonationController::class, 'payment'])->name('donation.payment');
+Route::get('/donation/success', function () {
+    return view('donations.success');
+})->name('donation.success');

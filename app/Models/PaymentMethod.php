@@ -4,22 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\DonationOption;
 
-class DonationCategory extends Model
+class PaymentMethod extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'description', 'image', 'slug', 'amount', 'type'];
+    protected $fillable = [
+        'method_name', 'description'
+    ];
 
-     // علاقة مع التبرعات
+    
     public function donations()
     {
         return $this->hasMany(Donation::class);
     }
-
 }
-
-
-
-

@@ -14,13 +14,17 @@ return new class extends Migration
         Schema::create('donations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('category_id')->constrained('donation_categories')->onDelete('cascade');
-            $table->decimal('amount', 10, 2);
-            $table->enum('currency', ['USD', 'JOD'])->default('JOD');
-            $table->string('payment_status')->default('pending'); 
+            $table->foreignId('category_id')->constrained('donation_categories')->onDelete('cascade'); // ربط التبرعات بالفئة
+            $table->foreignId('payment_method_id')->nullable()->constrained('payment_methods')->onDelete('set null'); // ربط طريقة الدفع
+            $table->decimal('amount', 10, 2);  // مبلغ التبرع
+            $table->enum('currency', ['USD', 'JOD'])->default('JOD');  // العملة
+            $table->string('payment_status')->default('pending');  // حالة الدفع
             $table->timestamps();
+            $table->softDeletes();  // دعم الحذف المنطقي
         });
     }
+
+
 
 
     /**

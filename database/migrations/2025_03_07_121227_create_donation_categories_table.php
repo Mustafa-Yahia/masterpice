@@ -10,16 +10,17 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up()
-    {
-        Schema::create('donation_categories', function (Blueprint $table) {
-            $table->id();
-            $table->string('title'); 
-            $table->text('description')->nullable();
-            $table->string('image')->nullable();
-            $table->string('slug')->unique();
-            $table->timestamps();
-        });
-    }
+{
+    Schema::create('donation_categories', function (Blueprint $table) {
+        $table->id();
+        $table->string('title'); // عنوان الفئة
+        $table->text('description')->nullable(); // وصف الفئة
+        $table->string('image')->nullable(); // صورة الفئة
+        $table->string('slug')->unique(); // لتوليد رابط فريد
+        $table->timestamps();
+    });
+}
+
 
     /**
      * Reverse the migrations.

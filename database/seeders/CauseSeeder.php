@@ -9,15 +9,7 @@ class CauseSeeder extends Seeder
 {
     public function run()
     {
-        // إضافة بعض البيانات الافتراضية
-        Cause::create([
-            'title' => 'تبرع لتوفير الغذاء الصحي',
-            'description' => 'ساهم في توفير الطعام الصحي للمحتاجين.',
-            'image' => 'education-poor-countries.jpg',
-            'raised_amount' => 5000,
-            'goal_amount' => 10000,
-            'end_time' => '2025-04-03', // مثال على وقت الانتهاء
-        ]);
+
 
         Cause::create([
             'title' => 'دعم التعليم للأطفال الفقراء',
@@ -25,7 +17,7 @@ class CauseSeeder extends Seeder
             'image' => 'education-poor-countries.jpg',
             'raised_amount' => 2000,
             'goal_amount' => 8000,
-            'end_time' => '2025-04-10', // مثال على وقت الانتهاء
+            'end_time' => '2025-04-10',
         ]);
 
         Cause::create([
@@ -34,16 +26,16 @@ class CauseSeeder extends Seeder
             'image' => 'education-poor-countries.jpg',
             'raised_amount' => 3000,
             'goal_amount' => 7000,
-            'end_time' => '2025-04-05', // مثال على وقت الانتهاء
+            'end_time' => '2025-04-05',
         ]);
 
         Cause::create([
             'title' => 'حملة تبرع لمريض السرطان',
             'description' => 'تبرع لدعم مريض السرطان...',
-            'image' => 'education-poor-countries.jpg',
+            'image' => 'canceer.jpg',
             'goal_amount' => 10000,
             'raised_amount' => 5000,
-            'end_time' => '2025-04-03', // مثال على وقت الانتهاء
+            'end_time' => '2025-04-03',
         ]);
 
         Cause::create([
@@ -52,7 +44,7 @@ class CauseSeeder extends Seeder
             'image' => 'earthquake-relief.jpg',
             'raised_amount' => 10000,
             'goal_amount' => 15000,
-            'end_time' => '2025-04-12', // مثال على وقت الانتهاء
+            'end_time' => '2025-04-12',
         ]);
 
         Cause::create([
@@ -61,7 +53,7 @@ class CauseSeeder extends Seeder
             'image' => 'clean-water-project.jpg',
             'raised_amount' => 7000,
             'goal_amount' => 15000,
-            'end_time' => '2025-04-07', // مثال على وقت الانتهاء
+            'end_time' => '2025-04-07',
         ]);
 
         Cause::create([
@@ -70,16 +62,16 @@ class CauseSeeder extends Seeder
             'image' => 'syrian-refugees.jpg',
             'raised_amount' => 2000,
             'goal_amount' => 6000,
-            'end_time' => '2025-04-15', // مثال على وقت الانتهاء
+            'end_time' => '2025-04-15',
         ]);
 
         Cause::create([
             'title' => 'توفير الملابس الشتوية للمحتاجين',
             'description' => 'تبرع لتوفير ملابس شتوية للأطفال والعائلات الفقيرة.',
-            'image' => 'winter-clothes.jpg',
+            'image' => 'Winter_Web.jpg',
             'raised_amount' => 3000,
             'goal_amount' => 5000,
-            'end_time' => '2025-04-08', // مثال على وقت الانتهاء
+            'end_time' => '2025-04-08',
         ]);
 
         Cause::create([
@@ -88,7 +80,7 @@ class CauseSeeder extends Seeder
             'image' => 'ramadan-aid.jpg',
             'raised_amount' => 10000,
             'goal_amount' => 20000,
-            'end_time' => '2025-04-20', // مثال على وقت الانتهاء
+            'end_time' => '2025-04-20',
         ]);
     }
 }

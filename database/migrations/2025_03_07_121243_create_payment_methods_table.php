@@ -12,10 +12,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('payment_methods', function (Blueprint $table) {
-            $table->id();
-            $table->string('method_name'); 
-            $table->text('description')->nullable();
-            $table->timestamps();
+            $table->id();  // هذا يقوم بإنشاء العمود id من النوع unsignedBigInteger
+            $table->string('method_name');  // اسم طريقة الدفع (مثل: PayPal، Credit Card)
+            $table->text('description')->nullable();  // وصف طريقة الدفع (اختياري)
+            $table->timestamps();  // أوقات الإنشاء والتعديل
         });
     }
 
