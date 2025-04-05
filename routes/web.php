@@ -54,3 +54,6 @@ Route::post('/donation/payment', [DonationController::class, 'payment'])->name('
 Route::get('/donation/success', function () {
     return view('donations.success');
 })->name('donation.success');
+
+
+Route::get('/thank-you', 'DonationController@thankYou')->name('thank-you');

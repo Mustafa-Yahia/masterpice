@@ -38,6 +38,35 @@ class DonationController extends Controller
             'currency' => $request->currency
         ]);
     }
+
+    // Controller method to handle donation processing
+public function storeDonation(Request $request)
+{
+    // Validation
+    $request->validate([
+        'amount' => 'required|numeric|min:' . $category->amount, // التأكد من أن المبلغ أكبر أو يساوي المبلغ المطلوب
+        'payment_method' => 'required',
+        'credit_card_number' => 'required_if:payment_method,credit_card',
+        'credit_card_expiry' => 'required_if:payment_method,credit_card',
+        'credit_card_cvc' => 'required_if:payment_method,credit_card',
+        'paypal_email' => 'required_if:payment_method,paypal|email',
+    ]);
+
+    // إضافة التبرع إلى قاعدة البيانات
+    $donation = new Donation();
+    $donation->user_id = auth()->id(); // معرف المستخدم
+    $donation->category_id = $category->id;
+    $donation->amount = $request->amount;
+    $donation->currency = $request->currency;
+    $donation->payment_method = $request->payment_method;
+    $donation->payment_status = 'success'; // يمكنك إضافة حالة الدفع مثل "في انتظار الدفع" إذا كنت بحاجة
+    $donation->people_count = $request->people_count;
+    $donation->save();
+
+    // إظهار صفحة الشكر بعد الحفظ
+    return view('thank-you', compact('donation'));
+}
+
 }
 
 // namespace App\Http\Controllers;

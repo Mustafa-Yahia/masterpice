@@ -10,7 +10,12 @@ class Donation extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'amount', 'currency', 'payment_status', 'user_id', 'category_id'
+        'user_id',
+        'category_id',
+        'payment_method_id',
+        'amount',
+        'currency',
+        'payment_status'
     ];
 
     // يمكنك إضافة العلاقات (Relations) هنا إذا كنت تستخدم علاقة مع جدول المستخدمين أو الفئات.
@@ -26,8 +31,9 @@ class Donation extends Model
     return $this->belongsTo(PaymentMethod::class);
 }
 
- public function category()
- {
-     return $this->belongsTo(DonationCategory::class);
- }
+  // تحديد العلاقة مع طريقة الدفع
+  public function paymentMethod()
+  {
+      return $this->belongsTo(PaymentMethod::class, 'payment_method_id');
+  }
 }
