@@ -10,28 +10,23 @@ class Donation extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'user_id',
-        'category_id',
-        'payment_method_id',
         'amount',
         'currency',
-        'payment_status'
+        'payment_method',
+        'paypal_email',
+        'credit_card_name',
+        'credit_card_number',
+        'credit_card_expiry',
+        'credit_card_cvc',
+        'user_id',
     ];
 
-    // يمكنك إضافة العلاقات (Relations) هنا إذا كنت تستخدم علاقة مع جدول المستخدمين أو الفئات.
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-
-    public function paymentMethod()
-{
-    return $this->belongsTo(PaymentMethod::class);
-}
-
-  // تحديد العلاقة مع طريقة الدفع
   public function paymentMethod()
   {
       return $this->belongsTo(PaymentMethod::class, 'payment_method_id');

@@ -7,9 +7,11 @@
 
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style-2.css') }}" rel="stylesheet">
     <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
     <link href="{{ asset('css/color.css') }}" rel="stylesheet">
     <link href="{{ asset('css/cause.css') }}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
     <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
@@ -31,30 +33,30 @@
         @yield('content')
     </main>
 
-    @include('layouts.footer')
+    {{-- @include('layouts.footer') <!-- إذا كان لديك ملف footer.blade.php ضمن مجلد layouts --> --}}
 
     <div class="scroll-to-top scroll-to-target" data-target="html">
         <span class="flaticon-up-arrow"></span>
     </div>
 
-    <script src="{{ asset('js/jquery.js') }}" defer></script>
-    <script src="{{ asset('js/popper.min.js') }}" defer></script>
-    <script src="{{ asset('js/bootstrap.min.js') }}" defer></script>
-    <script src="{{ asset('js/jquery-ui.js') }}" defer></script>
-    <script src="{{ asset('js/jquery.fancybox.js') }}" defer></script>
-    <script src="{{ asset('js/owl.js') }}" defer></script>
-    <script src="{{ asset('js/appear.js') }}" defer></script>
-    <script src="{{ asset('js/wow.js') }}" defer></script>
-    <script src="{{ asset('js/lazyload.js') }}" defer></script>
-    <script src="{{ asset('js/scrollbar.js') }}" defer></script>
-    <script src="{{ asset('js/script.js') }}" defer></script>
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/popper.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui.js') }}"></script>
+    <script src="{{ asset('js/jquery.fancybox.js') }}"></script>
+    <script src="{{ asset('js/owl.js') }}"></script>
+    <script src="{{ asset('js/appear.js') }}"></script>
+    <script src="{{ asset('js/wow.js') }}"></script>
+    <script src="{{ asset('js/lazyload.js') }}"></script>
+    <script src="{{ asset('js/scrollbar.js') }}"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
 
     <script>
         document.querySelector('.scroll-to-top').addEventListener('click', function() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
+
 </body>
 
 </html>

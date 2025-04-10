@@ -12,7 +12,7 @@
     padding-top: 70px !important;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Banner Style Two
@@ -51,19 +51,19 @@
 }
 
 
-/*** 
+/***
 
 ====================================================================
 	Causes Section Two
 ====================================================================
 
 ***/
-
-.causes-section-two{
-	position:relative;
-	padding: 130px 0px 100px;
-	background-color: #edf1f5;
-	overflow:hidden;
+.causes-section-two {
+    position: relative;
+    padding: 15px 0px 100px;
+    background-color: #edf1f5;
+    overflow: hidden;
+    direction: rtl; /* لجعل النصوص والعناصر من اليمين لليسار */
 }
 
 .causes-section-two .top-rotten-curve {
@@ -77,228 +77,237 @@
     z-index: 1;
 }
 
-.cause-block-two{
-	position:relative;
-	margin-bottom:30px;	
+.cause-block-two {
+    position: relative;
+    margin-bottom: 30px;
+    direction: rtl; /* التوجيه من اليمين لليسار */
 }
 
-.cause-block-two .inner-box{
-	position:relative;
-	display:block;
-	background:#ffffff;
-	border-radius:20px;
-	overflow:hidden;
-	-webkit-transition:all 300ms ease;
-	-ms-transition:all 300ms ease;
-	-o-transition:all 300ms ease;
-	-moz-transition:all 300ms ease;
-	transition:all 300ms ease;
+.cause-block-two .inner-box {
+    position: relative;
+    display: block;
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    -webkit-transition: all 300ms ease;
+    -ms-transition: all 300ms ease;
+    -o-transition: all 300ms ease;
+    -moz-transition: all 300ms ease;
+    transition: all 300ms ease;
 }
 
-.cause-block-two .inner-box:hover{
-	-webkit-box-shadow:0px 15px 40px 5px rgba(0,0,0,0.10);
-	-ms-box-shadow:0px 15px 40px 5px rgba(0,0,0,0.10);
-	box-shadow:0px 15px 40px 5px rgba(0,0,0,0.10);
+.cause-block-two .inner-box:hover {
+    -webkit-box-shadow: 0px 15px 40px 5px rgba(0, 0, 0, 0.10);
+    -ms-box-shadow: 0px 15px 40px 5px rgba(0, 0, 0, 0.10);
+    box-shadow: 0px 15px 40px 5px rgba(0, 0, 0, 0.10);
 }
 
-.cause-block-two .image-box{
-	position:relative;
-	overflow: hidden;	
+.cause-block-two .image-box {
+    position: relative;
+    overflow: hidden;
+    height: 250px; /* ضبط ارتفاع الصورة */
+    width: 100%; /* ملء الحاوية بالكامل */
 }
 
-.cause-block-two .image-box img{
-	width:100%;	
+.cause-block-two .image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* لتغطية الصورة بشكل جيد داخل الحاوية */
+    object-position: center; /* تحديد مركز الصورة */
 }
 
-.cause-block-two .inner-box .donate-info{
-	position:relative;
-	background: #ffffff;
-	padding: 40px 35px 35px;
+.cause-block-two .inner-box .donate-info {
+    position: relative;
+    background: #ffffff;
+    padding: 40px 35px 35px;
 }
 
-.cause-block-two .inner-box .donate-info .bg-image-layer{
-	position:absolute;
-	left:0;
-	top:0;
-	width:100%;
-	height:100%;
-	background-size:cover;
-	background-position:center center;
-	background-repeat:no-repeat;	
+.cause-block-two .inner-box .donate-info .bg-image-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 
-.cause-block-two .inner-box .donate-info .bg-image-layer:before{
-	content:'';
-	position:absolute;
-	left:0;
-	top:0;
-	width:100%;
-	height:100%;
-	opacity:0.90;
+.cause-block-two .inner-box .donate-info .bg-image-layer:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.90;
 }
 
-.cause-block-two.alternate .inner-box .donate-info{
-	padding-bottom:35px;	
+.cause-block-two.alternate .inner-box .donate-info {
+    padding-bottom: 35px;
 }
 
-.cause-block-two .inner-box .donate-info:after{
-	content:'';
-	position:absolute;
-	left:0;
-	bottom:-20px;
-	width:100%;
-	height:21px;
-	background:url(../images/background/rotten-curve-3.png) center top no-repeat;
-	background-size:100% 100%;
-	z-index:1;
+.cause-block-two .inner-box .donate-info:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -20px;
+    width: 100%;
+    height: 21px;
+    background: url(../images/background/rotten-curve-3.png) center top no-repeat;
+    background-size: 100% 100%;
+    z-index: 1;
 }
 
-.cause-block-two.alternate .inner-box .donate-info:after{
-	content:'';
-	position:absolute;
-	left:0;
-	bottom:-1px;
-	width:100%;
-	height:13px;
-	background:url(../images/background/rotten-curve-6.png) center bottom no-repeat;
-	background-size:100% 100%;
-	z-index:1;
+.cause-block-two.alternate .inner-box .donate-info:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 100%;
+    height: 13px;
+    background: url(../images/background/rotten-curve-6.png) center bottom no-repeat;
+    background-size: 100% 100%;
+    z-index: 1;
 }
 
-.cause-block-two .inner-box .progress-box{
-	position:relative;
-	display:block;
-	width:100%;
+.cause-block-two .inner-box .progress-box {
+    position: relative;
+    display: block;
+    width: 100%;
 }
 
-.cause-block-two .inner-box .progress-box .bar{
-	position:relative;
-	width:100%;
-	height:5px;
-	background:rgba(0,0,0,0.10);
-	border-radius:3px;
-	margin-bottom:20px;
+.cause-block-two .inner-box .progress-box .bar {
+    position: relative;
+    width: 100%;
+    height: 5px;
+    background: rgba(0, 0, 0, 0.10);
+    border-radius: 3px;
+    margin-bottom: 20px;
 }
 
-.cause-block-two .inner-box .progress-box .bar-inner{
-	position:relative;
-	display:block;
-	width:0px;
-	height:5px;
-	border-radius:3px;
-	-webkit-transition:all 1500ms ease;
-	-ms-transition:all 1500ms ease;
-	-o-transition:all 1500ms ease;
-	-moz-transition:all 1500ms ease;
-	transition:all 1500ms ease;	
+.cause-block-two .inner-box .progress-box .bar-inner {
+    position: relative;
+    display: block;
+    width: 0px;
+    height: 5px;
+    border-radius: 3px;
+    -webkit-transition: all 1500ms ease;
+    -ms-transition: all 1500ms ease;
+    -o-transition: all 1500ms ease;
+    -moz-transition: all 1500ms ease;
+    transition: all 1500ms ease;
 }
 
-.cause-block-two .inner-box .progress-box .count-text{
-	position:absolute;
-	right:0px;
-	margin-right:-23px;
-	bottom:18px;
-	width:46px;
-	height:26px;
-	color:#ffffff;
-	line-height:26px;
-	font-size:13px;
-	font-weight:600;
-	border-radius:2px;
-	text-align:center;
-	opacity:0;
-	-webkit-transition:all 500ms ease;
-	-ms-transition:all 500ms ease;
-	-o-transition:all 500ms ease;
-	-moz-transition:all 500ms ease;
-	transition:all 500ms ease;	
+.cause-block-two .inner-box .progress-box .count-text {
+    position: absolute;
+    right: 0px;
+    margin-right: -23px;
+    bottom: 18px;
+    width: 46px;
+    height: 26px;
+    color: #ffffff;
+    line-height: 26px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 2px;
+    text-align: center;
+    opacity: 0;
+    -webkit-transition: all 500ms ease;
+    -ms-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    -moz-transition: all 500ms ease;
+    transition: all 500ms ease;
 }
 
-.cause-block-two .inner-box .progress-box .bar-inner.counted .count-text{
-	opacity:1;	
+.cause-block-two .inner-box .progress-box .bar-inner.counted .count-text {
+    opacity: 1;
 }
 
-.cause-block-two .inner-box .progress-box .count-text:after{
-	content:'';
-	position:absolute;
-	left:50%;
-	margin-left:-5px;
-	top:100%;
-	border:5px solid transparent;	
+.cause-block-two .inner-box .progress-box .count-text:after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    margin-left: -5px;
+    top: 100%;
+    border: 5px solid transparent;
 }
 
-.cause-block-two .inner-box .lower-content{
-	position:relative;
-	padding: 45px 35px 00px;
+.cause-block-two .inner-box .lower-content {
+    position: relative;
+    padding: 45px 35px 00px;
 }
 
-.cause-block-two.alternate .inner-box .lower-content{
-	padding-top:35px;
+.cause-block-two.alternate .inner-box .lower-content {
+    padding-top: 35px;
 }
 
-
-.cause-block-two .inner-box .donate-info{
-	position:relative;
-	color:#848484;		
+.cause-block-two .inner-box .donate-info {
+    position: relative;
+    color: #848484;
 }
 
-.cause-block-two .inner-box .donate-info strong{
-	font-weight:500;
-	color:#222222;	
+.cause-block-two .inner-box .donate-info strong {
+    font-weight: 500;
+    color: #222222;
 }
 
-.cause-block-two .inner-box .donate-info .donation-count{
-	position:relative;
-	font-weight:400;
-	font-size:15px;
-	line-height:24px;
-	z-index:1;
-	margin-bottom: 25px;
+.cause-block-two .inner-box .donate-info .donation-count {
+    position: relative;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 24px;
+    z-index: 1;
+    margin-bottom: 25px;
 }
 
-.cause-block-two .inner-box .donate-info .raised{
-	float:left;
+.cause-block-two .inner-box .donate-info .raised {
+    float: left;
 }
 
-.cause-block-two .inner-box .donate-info .goal{
-	float:right;
+.cause-block-two .inner-box .donate-info .goal {
+    float: right;
 }
 
-.cause-block-two .inner-box h3{
-	font-size:24px;
-	line-height:1.25em;
-	font-weight:400;
-	margin-bottom:20px;
-	color:#25283a;
+.cause-block-two .inner-box h3 {
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 1.25em;
+    font-weight: 400;
+    margin-bottom: 20px;
+    color: #25283a;
+    text-align: center;
 }
 
-.cause-block-two .inner-box h3 a{
-	color:#25283a;
-	transition: .5s;
+.cause-block-two .inner-box h3 a {
+    color: #25283a;
+    transition: .5s;
+    text-align: right;
 }
 
-.cause-block-two .inner-box .text{
-	line-height:1.6em;
-	font-size:16px;
-	margin-bottom:30px;
+.cause-block-two .inner-box .text {
+    line-height: 1.6em;
+    font-size: 16px;
+    margin-bottom: 30px;
+    text-align: right;
 }
 
-.cause-block-two .inner-box:hover .btn-style-two{
-	color: #ffffff;
+.cause-block-two .inner-box:hover .btn-style-two {
+    color: #ffffff;
 }
 
 /* Style Two */
-
 .cause-block-two.style-two .inner-box .progress-box .bar {
     height: 10px;
 }
 
 .cause-block-two.style-two .inner-box .progress-box .bar-inner {
     height: 10px;
+
 }
 
 
-/*** 
+/***
 
 ====================================================================
 	Newsletter Section
@@ -435,7 +444,7 @@
 	opacity: .92;
 }
 
-.newsletter-section.style-two .form-group input[type="submit"], 
+.newsletter-section.style-two .form-group input[type="submit"],
 .newsletter-section.style-two .submit-btn{
 	background-color: #1a2940;
 }
@@ -444,7 +453,7 @@
 	color: #ffffff;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Team Section Style Two
@@ -455,6 +464,7 @@
 .team-section.style-two {
 	padding:130px 0px 100px;
 	background-color:#f7f7f7;
+
 }
 
 
@@ -624,7 +634,7 @@
 
 
 
-/*** 
+/***
 
 ====================================================================
 	About Section / Style Five
@@ -636,7 +646,7 @@
 	padding: 130px 0 120px;
 }
 
-/*** 
+/***
 
 ====================================================================
 	About Section / Style Six
@@ -648,7 +658,7 @@
 	padding: 0 50px;
 }
 
-/*** 
+/***
 
 ====================================================================
 	About Section / Style Seven
@@ -666,7 +676,7 @@
 }
 
 
-/*** 
+/***
 
 ====================================================================
 	What We Do Section Two
@@ -713,7 +723,7 @@
     border-radius: 5px;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Causes Section Three
@@ -746,12 +756,12 @@
 	left:0;
 	top:0;
 	width:50%;
-	height:100%;	
+	height:100%;
 }
 
 .cause-block-three .image-column .image-box{
 	position:relative;
-	display:none;	
+	display:none;
 }
 
 .cause-block-three .image-column .image-box img{
@@ -774,7 +784,7 @@
 	left:0;
 	top:0;
 	width:100%;
-	height:100%;	
+	height:100%;
 }
 
 .cause-block-three .text-column{
@@ -786,7 +796,7 @@
 .cause-block-three .text-column .inner{
 	position:relative;
 	display:block;
-	padding:50px;	
+	padding:50px;
 }
 
 .cause-block-three h3{
@@ -795,7 +805,7 @@
 }
 
 .cause-block-three h3 a{
-	color:#25283a;	
+	color:#25283a;
 }
 
 .cause-block-three .text-column .progress-box{
@@ -850,7 +860,7 @@
 }
 
 .cause-block-three .text-column .progress-box .bar-inner.counted .count-text{
-	opacity:1;	
+	opacity:1;
 }
 
 .cause-block-three .text-column .progress-box .count-text:after{
@@ -863,7 +873,7 @@
 
 .cause-block-three .text-column .donation-count strong{
 	font-weight:500;
-	color:#222222;	
+	color:#222222;
 }
 
 .cause-block-three .text-column .donation-count{
@@ -886,16 +896,16 @@
 
 .cause-block-three .text{
 	position:relative;
-	margin-bottom:30px;	
+	margin-bottom:30px;
 }
 
 .cause-block-three .link-box .theme-btn .btn-title{
 	padding-left:52px;
-	padding-right:52px;	
+	padding-right:52px;
 }
 
 .causes-section-three .owl-nav{
-	display:none;	
+	display:none;
 }
 
 .causes-section-three .owl-dots{
@@ -968,7 +978,7 @@
 	margin-bottom: 30px;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Events Section / Style Two
@@ -983,7 +993,7 @@
 
 
 
-/*** 
+/***
 
 ====================================================================
 	How We Work / Style Two
@@ -1013,7 +1023,7 @@
 	color: #fff;
 }
 
-/*** 
+/***
 
 ====================================================================
 	How We Work / Style Three
@@ -1036,7 +1046,7 @@
 }
 
 
-/*** 
+/***
 
 ====================================================================
 	Cause Section / Style Two
@@ -1065,7 +1075,7 @@
 
 
 
-/*** 
+/***
 
 ====================================================================
 	Testimonail Section
@@ -1140,7 +1150,7 @@
 
 
 .testimonial-section .owl-nav{
-	display:none;	
+	display:none;
 }
 
 .testimonial-section .owl-dots{
@@ -1186,7 +1196,7 @@
 
 
 
-/*** 
+/***
 
 ====================================================================
 	Sponsors Section
@@ -1246,7 +1256,7 @@
 }
 
 
-/*** 
+/***
 
 ====================================================================
 	What We Do Section Style Three
@@ -1281,7 +1291,7 @@
     position: relative;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Mission & Vision
@@ -1304,7 +1314,7 @@
     background-image: url(../images/icons/preloader-3.svg);
 }
 
-/*** 
+/***
 
 ====================================================================
 	Events Block style Two
@@ -1344,7 +1354,7 @@
 	color:#ffffff;
 	padding-top:15px;
 	text-align:center;
-	border-radius:20px 0px 20px 0px;	
+	border-radius:20px 0px 20px 0px;
 }
 
 .event-block-three.style-two .lower-content .date .month{
@@ -1405,7 +1415,7 @@
 }
 
 .recent-donors-section .owl-nav{
-	display:none;	
+	display:none;
 }
 
 .recent-donors-section .owl-dots{

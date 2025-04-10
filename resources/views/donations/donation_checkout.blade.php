@@ -1,7 +1,4 @@
 
-
-
-
 @extends('layouts.app')
 
 @section('content')
@@ -30,7 +27,6 @@
                             <input type="hidden" name="people_count" value="{{ $data['people_count'] }}">
                             <input type="hidden" name="category_id" value="{{ $category->id }}">
 
-                            <!-- زر للتأكيد على التبرع -->
                             <button type="submit" class="theme-btn btn-style-one" style="background-color: #3cc88f; color: #fff; border-radius: 8px; padding: 12px 30px; font-size: 16px;">
                                 <span class="btn-title">تأكيد التبرع</span>
                             </button>

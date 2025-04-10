@@ -10,6 +10,7 @@ class Cause extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'description', 'image', 'raised_amount', 'goal_amount', 'end_time'
+        'title', 'description', 'image', 'raised_amount', 'goal_amount', 'end_time','additional_details', 
+
     ];
 }

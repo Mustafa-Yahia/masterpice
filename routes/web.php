@@ -11,7 +11,6 @@ use App\Http\Controllers\DonationController;
 
 
 // الصفحة الرئيسية
-// // الصفحة الرئيسية لعرض التبرعات والفئات
 Route::get('/', [DonationCategoryController::class, 'indexWithCauses'])->name('index');
 
 // صفحة تسجيل الدخول
@@ -41,7 +40,11 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Route::get('/', [CauseController::class, 'index']);
+
+Route::get('/causes', [CauseController::class, 'cause'])->name('cause.index');
 Route::get('/cause/{id}', [CauseController::class, 'show'])->name('cause.show');
+Route::get('/cause/{id}/donations', [CauseController::class, 'showDonations'])->name('cause.donations');
+
 
 Route::post('/donation/{id}/process', [DonationCategoryController::class, 'processDonation'])->name('donation.process');
 Route::get('/donations/separate', [DonationCategoryController::class, 'separateDonations'])->name('donations.separate');
@@ -50,10 +53,11 @@ Route::get('/donation/{id}', [DonationCategoryController::class, 'show'])->name(
 
 
 Route::post('/donation/confirm', [DonationController::class, 'confirmDonation'])->name('donation.confirm');
-Route::post('/donation/payment', [DonationController::class, 'payment'])->name('donation.payment');
-Route::get('/donation/success', function () {
-    return view('donations.success');
-})->name('donation.success');
 
+Route::middleware(['auth'])->group(function () {
+    Route::post('/donation/store', [DonationController::class, 'store'])->name('donation.store');
+    Route::get('/donation/thank-you', function () {
+        return view('DonationThankYou');
+    })->name('donation.thank-you');
+});
 
-Route::get('/thank-you', 'DonationController@thankYou')->name('thank-you');

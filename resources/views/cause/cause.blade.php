@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -162,160 +162,66 @@
     </header>
     <!-- End Main Header -->
 
+  --}}
 
-    <!-- Banner Section -->
-    <section class="banner-section">
-		<div class="banner-carousel love-carousel owl-theme owl-carousel" data-options='{"loop": true, "margin": 0, "autoheight":true, "lazyload":true, "nav": true, "dots": true, "autoplay": true, "autoplayTimeout": 6000, "smartSpeed": 300, "responsive":{ "0" :{ "items": "1" }, "768" :{ "items" : "1" } , "1000":{ "items" : "1" }}}'>
-			<!-- Slide Item -->
-			<div class="slide-item">
-                <div class="image-layer lazy-image" style="background-image: url('{{ asset('storage/main-slider/Background11.jpg') }}');"></div>
-
-				<div class="auto-container">
-                    <div class="content-box text-center">
-                        <h2>ساهم في إسعاد المحتاجين <br> واجعل عطاؤك نورًا لحياتهم</h2>
-                        <div class="text">
-                            تبرعك اليوم يمكن أن يكون السبب في إطعام جائع، إسعاد طفل، أو إنقاذ مريض.
-                            لا تنتظر، فكل لحظة تحمل فرصة لصنع فرق حقيقي في حياة الآخرين.
-                        </div>
-                        {{-- <div class="btn-box">
-                            <a href="donate.html" class="theme-btn btn-style-one">
-                                <span class="btn-title">تبرع الآن</span>
-                            </a>
-                        </div> --}}
-                    </div>
-                </div>
-
-
-			<!-- Slide Item -->
-			{{-- <div class="slide-item">
-				<div class="image-layer lazy-image" data-bg="url('images/main-slider/2.jpg')"></div>
-
-				<div class="auto-container">
-					<div class="content-box">
-						<h2>You Can Help  <br>The Poor</h2>
-						<div class="text">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </div>
-						<div class="btn-box"><a href="donate.html" class="theme-btn btn-style-one"><span class="btn-title">Donate Now</span></a></div>
-					</div>
-				</div>
-			</div> --}}
-
-			<!-- Slide Item -->
-			{{-- <div class="slide-item">
-				<div class="image-layer lazy-image" data-bg="url('images/main-slider/3.jpg')"></div>
-
-				<div class="auto-container">
-					<div class="content-box">
-						<h2>You Can Help  <br>The Poor</h2>
-						<div class="text">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </div>
-						<div class="btn-box"><a href="donate.html" class="theme-btn btn-style-one"><span class="btn-title">Donate Now</span></a></div>
-					</div>
-				</div>
-			</div> --}}
-
-		</div>
-    </section>
-
-<!-- resources/views/index.blade.php -->
-<!-- resources/views/index.blade.php -->
 @extends('layouts.app')
 
+@section('content')
 
- <!--About Section-->
- <section class="about-section style-two alternate">
-    <div class="circle-one"></div>
-    <div class="circle-two"></div>
-    <div class="auto-container">
-        <div class="row clearfix">
-    <!--العمود الأيمن-->
-            <div class="right-column col-lg-6 col-md-12 col-sm-12">
-                <div class="inner">
-                    <div class="images clearfix">
-                        <!-- الصورة الأولى -->
-                        <figure class="image wow fadeInRight" data-wow-delay="300ms">
-                            <img class="lazy-image" src="{{ asset('storage/main-slider/Background11.jpg') }}" alt="Featured Image 19">
-                        </figure>
-                        <!-- الصورة الثانية -->
-                        <figure class="image wow fadeInRight" data-wow-delay="0ms">
-                            <img class="lazy-image" src="{{ asset('storage/main-slider/Background11.jpg') }}" alt="Featured Image 20">
-                        </figure>
-                        <!-- الصورة الثالثة-->
-                        <figure class="image wow fadeInRight" data-wow-delay="300ms">
-                            <img class="lazy-image" src="{{ asset('storage/main-slider/Background11.jpg') }}" alt="Featured Image 19">
-                        </figure>
-                        <!-- الصورة الرابعة -->
-                        <figure class="image wow fadeInRight" data-wow-delay="0ms">
-                            <img class="lazy-image" src="{{ asset('storage/main-slider/Background11.jpg') }}" alt="Featured Image 20">
-                        </figure>
-                    </div>
-                </div>
-
-            </div>
-
-             <!--العمود الأيسر-->
-             <div class="left-column col-lg-6 col-md-12 col-sm-12">
-                <div class="inner">
-                    <div class="sec-title">
-                        <div class="sub-title">من نحن</div>
-                        <h2>كن جزءاً من التغيير - قدم يد المساعدة</h2>
-                        <div class="text">موقعنا يهدف إلى جمع التبرعات للمشاريع الإنسانية التي تساهم في تحسين حياة المحتاجين في مختلف أنحاء العالم. نحن نعمل مع العديد من المؤسسات الخيرية لتنفيذ برامج طبية وتعليمية وإنسانية للحد من الفقر والمساعدة في رفع مستوى المعيشة للمجتمعات الفقيرة.</div>
-                        <div class="link-box clearfix"><a href="causes.html" class="theme-btn btn-style-one"><span class="btn-title">قراءة المزيد</span></a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="text-blocks">
-            <div class="row clearfix">
-                <!--كتلة النص الأولى-->
-                <div class="default-text-block col-lg-4 col-md-6 col-sm-12">
-                    <div class="inner">
-                        <!-- الأيقونة -->
-                        <div class="icon">
-                            <i class="fas fa-heart"></i> <!-- أيقونة مهمة -->
-                        </div>
-                        <h3>مهمتنا</h3>
-                        <div class="text">نحن نهدف إلى تحسين حياة الأشخاص الأكثر حاجة حول العالم من خلال جمع التبرعات ودعم المشاريع الإنسانية التي تقدم مساعدات طبية وتعليمية للمجتمعات المحرومة. نحن نؤمن بقدرة التبرعات على إحداث فرق حقيقي في حياة الآخرين.</div>
-                    </div>
-                </div>
-                <!--كتلة النص الثانية-->
-                <div class="default-text-block col-lg-4 col-md-6 col-sm-12">
-                    <div class="inner">
-                        <!-- الأيقونة -->
-                        <div class="icon">
-                            <i class="fas fa-eye"></i> <!-- أيقونة رؤية -->
-                        </div>
-                        <h3>رؤيتنا</h3>
-                        <div class="text">رؤيتنا هي أن نكون الجسر الذي يربط بين المانحين والمحتاجين، من خلال توفير منصة موثوقة وشفافة لجمع التبرعات لدعم المشاريع الإنسانية التي تحقق تغييراً إيجابياً ومستداماً في حياة الناس.</div>
-                    </div>
-                </div>
-                <!--كتلة النص الثالثة-->
-                <div class="default-text-block col-lg-4 col-md-6 col-sm-12">
-                    <div class="inner">
-                        <!-- الأيقونة -->
-                        <div class="icon">
-                            <i class="fas fa-hand-holding-heart"></i> <!-- أيقونة قيم -->
-                        </div>
-                        <h3>قيمنا</h3>
-                        <div class="text">نحن نؤمن بالشفافية والمصداقية في جميع جوانب عملنا. كما أننا نسعى لتقديم الدعم والمساعدة لكل من يحتاجها، مع الالتزام بأعلى معايير الجودة في تنفيذ المشاريع الإنسانية.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!--Causes Section Two-->
+<!-- Causes Section Two -->
 <section class="causes-section-two">
     <div class="auto-container">
         <div class="sec-title centered">
-            <div class="sub-title">أسبابنا</div>
             <h2>الأسباب الشعبية</h2>
             <div class="text">Cupidatat non proident sunt</div>
         </div>
 
+        <!-- فلتر البحث -->
+        <div class="filter-form">
+            <form method="GET" action="{{ route('cause.index') }}">
+                <div class="filter-row">
+                    <!-- فلتر العنوان -->
+                    <div class="form-group">
+                        <label for="title">البحث حسب العنوان</label>
+                        <input type="text" name="title" id="title" class="form-control" placeholder="أدخل كلمة بحث في العنوان" value="{{ request('title') }}" oninput="this.form.submit()">
+                    </div>
+
+                    <!-- فلتر المبلغ الذي تم جمعه -->
+                    <div class="form-group">
+                        <label for="raised_amount">المبلغ الذي تم جمعه</label>
+                        <input type="number" name="raised_amount" id="raised_amount" class="form-control" placeholder="أدخل المبلغ الذي تم جمعه" value="{{ request('raised_amount') }}" oninput="this.form.submit()">
+                    </div>
+
+                    <!-- فلتر الهدف -->
+                    <div class="form-group">
+                        <label for="goal_amount">الهدف</label>
+                        <input type="number" name="goal_amount" id="goal_amount" class="form-control" placeholder="أدخل الهدف" value="{{ request('goal_amount') }}" oninput="this.form.submit()">
+                    </div>
+
+                    <!-- فلتر الفئة -->
+                    <div class="form-group">
+                        <label for="category">الفئة</label>
+                        <select name="category" id="category" class="form-control" onchange="this.form.submit()">
+                            <option value="">اختر الفئة</option>
+                            <option value="Education" {{ request('category') == 'Education' ? 'selected' : '' }}>التعليم</option>
+                            <option value="مرضى" {{ request('category') == 'مرضى' ? 'selected' : '' }}>مرضى</option>
+                            <option value="طلاب جامعة" {{ request('category') == 'طلاب جامعة' ? 'selected' : '' }}>طلاب جامعة</option>
+                        </select>
+                    </div>
+
+                    <!-- فلتر التاريخ النهائي -->
+                    <div class="form-group">
+                        <label for="end_time">التاريخ النهائي</label>
+                        <input type="date" name="end_time" id="end_time" class="form-control" value="{{ request('end_time') }}" onchange="this.form.submit()">
+                    </div>
+                </div>
+            </form>
+        </div>
+
         <div class="row clearfix">
-            <!-- عرض أول 6 بطاقات فقط -->
-            @foreach($causes->take(6) as $cause)
-                <!--Cause Block-->
+            <!-- عرض التبرعات بعد تطبيق الفلاتر -->
+            @foreach($causes as $cause)
+                <!-- Cause Block -->
                 <div class="cause-block-two col-lg-4 col-md-6 col-sm-12">
                     <div class="inner-box wow fadeInUp" data-wow-delay="0ms">
                         <div class="image-box">
@@ -350,54 +256,79 @@
             @endforeach
         </div>
 
-        <!-- زر "عرض المزيد" -->
-        <div class="text-center">
-            <a href="{{ route('cause.index') }}" class="theme-btn btn-style-one">
-                <span class="btn-title">عرض المزيد</span>
-            </a>
-        </div>
     </div>
 </section>
 
+@endsection
+
 <style>
-
-    .default-text-block {
-        background-color: #ffffff;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        text-align: center;
+    /* إضافة تنسيق الفلاتر لظهورها بجانب بعضها */
+    .filter-form {
+        margin-bottom: 30px;
     }
 
-    .default-text-block:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    .filter-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 15px;  /* مسافة بين الفلاتر */
     }
 
-    .icon {
-        font-size: 40px;
-        color: #3cc88f;
+    .form-group {
+        flex: 1;
+        min-width: 200px;
+        max-width: 300px; /* الحد الأقصى لعرض الفلاتر */
         margin-bottom: 15px;
+        text-align: right;  /* محاذاة النص والحقول إلى اليمين */
     }
 
-    h3 {
-        color: #3cc88f;
-        font-size: 22px;
-        margin-bottom: 15px;
+    .form-group label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+        text-align: right;  /* محاذاة النص إلى اليمين */
     }
 
-    .text {
-        font-size: 16px;
-        color: #555;
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        padding: 1px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        direction: rtl;  /* جعل الحقول تظهر من اليمين لليسار */
     }
 
-    /* تنسيق الأيقونات باستخدام FontAwesome */
-    /* تأكد من أنك قد قمت بربط FontAwesome في ملفك، أو يمكنك استخدام رابط CDN */
+
+
+    .theme-btn.btn-style-one:hover {
+        background-color: #37b785;
+    }
+
+    /* تصميم بطاقات التبرعات */
+    .cause-block-two {
+        margin-bottom: 30px;  /* إضافة مسافة بين البطاقات */
+    }
+
+    .cause-block-two .inner-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
+
+    .cause-block-two .image-box img {
+        width: 100%;
+        height: 200px;  /* ثابت لضمان أن جميع الصور متساوية الحجم */
+        object-fit: cover;
+    }
+
+    .cause-block-two .lower-content {
+        margin-top: 15px;
+        flex-grow: 1;
+    }
+
+    .cause-block-two .donate-info {
+        margin-top: 10px;
+    }
+
 </style>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
-
-</body>
-</html>

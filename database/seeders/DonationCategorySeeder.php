@@ -51,12 +51,29 @@ class DonationCategorySeeder extends Seeder
         'image' => 'sadaqa.jpg',
         'slug' => 'general-donations'
     ]);
-
     DonationCategory::create([
-        'title' => 'الأضاحي والذبائح',
-        'description' => 'ساهم في توفير الأضاحي والذبائح وتوزيعها على المحتاجين.',
-        'image' => 'udhiyah-sacrifice.jpg',
-        'slug' => 'udhiyah-sacrifice'
+        'title' => 'الصدقات العامة',
+        'description' => 'تبرع للمحتاجين من خلال الصدقات العامة والمساعدات الإنسانية.',
+        'image' => 'sadaqa.jpg',
+        'slug' => 'general-donations'
+    ]);
+    DonationCategory::create([
+        'title' => 'الصدقات العامة',
+        'description' => 'تبرع للمحتاجين من خلال الصدقات العامة والمساعدات الإنسانية.',
+        'image' => 'sadaqa.jpg',
+        'slug' => 'general-donations'
+    ]);
+    DonationCategory::create([
+        'title' => 'الصدقات العامة',
+        'description' => 'تبرع للمحتاجين من خلال الصدقات العامة والمساعدات الإنسانية.',
+        'image' => 'sadaqa.jpg',
+        'slug' => 'general-donations'
+    ]);
+    DonationCategory::create([
+        'title' => 'الصدقات العامة',
+        'description' => 'تبرع للمحتاجين من خلال الصدقات العامة والمساعدات الإنسانية.',
+        'image' => 'sadaqa.jpg',
+        'slug' => 'general-donations'
     ]);
 }
 

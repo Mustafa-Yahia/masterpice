@@ -15,6 +15,6 @@ class AdminMiddleware
             return $next($request); // السماح بالوصول
         }
 
-        return redirect('/'); // إعادة التوجيه إلى الصفحة الرئيسية إذا لم يكن Admin
+        return redirect('/'); // إعادة التوجيه إلى  الرئيسية إذا لم يكن Admin
     }
 }

@@ -117,18 +117,16 @@
 
                 <div class="link-box clearfix">
                     <div class="auth-links d-flex align-items-center gap-3">
-                        <div class="cart-link">
+                        {{-- <div class="cart-link">
                             <a href="shopping-cart.html" class="theme-btn">
                                 <span class="icon flaticon-paper-bag"></span>
                             </a>
-                        </div>
+                        </div> --}}
 
                         @auth
                             <div class="dropdown">
                                 <button class="btn dropdown-toggle d-flex align-items-center" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none; font-size: 18px; font-weight: bold; padding: 5px 10px; text-align: left;">
-
                                     <span class="text-dark">مرحباً، {{ Auth::user()->name }}</span>
-                                    <img src="{{ asset(Auth::user()->profile_image ?? 'images/default-user.png') }}" class="rounded-circle" width="40" height="40" alt="User Image" style="margin-right: 10px;">
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown" style="min-width: 150px;">
                                     <li><a class="dropdown-item" href="">الملف الشخصي</a></li>
@@ -141,7 +139,6 @@
                                 </ul>
                             </div>
                         @else
-                            {{-- إذا لم يكن المستخدم مسجلاً، سيتم عرض روابط تسجيل الدخول وإنشاء حساب --}}
                             <a href="{{ route('login') }}" class="theme-btn btn-style-one">
                                 <span class="btn-title">تسجيل الدخول</span>
                             </a>
@@ -504,8 +501,8 @@
         border-radius: 0.375rem;
         border: 1px solid #ced4da;
     }
-
 </style>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

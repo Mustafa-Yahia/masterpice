@@ -4,34 +4,27 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateDonationsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up()
     {
         Schema::create('donations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('category_id')->constrained('donation_categories')->onDelete('cascade'); // ربط التبرعات بالفئة
-            $table->foreignId('payment_method_id')->nullable()->constrained('payment_methods')->onDelete('set null'); // ربط طريقة الدفع
-            $table->decimal('amount', 10, 2);  // مبلغ التبرع
-            $table->enum('currency', ['USD', 'JOD'])->default('JOD');  // العملة
-            $table->string('payment_status')->default('pending');  // حالة الدفع
+            $table->decimal('amount', 10, 2);  // المبلغ
+            $table->string('currency');  // العملة
+            $table->string('payment_method');  // طريقة الدفع
+            $table->string('paypal_email')->nullable();  // البريد الإلكتروني لـ PayPal
+            $table->string('credit_card_name')->nullable();  // اسم حامل البطاقة
+            $table->string('credit_card_number')->nullable();  // رقم البطاقة
+            $table->string('credit_card_expiry')->nullable();  // تاريخ انتهاء البطاقة
+            $table->string('credit_card_cvc')->nullable();  // رمز الأمان
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');  // ربط التبرع بالمستخدم
             $table->timestamps();
-            $table->softDeletes();  // دعم الحذف المنطقي
         });
     }
 
-
-
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('donations');
     }
-};
+}

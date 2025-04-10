@@ -2,7 +2,7 @@
 	.page-wrapper{
 		overflow: hidden;
 	}
-	
+
 }
 
 @media only screen and (max-width: 1340px){
@@ -12,6 +12,7 @@
 
 	.about-section.style-two{
 		padding-bottom: 100px;
+        text-align: right;
 	}
 
 	.sec-title h2,
@@ -185,10 +186,10 @@
 	.donate-section .title-column .text{
 		margin-bottom: 30px;
 	}
-	
+
 	.event-block-two .title-column h3 br,
 	.news-block .inner-box h3 br{
-		display:none;	
+		display:none;
 	}
 }
 
@@ -202,7 +203,7 @@
 }
 
 @media only screen and (max-width: 1023px){
-	
+
 	.newsletter-section .form-column .inner-column {
 		padding-left: 0;
 		width: 100%;
@@ -514,17 +515,17 @@
 	.contact-section .form-column .inner{
 		max-width: none;
 	}
-	
+
 	.banner-section .owl-nav{
-		opacity:0;	
+		opacity:0;
 	}
-	
+
 	.banner-section:hover .owl-nav{
-		opacity:1;	
+		opacity:1;
 	}
 }
 
-@media only screen and (max-width: 767px){	
+@media only screen and (max-width: 767px){
 	.banner-carousel .content-box h2{
 		font-size: 48px;
 	}
@@ -957,9 +958,9 @@
 		width: 150px;
 		height: auto;
 	}
-	
+
 	.about-section .right-column .images .image-block{
-		width:100%;	
+		width:100%;
 	}
 	.donation-section .wrapper-box {
 		padding: 30px;
