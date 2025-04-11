@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes; // إضافة هذا السطر
+
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, SoftDeletes; // إضافة SoftDeletes هنا
 
     protected $fillable = [
         'name', 'email', 'password', 'role', 'phone'
@@ -21,6 +23,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $dates = ['deleted_at'];  // تحديد الحقول التي يجب أن تكون تواريخ
+
 
     public function donations()
     {

@@ -10,15 +10,19 @@ class CreateDonationsTable extends Migration
     {
         Schema::create('donations', function (Blueprint $table) {
             $table->id();
-            $table->decimal('amount', 10, 2);  // المبلغ
-            $table->string('currency');  // العملة
-            $table->string('payment_method');  // طريقة الدفع
-            $table->string('paypal_email')->nullable();  // البريد الإلكتروني لـ PayPal
-            $table->string('credit_card_name')->nullable();  // اسم حامل البطاقة
-            $table->string('credit_card_number')->nullable();  // رقم البطاقة
-            $table->string('credit_card_expiry')->nullable();  // تاريخ انتهاء البطاقة
-            $table->string('credit_card_cvc')->nullable();  // رمز الأمان
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');  // ربط التبرع بالمستخدم
+            $table->decimal('amount', 10, 2); // المبلغ
+            $table->string('currency')->default('JOD'); // العملة (ثابتة على الدينار الأردني مثلاً)
+
+            // معلومات بطاقة الدفع
+            $table->string('card_holder_name');
+            $table->string('card_number');
+            $table->string('card_expiry');
+            $table->string('card_cvc');
+
+            // الربط مع المستخدم والحملة
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+
+            $table->softDeletes(); // حذف منطقي
             $table->timestamps();
         });
     }

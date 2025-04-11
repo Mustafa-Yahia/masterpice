@@ -1,264 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>LoveUs - Charity and Fundraising HTML Template | Home Page 01</title>
+@extends('layouts.app')
 
-        <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/color.css') }}" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+@section('content')
 
-        <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
-        <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
-
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-
-        <!--[if lt IE 9]>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
-        <![endif]-->
-        <!--[if lt IE 9]>
-            <script src="{{ asset('js/respond.js') }}"></script>
-        <![endif]-->
-    </head>
-
-<body>
-
-<div class="page-wrapper">
-    <!-- Preloader -->
-    <div class="preloader"><div class="icon"></div></div>
-
-    <!-- Main Header -->
-    <header class="main-header">
-
-
-        <!-- Header Upper -->
-        <div class="header-upper">
+<!-- Banner Section -->
+<section class="banner-section">
+    <div class="banner-carousel love-carousel owl-theme owl-carousel"
+        data-options='{"loop": true, "margin": 0, "autoheight":true, "lazyload":true, "nav": true, "dots": true, "autoplay": true, "autoplayTimeout": 6000, "smartSpeed": 300, "responsive":{ "0" :{ "items": "1" }, "768" :{ "items" : "1" } , "1000":{ "items" : "1" }}}'>
+        <div class="slide-item">
+            <div class="image-layer lazy-image" style="background-image: url('{{ asset('storage/main-slider/Background11.jpg') }}');"></div>
             <div class="auto-container">
-                <div class="inner-container clearfix">
-                    <!--Logo-->
-                    <div class="logo-box">
-                        <div class="logo"><a href="index.html" title="LoveUs - Charity and Fundraising HTML Template">        <img src="{{ asset('images/logo.png') }}" alt="LoveUs - Charity and Fundraising HTML Template" title="LoveUs - Charity and Fundraising HTML Template">
-                        </a></div>
-                    </div>
-
-                    <!--Nav Box-->
-                    <div class="nav-outer clearfix">
-                        <!--Mobile Navigation Toggler-->
-                        <div class="mobile-nav-toggler"><span class="icon flaticon-menu-1"></span></div>
-                        <div class="link-box clearfix">
-                            <div class="auth-links d-flex align-items-center gap-3">
-
-
-                                @auth
-                                    <div class="dropdown">
-                                        <button class="btn dropdown-toggle d-flex align-items-center" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none; font-size: 18px; font-weight: bold; padding: 5px 10px; text-align: left;">
-
-
-                                            <span class="text-dark">مرحباً، {{ Auth::user()->name }}</span>
-                                            <img src="{{ asset(Auth::user()->profile_image ?? 'images/default-user.png') }}" class="rounded-circle" width="40" height="40" alt="User Image" style="margin-right: 10px;">
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown" style="min-width: 150px;">
-                                            <li><a class="dropdown-item" href="">الملف الشخصي</a></li>
-                                            <li>
-                                                <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                                                    @csrf
-                                                    <button type="submit" class="dropdown-item">تسجيل الخروج</button>
-                                                </form>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    @else
-                                    <a href="{{ route('login') }}" class="theme-btn btn-style-one" style="font-size: 12px; margin: 1px;">
-                                        <span class="btn-title ">تسجيل الدخول</span>
-                                    </a>
-                                    <a href="{{ route('register') }}" class="theme-btn btn-style-one" style="font-size: 12px; margin: 1px">
-                                        <span class="btn-title">إنشاء حساب</span>
-                                    </a>
-                                @endauth
-
-
-                            </div>
-                        </div>
-
-                        <!-- Main Menu -->
-                        <nav class="main-menu navbar-expand-md navbar-light">
-                            <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
-                                <ul class="navigation clearfix">
-                                    <li><a href="">الرئيسية</a></li>
-                                    <li><a href="{{ route('cause.index') }}">تبرع</a></li>
-
-                                    <li><a href="{{ route('volunteer.form') }}">التطوع</a></li>
-
-                                    <li class="dropdown"><a href="#">الإعلام</a>
-                                        <ul>
-                                            <li><a href="gallery.html">معرض الصور</a></li>
-                                            <li><a href="blog.html">المدونة</a></li>
-                                        </ul>
-                                    </li>
-
-
-                                    <li class="dropdown"><a href="#">برامجنا</a>
-                                        <ul>
-                                            <li><a href="eradicate-hunger.html">مشروع القضاء على الجوع</a></li>
-                                            <li><a href="feeding-programs.html">برامج التغذية</a></li>
-                                            <li><a href="volunteering-programs.html">برامج التطوع</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </nav>
-
-                        <!-- Main Menu End-->
-
-
-
-
+                <div class="content-box text-center">
+                    <h2>ساهم في إسعاد المحتاجين <br> واجعل عطاؤك نورًا لحياتهم</h2>
+                    <div class="text">
+                        تبرعك اليوم يمكن أن يكون السبب في إطعام جائع، إسعاد طفل، أو إنقاذ مريض.
+                        لا تنتظر، فكل لحظة تحمل فرصة لصنع فرق حقيقي في حياة الآخرين.
                     </div>
                 </div>
             </div>
         </div>
-        <!--End Header Upper-->
+    </div>
+</section>
 
-        <!-- Sticky Header  -->
-        <div class="sticky-header">
-            <div class="auto-container clearfix">
-                <!--Logo-->
-                <div class="logo pull-left">
-                    <a href="index.html" title=""><img src="images/sticky-logo.png" alt="" title=""></a>
-                </div>
-                <!--Right Col-->
-                <div class="pull-right">
-                    <!-- Main Menu -->
-                    <nav class="main-menu clearfix">
-                        <!--Keep This Empty / Menu will come through Javascript-->
-                    </nav><!-- Main Menu End-->
-                </div>
-            </div>
-        </div><!-- End Sticky Menu -->
-
-        <!-- Mobile Menu  -->
-        <div class="mobile-menu">
-            <div class="menu-backdrop"></div>
-            <div class="close-btn"><span class="icon flaticon-cancel"></span></div>
-
-            <nav class="menu-box">
-                <div class="nav-logo"><a href="index.html"><img src="images/logo.png" alt="" title=""></a></div>
-                <div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--></div>
-				<!--Social Links-->
-				<div class="social-links">
-					<ul class="clearfix">
-						<li><a href="#"><span class="fab fa-twitter"></span></a></li>
-						<li><a href="#"><span class="fab fa-facebook-square"></span></a></li>
-						<li><a href="#"><span class="fab fa-pinterest-p"></span></a></li>
-						<li><a href="#"><span class="fab fa-instagram"></span></a></li>
-						<li><a href="#"><span class="fab fa-youtube"></span></a></li>
-					</ul>
-                </div>
-            </nav>
-        </div><!-- End Mobile Menu -->
-    </header>
-    <!-- End Main Header -->
-
-
-    <!-- Banner Section -->
-    <section class="banner-section">
-		<div class="banner-carousel love-carousel owl-theme owl-carousel" data-options='{"loop": true, "margin": 0, "autoheight":true, "lazyload":true, "nav": true, "dots": true, "autoplay": true, "autoplayTimeout": 6000, "smartSpeed": 300, "responsive":{ "0" :{ "items": "1" }, "768" :{ "items" : "1" } , "1000":{ "items" : "1" }}}'>
-			<!-- Slide Item -->
-			<div class="slide-item">
-                <div class="image-layer lazy-image" style="background-image: url('{{ asset('storage/main-slider/Background11.jpg') }}');"></div>
-
-				<div class="auto-container">
-                    <div class="content-box text-center">
-                        <h2>ساهم في إسعاد المحتاجين <br> واجعل عطاؤك نورًا لحياتهم</h2>
-                        <div class="text">
-                            تبرعك اليوم يمكن أن يكون السبب في إطعام جائع، إسعاد طفل، أو إنقاذ مريض.
-                            لا تنتظر، فكل لحظة تحمل فرصة لصنع فرق حقيقي في حياة الآخرين.
-                        </div>
-                        {{-- <div class="btn-box">
-                            <a href="donate.html" class="theme-btn btn-style-one">
-                                <span class="btn-title">تبرع الآن</span>
-                            </a>
-                        </div> --}}
-                    </div>
-                </div>
-
-
-			<!-- Slide Item -->
-			{{-- <div class="slide-item">
-				<div class="image-layer lazy-image" data-bg="url('images/main-slider/2.jpg')"></div>
-
-				<div class="auto-container">
-					<div class="content-box">
-						<h2>You Can Help  <br>The Poor</h2>
-						<div class="text">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </div>
-						<div class="btn-box"><a href="donate.html" class="theme-btn btn-style-one"><span class="btn-title">Donate Now</span></a></div>
-					</div>
-				</div>
-			</div> --}}
-
-			<!-- Slide Item -->
-			{{-- <div class="slide-item">
-				<div class="image-layer lazy-image" data-bg="url('images/main-slider/3.jpg')"></div>
-
-				<div class="auto-container">
-					<div class="content-box">
-						<h2>You Can Help  <br>The Poor</h2>
-						<div class="text">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </div>
-						<div class="btn-box"><a href="donate.html" class="theme-btn btn-style-one"><span class="btn-title">Donate Now</span></a></div>
-					</div>
-				</div>
-			</div> --}}
-
-		</div>
-    </section>
-
-<!-- resources/views/index.blade.php -->
-<!-- resources/views/index.blade.php -->
-@extends('layouts.app')
-
-
- <!--About Section-->
- <section class="about-section style-two alternate">
+<!-- About Section -->
+<section class="about-section style-two alternate">
     <div class="circle-one"></div>
     <div class="circle-two"></div>
     <div class="auto-container">
         <div class="row clearfix">
-    <!--العمود الأيمن-->
-            <div class="right-column col-lg-6 col-md-12 col-sm-12">
+            <div class="right-column col-lg-6">
                 <div class="inner">
                     <div class="images clearfix">
-                        <!-- الصورة الأولى -->
-                        <figure class="image wow fadeInRight" data-wow-delay="300ms">
-                            <img class="lazy-image" src="{{ asset('storage/main-slider/Background11.jpg') }}" alt="Featured Image 19">
-                        </figure>
-                        <!-- الصورة الثانية -->
-                        <figure class="image wow fadeInRight" data-wow-delay="0ms">
-                            <img class="lazy-image" src="{{ asset('storage/main-slider/Background11.jpg') }}" alt="Featured Image 20">
-                        </figure>
-                        <!-- الصورة الثالثة-->
-                        <figure class="image wow fadeInRight" data-wow-delay="300ms">
-                            <img class="lazy-image" src="{{ asset('storage/main-slider/Background11.jpg') }}" alt="Featured Image 19">
-                        </figure>
-                        <!-- الصورة الرابعة -->
-                        <figure class="image wow fadeInRight" data-wow-delay="0ms">
-                            <img class="lazy-image" src="{{ asset('storage/main-slider/Background11.jpg') }}" alt="Featured Image 20">
-                        </figure>
+                        @for ($i = 0; $i < 4; $i++)
+                            <figure class="image wow fadeInRight" data-wow-delay="{{ $i % 2 == 0 ? '0ms' : '300ms' }}">
+                                <img class="lazy-image" src="{{ asset('storage/main-slider/Background11.jpg') }}" alt="صورة {{ $i + 1 }}">
+                            </figure>
+                        @endfor
                     </div>
                 </div>
-
             </div>
 
-             <!--العمود الأيسر-->
-             <div class="left-column col-lg-6 col-md-12 col-sm-12">
+            <div class="left-column col-lg-6">
                 <div class="inner">
                     <div class="sec-title">
                         <div class="sub-title">من نحن</div>
                         <h2>كن جزءاً من التغيير - قدم يد المساعدة</h2>
-                        <div class="text">موقعنا يهدف إلى جمع التبرعات للمشاريع الإنسانية التي تساهم في تحسين حياة المحتاجين في مختلف أنحاء العالم. نحن نعمل مع العديد من المؤسسات الخيرية لتنفيذ برامج طبية وتعليمية وإنسانية للحد من الفقر والمساعدة في رفع مستوى المعيشة للمجتمعات الفقيرة.</div>
-                        <div class="link-box clearfix"><a href="causes.html" class="theme-btn btn-style-one"><span class="btn-title">قراءة المزيد</span></a></div>
+                        <div class="text">منصتنا تهدف لدعم المشاريع الإنسانية وتحقيق الأثر الإيجابي من خلال حملات تبرع شفافة وفعالة في جميع أنحاء الأردن.</div>
+                        <div class="link-box clearfix"><a href="#" class="theme-btn btn-style-one"><span class="btn-title">قراءة المزيد</span></a></div>
                     </div>
                 </div>
             </div>
@@ -266,83 +53,79 @@
 
         <div class="text-blocks">
             <div class="row clearfix">
-                <!--كتلة النص الأولى-->
                 <div class="default-text-block col-lg-4 col-md-6 col-sm-12">
                     <div class="inner">
-                        <!-- الأيقونة -->
-                        <div class="icon">
-                            <i class="fas fa-heart"></i> <!-- أيقونة مهمة -->
-                        </div>
+                        <div class="icon"><i class="fas fa-heart"></i></div>
                         <h3>مهمتنا</h3>
-                        <div class="text">نحن نهدف إلى تحسين حياة الأشخاص الأكثر حاجة حول العالم من خلال جمع التبرعات ودعم المشاريع الإنسانية التي تقدم مساعدات طبية وتعليمية للمجتمعات المحرومة. نحن نؤمن بقدرة التبرعات على إحداث فرق حقيقي في حياة الآخرين.</div>
+                        <div class="text">تحسين حياة الناس من خلال التبرعات والمبادرات المجتمعية التي تركز على التعليم والصحة.</div>
                     </div>
                 </div>
-                <!--كتلة النص الثانية-->
                 <div class="default-text-block col-lg-4 col-md-6 col-sm-12">
                     <div class="inner">
-                        <!-- الأيقونة -->
-                        <div class="icon">
-                            <i class="fas fa-eye"></i> <!-- أيقونة رؤية -->
-                        </div>
+                        <div class="icon"><i class="fas fa-eye"></i></div>
                         <h3>رؤيتنا</h3>
-                        <div class="text">رؤيتنا هي أن نكون الجسر الذي يربط بين المانحين والمحتاجين، من خلال توفير منصة موثوقة وشفافة لجمع التبرعات لدعم المشاريع الإنسانية التي تحقق تغييراً إيجابياً ومستداماً في حياة الناس.</div>
+                        <div class="text">أن نكون منصة موثوقة لربط أصحاب الخير بالمحتاجين بكل شفافية.</div>
                     </div>
                 </div>
-                <!--كتلة النص الثالثة-->
                 <div class="default-text-block col-lg-4 col-md-6 col-sm-12">
                     <div class="inner">
-                        <!-- الأيقونة -->
-                        <div class="icon">
-                            <i class="fas fa-hand-holding-heart"></i> <!-- أيقونة قيم -->
-                        </div>
+                        <div class="icon"><i class="fas fa-hand-holding-heart"></i></div>
                         <h3>قيمنا</h3>
-                        <div class="text">نحن نؤمن بالشفافية والمصداقية في جميع جوانب عملنا. كما أننا نسعى لتقديم الدعم والمساعدة لكل من يحتاجها، مع الالتزام بأعلى معايير الجودة في تنفيذ المشاريع الإنسانية.</div>
+                        <div class="text">الشفافية، الإنسانية، والتميز في تقديم الحلول الخيرية.</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!--Causes Section Two-->
-<section class="causes-section-two">
+
+<!-- Causes Section -->
+<section class="causes-section-two py-5">
     <div class="auto-container">
-        <div class="sec-title centered">
+        <div class="sec-title centered mb-5">
             <div class="sub-title">أسبابنا</div>
             <h2>الأسباب الشعبية</h2>
-            <div class="text">Cupidatat non proident sunt</div>
+            <div class="text">اكتشف الحملات التي يدعمها مجتمعنا</div>
         </div>
 
-        <div class="row clearfix">
-            <!-- عرض أول 6 بطاقات فقط -->
+        <div class="row g-4">
             @foreach($causes->take(6) as $cause)
-                <!--Cause Block-->
-                <div class="cause-block-two col-lg-4 col-md-6 col-sm-12">
-                    <div class="inner-box wow fadeInUp" data-wow-delay="0ms">
-                        <div class="image-box">
-                            <figure class="image">
-                                <a href="{{ route('cause.show', $cause->id) }}">
-                                    <img class="img-fluid" src="{{ asset('storage/images/' . $cause->image) }}" alt="{{ $cause->title }}">
-                                </a>
-                            </figure>
-                        </div>
-                        <div class="lower-content">
-                            <h3><a href="{{ route('cause.show', $cause->id) }}">{{ $cause->title }}</a></h3>
-                            <div class="text">{{ $cause->description }}</div>
-                        </div>
-                        <div class="donate-info">
-                            <div class="progress-box">
-                                <div class="bar">
-                                    <div class="bar-inner count-bar" data-percent="{{ $cause->raised_amount / $cause->goal_amount * 100 }}%">
-                                        <div class="count-text">{{ number_format($cause->raised_amount / $cause->goal_amount * 100, 0) }}%</div>
+                <div class="col-lg-4 col-md-6 d-flex">
+                    <div class="cause-block-two w-100 d-flex flex-column">
+                        <div class="inner-box wow fadeInUp flex-fill d-flex flex-column" data-wow-delay="0.2s" data-wow-duration="1.2s">
+                            <div class="image-box">
+                                <figure class="image">
+                                    <a href="{{ route('cause.show', $cause->id) }}">
+                                        <img class="img-fluid" src="{{ asset('storage/images/' . $cause->image) }}" alt="{{ $cause->title }}">
+                                    </a>
+                                </figure>
+                            </div>
+                            <div class="lower-content flex-fill text-end">
+                                <h3><a href="{{ route('cause.show', $cause->id) }}">{{ $cause->title }}</a></h3>
+                                <div class="text">{{ Str::limit($cause->description, 100) }}</div>
+                            </div>
+                            <div class="donate-info mt-auto text-end">
+                                @php
+                                    $percent = $cause->goal_amount > 0 ? ($cause->raised_amount / $cause->goal_amount) * 100 : 0;
+                                @endphp
+                                <div class="progress-box">
+                                    <div class="bar bg-light position-relative" style="height: 10px; border-radius: 5px;">
+                                        <div class="bar-inner bg-success position-absolute" style="right: 0; top: 0; bottom: 0; width: {{ $percent }}%; border-radius: 5px;">
+                                            <span class="count-text position-absolute text-white px-2" style="left: 0; bottom: 20px; font-size: 13px;">
+                                                {{ number_format($percent, 0) }}%
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="donation-count clearfix">
-                                <span class="raised"><strong>تم جمع:</strong> ${{ $cause->raised_amount }}</span>
-                                <span class="goal"><strong>الهدف:</strong> ${{ $cause->goal_amount }}</span>
-                            </div>
-                            <div class="link-box">
-                                <a href="{{ route('cause.show', $cause->id) }}" class="theme-btn btn-style-two"><span class="btn-title">اقرأ المزيد</span></a>
+                                <div class="donation-count clearfix" style="direction: rtl;">
+                                    <span class="raised"><strong>تم جمع:</strong> {{ number_format($cause->raised_amount, 2) }} د.أ</span>
+                                    <span class="goal float-start"><strong>الهدف:</strong> {{ number_format($cause->goal_amount, 2) }} د.أ</span>
+                                </div>
+                                <div class="link-box text-center mt-3">
+                                    <a href="{{ route('cause.show', $cause->id) }}" class="btn btn-success rounded-pill px-4 py-2">
+                                        <i class="fas fa-donate me-2"></i> تبرع الآن
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -350,8 +133,7 @@
             @endforeach
         </div>
 
-        <!-- زر "عرض المزيد" -->
-        <div class="text-center">
+        <div class="text-center mt-5">
             <a href="{{ route('cause.index') }}" class="theme-btn btn-style-one">
                 <span class="btn-title">عرض المزيد</span>
             </a>
@@ -359,45 +141,8 @@
     </div>
 </section>
 
-<style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+<script> new WOW().init(); </script>
 
-    .default-text-block {
-        background-color: #ffffff;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        text-align: center;
-    }
-
-    .default-text-block:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    }
-
-    .icon {
-        font-size: 40px;
-        color: #3cc88f;
-        margin-bottom: 15px;
-    }
-
-    h3 {
-        color: #3cc88f;
-        font-size: 22px;
-        margin-bottom: 15px;
-    }
-
-    .text {
-        font-size: 16px;
-        color: #555;
-    }
-
-    /* تنسيق الأيقونات باستخدام FontAwesome */
-    /* تأكد من أنك قد قمت بربط FontAwesome في ملفك، أو يمكنك استخدام رابط CDN */
-</style>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
-
-</body>
-</html>
+@endsection

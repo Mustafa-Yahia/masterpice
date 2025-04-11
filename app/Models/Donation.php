@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,23 +13,24 @@ class Donation extends Model
     protected $fillable = [
         'amount',
         'currency',
-        'payment_method',
-        'paypal_email',
-        'credit_card_name',
-        'credit_card_number',
-        'credit_card_expiry',
-        'credit_card_cvc',
+        'card_holder_name',
+        'card_number',
+        'card_expiry',
+        'card_cvc',
         'user_id',
+        'cause_id',
+        'payment_method_id'
     ];
 
+    protected $dates = ['deleted_at'];
 
-    public function user()
+    public function cause()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Cause::class);
     }
 
-  public function paymentMethod()
-  {
-      return $this->belongsTo(PaymentMethod::class, 'payment_method_id');
-  }
+    public function paymentMethod()
+    {
+        return $this->belongsTo(PaymentMethod::class);
+    }
 }

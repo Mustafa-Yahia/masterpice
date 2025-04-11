@@ -1,4 +1,4 @@
-<!-- resources/views/layouts/footer.blade.php -->
+@props(['news' => []])
 
 <!-- Main Footer -->
 <footer class="main-footer" style="direction: rtl; text-align: right; padding-bottom: 0;">
@@ -12,7 +12,7 @@
                     <div class="footer-widget logo-widget">
                         <div class="widget-content">
                             <div class="footer-logo">
-                                <a href="index.html"><img class="lazy-image" src="images/resource/image-spacer-for-validation.png" data-src="images/footer-logo.png" alt="" /></a>
+                                <a href="/"><img class="lazy-image" src="{{ asset('images/footer-logo.png') }}" alt="Logo" /></a>
                             </div>
                             <div class="text" style="font-size: 14px; line-height: 1.6; color: #555; margin-top: 15px;">
                                 منصة تبرع تهدف إلى دعم المحتاجين في الأردن من خلال حملات تبرعية مختلفة. مساهمتك تساهم في بناء مجتمع أفضل.
@@ -63,32 +63,19 @@
                     <div class="footer-widget news-widget">
                         <div class="widget-content">
                             <h3 style="font-size: 18px; color: #3cc88f; margin-bottom: 15px;">أهم الأخبار</h3>
-                            <!-- News Post -->
+                            @foreach($news as $item)
                             <div class="news-post" style="margin-bottom: 15px;">
                                 <div class="post-thumb">
                                     <a href="#">
-                                        <img class="lazy-image" src="{{ asset('storage/main-slider/Poorfamily.jpeg') }}" alt="تبرعات للأسر المحتاجة في عمان">
+                                        <img class="lazy-image" src="{{ asset($item['image']) }}" alt="{{ $item['title'] }}">
                                     </a>
                                 </div>
                                 <h5 style="font-size: 16px; color: #25282a; margin-top: 10px;">
-                                    <a href="#">تبرعات للأسر المحتاجة في عمان</a>
+                                    <a href="#">{{ $item['title'] }}</a>
                                 </h5>
-                                <div class="date" style="font-size: 14px; color: #777;">مارس 15, 2025</div>
+                                <div class="date" style="font-size: 14px; color: #777;">{{ $item['date'] }}</div>
                             </div>
-
-                            <!-- News Post -->
-                            <div class="news-post">
-                                <div class="post-thumb">
-                                    <a href="#">
-                                        <img class="lazy-image" src="{{ asset('storage/main-slider/canser.jpg') }}" alt="حملة تبرعات لمرضى السرطان في الأردن">
-                                    </a>
-                                </div>
-                                <h5 style="font-size: 16px; color: #25282a; margin-top: 10px;">
-                                    <a href="#">حملة تبرعات لمرضى السرطان في الأردن</a>
-                                </h5>
-                                <div class="date" style="font-size: 14px; color: #777;">مارس 20, 2025</div>
-                            </div>
-
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -100,9 +87,9 @@
     <!-- Footer Bottom -->
     <div class="footer-bottom" style="background-color: #25282A; padding: 15px 0; color: white;">
         <div class="auto-container">
-            <div class="clearfix">
+            <div class="clearfix d-flex justify-content-between align-items-center flex-wrap">
                 <div class="copyright" style="font-size: 14px; color: #fff;">منصة التبرع في الأردن 2025 &copy; جميع الحقوق محفوظة</div>
-                <ul class="bottom-links" style="list-style: none; padding: 0; margin: 0;">
+                <ul class="bottom-links d-flex gap-3" style="list-style: none; padding: 0; margin: 0;">
                     <li><a href="#" style="color: #fff;">شروط الخدمة</a></li>
                     <li><a href="#" style="color: #fff;">سياسة الخصوصية</a></li>
                 </ul>

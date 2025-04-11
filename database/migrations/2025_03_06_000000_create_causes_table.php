@@ -18,10 +18,14 @@ return new class extends Migration
             $table->string('image');
             $table->decimal('raised_amount', 8, 2);
             $table->decimal('goal_amount', 8, 2);
+
+            // 👇 الإضافات المهمة
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.

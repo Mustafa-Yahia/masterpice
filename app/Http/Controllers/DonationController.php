@@ -1,102 +1,44 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\DonationCategory;
 use App\Models\Donation;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Cause;
 
 class DonationController extends Controller
 {
-    public function confirmDonation(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'category_id' => 'required|exists:donation_categories,id',
-            'amount' => 'required|numeric|min:1',
-            'people_count' => 'required|integer|min:1',
-            'currency' => 'required|in:JOD,USD',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
-        $category = DonationCategory::findOrFail($request->category_id);
-        $totalAmount = $request->amount * $request->people_count;
-
-        return view('donations.confirmation', [
-            'category' => $category,
-            'amount' => $request->amount,
-            'peopleCount' => $request->people_count,
-            'totalAmount' => $totalAmount,
-            'currency' => $request->currency
-        ]);
-    }
-
     public function store(Request $request)
     {
-        // التحقق إذا كان المستخدم مسجلاً دخول
-        if (!auth()->check()) {
-            return redirect()->route('login')->with('error', 'من فضلك قم بتسجيل الدخول أولاً');
-        }
-
-        // التحقق من المدخلات
         $request->validate([
-            'payment_method' => 'required|string',
-            'paypal_email' => 'nullable|email',
-            'credit_card_name' => 'nullable|string',
-            'credit_card_number' => 'nullable|string',
-            'credit_card_expiry' => 'nullable|string',
-            'credit_card_cvc' => 'nullable|string',
-            'amount' => 'required|numeric',
+            'amount' => 'required|numeric|min:1',
+            'cause_id' => 'required|exists:causes,id',
+            'payment_method_id' => 'required|exists:payment_methods,id',
+            'card_holder_name' => 'required|string|max:255',
+            'card_number' => 'required|string|max:20',
+            'card_expiry' => 'required|string|max:7',
+            'card_cvc' => 'required|string|max:4',
         ]);
 
-        if (!$request->amount) {
-            return redirect()->back()->withErrors(['amount' => 'المبلغ مطلوب']);
-        }
+        $donation = Donation::create([
+            'amount' => $request->amount,
+            'currency' => 'JOD',
+            'card_holder_name' => $request->card_holder_name,
+            'card_number' => $request->card_number,
+            'card_expiry' => $request->card_expiry,
+            'card_cvc' => $request->card_cvc,
+            'user_id' => auth()->check() ? auth()->id() : null,
+            'cause_id' => $request->cause_id,
+            'payment_method_id' => $request->payment_method_id,
+        ]);
 
-        $donation = new Donation();
-        $donation->amount = $request->amount;
-        $donation->currency = $request->currency;
-        $donation->payment_method = $request->payment_method;
-        $donation->paypal_email = $request->paypal_email;
-        $donation->credit_card_name = $request->credit_card_name;
-        $donation->credit_card_number = $request->credit_card_number;
-        $donation->credit_card_expiry = $request->credit_card_expiry;
-        $donation->credit_card_cvc = $request->credit_card_cvc;
-        $donation->user_id = auth()->user()->id;
-        $donation->save();
+        // ✅ تحديث raised_amount للحملة
+        $cause = $donation->cause;
+        $cause->raised_amount += $donation->amount;
+        $cause->save();
 
-        return redirect()->route('donation.thank-you');
-
+        return redirect()->route('cause.show', $request->cause_id)->with('success', 'تم التبرع بنجاح، شكراً لك!');
+    }
 }
-
-}
-
-
-// namespace App\Http\Controllers;
-
-// use Illuminate\Http\Request;
-// use App\Models\DonationCategory;
-
-// class DonationController extends Controller
-// {
-//     public function confirmDonation(Request $request)
-//     {
-//         // استرجاع فئة التبرع بناءً على الـ category_id
-//         $category = DonationCategory::findOrFail($request->category_id);
-
-//         // استرجاع البيانات المرسلة
-//         $amount = $request->amount;
-//         $peopleCount = $request->people_count;
-//         $totalAmount = $request->total_amount;
-//         $currency = $request->currency;
-
-//         // تمرير البيانات إلى صفحة التأكيد
-//         return view('donations.confirmation', compact('category', 'amount', 'peopleCount', 'totalAmount', 'currency'));
-//     }
-
-// }
-

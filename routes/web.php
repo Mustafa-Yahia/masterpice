@@ -40,19 +40,22 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Route::get('/', [CauseController::class, 'index']);
-
 Route::get('/causes', [CauseController::class, 'cause'])->name('cause.index');
 Route::get('/cause/{id}', [CauseController::class, 'show'])->name('cause.show');
 Route::get('/cause/{id}/donations', [CauseController::class, 'showDonations'])->name('cause.donations');
+Route::get('/causes/filter', [CauseController::class, 'filter'])->name('causes.filter');
 
-
-Route::post('/donation/{id}/process', [DonationCategoryController::class, 'processDonation'])->name('donation.process');
-Route::get('/donations/separate', [DonationCategoryController::class, 'separateDonations'])->name('donations.separate');
-Route::get('/donation/{id}', [DonationCategoryController::class, 'show'])->name('donation.show');
+Route::get('/donate/{id}', [DonationController::class, 'create'])->name('donation.form');
+Route::post('/donate/store', [DonationController::class, 'store'])->name('donation.store');
+// Route::post('/donation/{id}/process', [DonationCategoryController::class, 'processDonation'])->name('donation.process');
+// Route::get('/donations/separate', [DonationCategoryController::class, 'separateDonations'])->name('donations.separate');
+// Route::get('/donation/{id}', [DonationCategoryController::class, 'show'])->name('donation.show');
+// Route::post('/donation', [DonationController::class, 'store'])->name('donation.store');
 
 
 
 Route::post('/donation/confirm', [DonationController::class, 'confirmDonation'])->name('donation.confirm');
+Route::post('/donations/store', [DonationController::class, 'store'])->name('donation.store');
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/donation/store', [DonationController::class, 'store'])->name('donation.store');

@@ -27,18 +27,30 @@
         <script src="{{ asset('js/respond.js') }}"></script>
     <![endif]-->
 </head>
-
 <body>
+
+    {{-- ✅ الهيدر --}}
+    <x-header />
+
+    {{-- ✅ محتوى الصفحة --}}
     <main>
         @yield('content')
     </main>
 
-    {{-- @include('layouts.footer') <!-- إذا كان لديك ملف footer.blade.php ضمن مجلد layouts --> --}}
+    {{-- الفوتر (لو حبيت تفعل لاحقًا) --}}
+    {{-- @include('layouts.footer') --}}
 
     <div class="scroll-to-top scroll-to-target" data-target="html">
         <span class="flaticon-up-arrow"></span>
     </div>
 
+
+    {{-- ✅ الفوتر --}}
+    <x-footer />
+
+    {{-- إضافة مكتبة Font Awesome --}}
+
+    {{-- السكربتات --}}
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/popper.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
@@ -52,11 +64,11 @@
     <script src="{{ asset('js/script.js') }}"></script>
 
     <script>
-        document.querySelector('.scroll-to-top').addEventListener('click', function() {
+        document.querySelector('.scroll-to-top').addEventListener('click', function () {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
-
 </body>
+
 
 </html>
