@@ -232,7 +232,7 @@ figure{
 	display: inline-block;
 	font-size: 15px;
 	line-height: 28px;
-	color: #848484;
+	color: white;
 	font-weight: 600;
 	padding: 10px 30px;
 	text-transform:capitalize;
@@ -245,6 +245,16 @@ figure{
 .btn-style-two:hover{
 	color: #ffffff;
 }
+
+
+
+
+
+
+
+
+
+
 
 /*Btn Style Three*/
 

@@ -893,25 +893,6 @@ a.ui-button:active, .ui-button:active,
 	background:#3cc88f;
 }
 
-.causes-section-two .cause-block-two:nth-child(2) .inner-box .progress-box .bar-inner{
-	background:#ae64fd;
-}
-
-.causes-section-two .cause-block-two:nth-child(3) .inner-box .progress-box .bar-inner{
-	background:#ff6b70;
-}
-
-.causes-section-two .cause-block-two:nth-child(4) .inner-box .progress-box .bar-inner{
-	background:#2ea4ff;
-}
-
-.causes-section-two .cause-block-two:nth-child(5) .inner-box .progress-box .bar-inner{
-	background:#21d7d9;
-}
-
-.causes-section-two .cause-block-two:nth-child(6) .inner-box .progress-box .bar-inner{
-	background:#f7a900;
-}
 
 .cause-block-two .inner-box .progress-box .count-text{
 	background:#3cc88f;
@@ -919,26 +900,6 @@ a.ui-button:active, .ui-button:active,
 
 .causes-section-two .cause-block-two:nth-child(1) .inner-box .progress-box .count-text{
 	background:#3cc88f;
-}
-
-.causes-section-two .cause-block-two:nth-child(2) .inner-box .progress-box .count-text{
-	background:#ae64fd;
-}
-
-.causes-section-two .cause-block-two:nth-child(3) .inner-box .progress-box .count-text{
-	background:#ff6b70;
-}
-
-.causes-section-two .cause-block-two:nth-child(4) .inner-box .progress-box .count-text{
-	background:#2ea4ff;
-}
-
-.causes-section-two .cause-block-two:nth-child(5) .inner-box .progress-box .count-text{
-	background:#21d7d9;
-}
-
-.causes-section-two .cause-block-two:nth-child(6) .inner-box .progress-box .count-text{
-	background:#f7a900;
 }
 
 .cause-block-two .inner-box .progress-box .count-text:after{

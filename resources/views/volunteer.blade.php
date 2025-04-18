@@ -92,12 +92,11 @@
 </section>
 <!-- End Video Section -->
 
-<!-- Volunteer Section -->
 <section class="volunteer-section py-5" style="background-color: #f0f4f8; direction: rtl; text-align: right;">
     <div class="container">
         <div class="sec-title text-center mb-5">
-            <h2 class="fw-bold text-dark">نموذج التطوع</h2>
-            <p class="text-muted">املأ النموذج التالي للانضمام إلى برامج التطوع</p>
+            <h2 class="fw-bold text-dark">نموذج التطوع <i class="fa fa-handshake"></i></h2>
+            <p class="text-muted">املأ النموذج التالي للانضمام إلى برامج التطوع <i class="fa fa-users"></i></p>
         </div>
 
         @if(session('success'))
@@ -108,7 +107,7 @@
             @csrf
 
             <!-- المعلومات الشخصية -->
-            <h5 class="fw-bold mb-3 text-dark">المعلومات الشخصية</h5>
+            <h5 class="fw-bold mb-3 text-dark"><i class="fa fa-user"></i> المعلومات الشخصية</h5>
             <div class="row g-3">
                 <div class="col-md-6">
                     <label class="form-label">الاسم الكامل</label>
@@ -123,13 +122,13 @@
 
             <div class="row g-3 mt-2">
                 <div class="col-md-6">
-                    <label for="phone" class="form-label d-block mb-2">رقم الهاتف</label>
+                    <label for="phone" class="form-label d-block mb-2">رقم الهاتف <i class="fa fa-phone"></i></label>
                     <input type="tel" name="phone" id="phone" class="form-control form-control-lg" required>
                     <div id="phone-error" class="text-danger mt-1" style="display: none;">رقم الهاتف غير صالح. يرجى التأكد من صحة الرقم.</div>
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label">الجنسية</label>
+                    <label class="form-label">الجنسية <i class="fa fa-flag"></i></label>
                     <div class="select-wrapper">
                         <select name="nationality" class="form-select form-select-lg" id="nationality" required>
                             <option selected disabled>اختر الجنسية</option>
@@ -137,23 +136,7 @@
                             <option value="المصرية">المصرية</option>
                             <option value="السعودية">السعودية</option>
                             <option value="الإماراتية">الإماراتية</option>
-                            <option value="البحرينية">البحرينية</option>
-                            <option value="الجزائرية">الجزائرية</option>
-                            <option value="السودانية">السودانية</option>
-                            <option value="العمانية">العمانية</option>
-                            <option value="الفلسطينية">الفلسطينية</option>
-                            <option value="القطرية">القطرية</option>
-                            <option value="الكويتية">الكويتية</option>
-                            <option value="اللبنانية">اللبنانية</option>
-                            <option value="المغربية">المغربية</option>
-                            <option value="الموريتانية">الموريتانية</option>
-                            <option value="اليمنية">اليمنية</option>
-                            <option value="الليبية">الليبية</option>
-                            <option value="الطاجيكية">الطاجيكية</option>
-                            <option value="السنغالية">السنغالية</option>
-                            <option value="جيبوتية">جيبوتية</option>
-                            <option value="الصومالية">الصومالية</option>
-                            <option value="الحدود السعودية">الحدود السعودية</option>
+                            <!-- أضف بقية الجنسيات هنا -->
                         </select>
                     </div>
                 </div>
@@ -167,10 +150,10 @@
                 </div>
             </div>
 
-            <h5 class="fw-bold mt-4 mb-3 text-dark">التفاصيل الشخصية</h5>
+            <h5 class="fw-bold mt-4 mb-3 text-dark"><i class="fa fa-info-circle"></i> التفاصيل الشخصية</h5>
             <div class="row g-3">
                 <div class="col-md-6">
-                    <label class="form-label">الجنس</label>
+                    <label class="form-label">الجنس <i class="fa fa-genderless"></i></label>
                     <select name="gender" class="form-select form-select-lg" required>
                         <option selected disabled>اختر الجنس</option>
                         <option value="ذكر">ذكر</option>
@@ -178,7 +161,7 @@
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label">الدولة</label>
+                    <label class="form-label">الدولة <i class="fa fa-globe"></i></label>
                     <select name="country" class="form-select form-select-lg" required>
                         <option selected disabled>اختر الدولة</option>
                         <option value="الأردن">الأردن</option>
@@ -190,11 +173,11 @@
 
             <div class="row g-3 mt-2">
                 <div class="col-md-6">
-                    <label class="form-label">المدينة</label>
+                    <label class="form-label">المدينة <i class="fa fa-building"></i></label>
                     <input type="text" name="city" class="form-control form-control-lg" placeholder="أدخل المدينة" required>
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label">المهنة</label>
+                    <label class="form-label">المهنة <i class="fa fa-briefcase"></i></label>
                     <select name="occupation" class="form-select form-select-lg">
                         <option selected disabled>اختر المهنة</option>
                         <option value="طالب مدرسة">طالب مدرسة</option>
@@ -205,35 +188,35 @@
                 </div>
             </div>
 
-            <h5 class="fw-bold mt-4 mb-3 text-dark">معلومات الاتصال</h5>
+            <h5 class="fw-bold mt-4 mb-3 text-dark"><i class="fa fa-envelope"></i> معلومات الاتصال</h5>
             <div class="mb-3">
                 <label class="form-label">البريد الإلكتروني</label>
                 <input type="email" name="email" class="form-control form-control-lg" placeholder="أدخل بريدك الإلكتروني" required>
             </div>
-
-            <h5 class="fw-bold mt-4 mb-3 text-dark">برامج التطوع</h5>
-            <div class="mb-3">
-                <div class="d-flex flex-column gap-3">
+            <h5 class="fw-bold mt-6 mb-3 text-dark"><i class="fa fa-handshake"></i> برامج التطوع</h5>
+            <div class="mb-3" style="margin-top: 20px;"> <!-- إضافة مسافة بين العنوان والـ checkboxes -->
+                <div class="d-flex flex-column gap-4">
                     @foreach ($volunteerPrograms as $program)
                         <div class="d-flex align-items-center">
                             <input type="checkbox" name="volunteer_programs[]" value="{{ $program->id }}" class="form-check-input" id="program-{{ $program->id }}">
-                            <label class="form-check-label me-3" for="program-{{ $program->id }}">{{ $program->name }}</label>
+                            <label class="form-check-label me-3 mr-4" for="program-{{ $program->id }}">{{ $program->name }}</label>
                         </div>
                     @endforeach
                 </div>
             </div>
 
-            <h5 class="fw-bold mt-4 mb-3 text-dark">المشاركة في التطوع</h5>
+
+            <h5 class="fw-bold mt-4 mb-3 text-dark"><i class="fa fa-calendar-check"></i> المشاركة في التطوع</h5>
             <div class="mb-3">
                 <label class="form-label">هل شاركت في التطوع خلال الثلاث سنوات الماضية؟</label>
                 <div class="d-flex gap-4">
                     <div class="form-check">
                         <input type="radio" name="previous_volunteer" value="1" class="form-check-input" id="previous_yes" onclick="toggleVolunteerField(true)" required>
-                        <label class="form-check-label me-3" for="previous_yes">نعم</label>
+                        <label class="form-check-label me-3 mr-4" for="previous_yes">نعم</label>
                     </div>
                     <div class="form-check">
                         <input type="radio" name="previous_volunteer" value="0" class="form-check-input" id="previous_no" onclick="toggleVolunteerField(false)" required>
-                        <label class="form-check-label me-3" for="previous_no">لا</label>
+                        <label class="form-check-label me-3 mr-4" for="previous_no">لا</label>
                     </div>
                 </div>
             </div>
@@ -243,7 +226,7 @@
                 <textarea name="volunteer_experience" class="form-control form-control-lg" rows="3" placeholder="أدخل تفاصيل تطوعك هنا..."></textarea>
             </div>
 
-            <h5 class="fw-bold mt-4 mb-3 text-dark">كيف سمعت عن البرنامج؟</h5>
+            <h5 class="fw-bold mt-4 mb-3 text-dark"><i class="fa fa-bullhorn"></i> كيف سمعت عن البرنامج؟</h5>
             <div class="mb-3">
                 <select name="how_heard" class="form-select form-select-lg" style="padding-left: 50px;">
                     <option selected disabled>اختر الطريقة</option>
@@ -254,13 +237,21 @@
             </div>
 
             <div class="text-center mt-4">
-                <button type="submit" class="btn  px-5 py-2 btn-lg" style="background-color: #3cc88f; text-color:#fff;">إرسال الطلب</button>
+                <button type="submit" class="btn px-5 py-2 btn-lg btn-white-text" style="background-color: #3cc88f;">
+                    <i class="fa fa-paper-plane"></i> إرسال الطلب
+                </button>
             </div>
+
         </form>
     </div>
 </section>
 
+<style>
+    .btn-white-text {
+    color: #fff !important;
+}
 
+</style>
 
 <script src="{{ asset('js/Volunteer.js') }}" defer></script>
 
@@ -300,7 +291,6 @@
     });
 </script>
 
-@endsection
 <style>
     .form-select.custom-select {
         height: calc(2.25rem + 2px);
@@ -312,5 +302,4 @@
 </style>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
-</body>
-</html>
+@endsection

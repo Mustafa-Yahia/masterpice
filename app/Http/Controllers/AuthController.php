@@ -16,40 +16,44 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
+
     // تسجيل الدخول
     public function login(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email|exists:users,email',  // تحقق من وجود البريد في قاعدة البيانات
-            'password' => 'required|min:6', // تحقق من وجود كلمة مرور صحيحة
-        ], [
-            'email.exists' => 'البريد الإلكتروني غير مسجل في قاعدة البيانات.',
-            'password.min' => 'يجب أن تكون كلمة المرور على الأقل 6 أحرف.',
-        ]);
+{
+    $request->validate([
+        'email' => 'required|email|exists:users,email',  // تحقق من وجود البريد في قاعدة البيانات
+        'password' => 'required|min:6', // تحقق من وجود كلمة مرور صحيحة
+    ], [
+        'email.exists' => 'البريد الإلكتروني غير مسجل في قاعدة البيانات.',
+        'password.min' => 'يجب أن تكون كلمة المرور على الأقل 6 أحرف.',
+    ]);
 
-        // التحقق من البيانات
-        $credentials = $request->only('email', 'password');
-        $remember = $request->has('remember');
+    // التحقق من البيانات
+    $credentials = $request->only('email', 'password');
+    $remember = $request->has('remember'); // التحقق من وجود الخيار "تذكرني"
 
-        // محاولة تسجيل الدخول
-        if (Auth::attempt($credentials, $remember)) {
-            if ($remember) {
-                Cookie::queue('remember_email', $request->email, 43200);  // تخزين البريد الإلكتروني في الكوكي
-                Cookie::queue('remember_password', $request->password, 43200);  // تخزين كلمة المرور في الكوكي
-            } else {
-                Cookie::queue(Cookie::forget('remember_email'));  // مسح الكوكي عند عدم تفعيل "تذكرني"
-                Cookie::queue(Cookie::forget('remember_password'));
-            }
-
-            // التوجيه إلى الصفحة المقصودة بعد تسجيل الدخول
-            return redirect()->intended('/');
+    // محاولة تسجيل الدخول
+    if (Auth::attempt($credentials, $remember)) {
+        if ($remember) {
+            // تخزين البريد الإلكتروني وكلمة المرور في الكوكي
+            Cookie::queue('remember_email', $request->email, 43200);  // تخزين البريد الإلكتروني في الكوكي
+            Cookie::queue('remember_password', $request->password, 43200);  // تخزين كلمة المرور في الكوكي
+        } else {
+            // مسح الكوكي عند عدم تفعيل "تذكرني"
+            Cookie::queue(Cookie::forget('remember_email'));
+            Cookie::queue(Cookie::forget('remember_password'));
         }
 
-        // إذا كانت البيانات غير صحيحة
-        return back()->withErrors([
-            'email' => 'البريد الإلكتروني أو كلمة المرور غير صحيحة.',
-        ])->withInput($request->only('email'));
+        // التوجيه إلى الصفحة المقصودة بعد تسجيل الدخول
+        return redirect()->intended('/');
     }
+
+    // إذا كانت البيانات غير صحيحة
+    return back()->withErrors([
+        'email' => 'البريد الإلكتروني أو كلمة المرور غير صحيحة.',
+    ])->withInput($request->only('email'));
+}
+
 
     // عرض صفحة التسجيل
     public function showRegistrationForm()
@@ -57,51 +61,60 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    // حفظ بيانات التسجيل
     public function store(Request $request)
     {
+        // التحقق من صحة البيانات
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',  // تحقق من عدم تكرار البريد الإلكتروني
+            'name' => [
+                'required',
+                'string',
+                'min:3', // تأكد من أن الاسم لا يقل عن 3 أحرف
+                'regex:/^[\p{Arabic}\s]+$/u', // تأكد من أن الاسم يحتوي على حروف عربية فقط
+            ],
+            'email' => 'required|string|email|max:255|unique:users',
             'password' => [
                 'required',
                 'string',
-                'min:8',  // يجب أن تكون كلمة المرور على الأقل 8 أحرف
-                'confirmed',  // تأكيد كلمة المرور
-                'regex:/[A-Z]/',  // يجب أن تحتوي على حرف كبير
-                'regex:/[a-z]/',  // يجب أن تحتوي على حرف صغير
-                'regex:/[0-9]/',  // يجب أن تحتوي على رقم
-                'regex:/[@$!%*?&]/',  // يجب أن تحتوي على رمز خاص
+                'min:8',
+                'confirmed',
+                'regex:/[A-Z]/',
+                'regex:/[a-z]/',
+                'regex:/[0-9]/',
+                'regex:/[@$!%*?&]/',
             ],
-            'phone' => 'nullable|regex:/^(\+?\d{1,3}?)?(\d{10})$/',  // التحقق من رقم الهاتف
+            'phone' => 'required|unique:users,phone|regex:/^(\+?\d{1,3}?)?(\d{10})$/',  // التحقق من أن رقم الهاتف غير مكرر
         ], [
+            'name.required' => 'الاسم الكامل مطلوب.',
+            'name.min' => 'يجب أن يحتوي الاسم على 3 أحرف على الأقل.',
+            'name.regex' => 'الاسم يجب أن يحتوي على حروف عربية فقط.',
             'email.unique' => 'البريد الإلكتروني مسجل بالفعل.',
             'password.min' => 'يجب أن تكون كلمة المرور على الأقل 8 أحرف.',
             'password.confirmed' => 'تأكيد كلمة المرور غير متطابق.',
             'password.regex' => 'يجب أن تحتوي كلمة المرور على حرف كبير، حرف صغير، رقم، ورمز خاص.',
+            'phone.unique' => 'رقم الهاتف مسجل بالفعل.',
             'phone.regex' => 'رقم الهاتف غير صحيح. يرجى التأكد من إدخال رقم صحيح.',
         ]);
 
-        // التحقق من فشل التحقق من المدخلات
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        // إنشاء مستخدم جديد
+        // إنشاء المستخدم
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'phone' => $request->phone,
-            'role' => 'donor',  // تعيين الدور الافتراضي
+            'role' => 'donor',
         ]);
 
-        // إظهار رسالة نجاح
-        session()->flash('success', 'تم إنشاء الحساب بنجاح! يمكنك الآن تسجيل الدخول.');
-
-        // التوجيه إلى صفحة تسجيل الدخول بعد النجاح
-        return redirect(route('login'))->with('swal', true); // تفعيل خاصية السويت ألارتي
+        // إرسال رسالة نجاح إلى الجلسة
+        return redirect()->route('login')->with([
+            'status' => 'تم إنشاء الحساب بنجاح! يمكنك الآن تسجيل الدخول.',
+        ]);
     }
+
+
 
 
     // تسجيل الخروج

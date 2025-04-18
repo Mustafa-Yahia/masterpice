@@ -14,6 +14,7 @@ use App\Http\Controllers\DonationController;
 Route::get('/', [DonationCategoryController::class, 'indexWithCauses'])->name('index');
 
 // صفحة تسجيل الدخول
+
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 

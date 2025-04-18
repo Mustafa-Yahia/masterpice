@@ -61,11 +61,17 @@
                 <div class="inner">
                     <div class="sec-title">
                         <h2>كن جزءاً من التغيير - قدم يد المساعدة</h2>
-                        <div class="text">موقعنا يهدف إلى جمع التبرعات للمشاريع الإنسانية التي تساهم في تحسين حياة المحتاجين في مختلف أنحاء العالم. نحن نعمل مع العديد من المؤسسات الخيرية لتنفيذ برامج طبية وتعليمية وإنسانية للحد من الفقر والمساعدة في رفع مستوى المعيشة للمجتمعات الفقيرة.</div>
-                        <div class="link-box clearfix"><a href="#" class="theme-btn btn-style-one"><span class="btn-title">قراءة المزيد</span></a></div>
+                        <div class="text" style="text-align: right">موقعنا يهدف إلى جمع التبرعات للمشاريع الإنسانية التي تساهم في تحسين حياة المحتاجين في مختلف أنحاء العالم. نحن نعمل مع العديد من المؤسسات الخيرية لتنفيذ برامج طبية وتعليمية وإنسانية للحد من الفقر والمساعدة في رفع مستوى المعيشة للمجتمعات الفقيرة.</div>
+                        <div class="link-box clearfix">
+                            <a href="#" class="theme-btn btn-style-one" id="show-info-btn" style="float:right"><span class="btn-title">قراءة المزيد</span></a>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <!-- إضافة SweetAlert عبر CDN -->
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
         </div>
 
         <div class="text-blocks">
@@ -94,14 +100,18 @@
             </div>
         </div>
     </div>
-</section>
-
+    @php
+    function convertToArabic($number) {
+        $arabicNumbers = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+        return str_replace(range(0, 9), $arabicNumbers, $number);
+    }
+@endphp
 <!-- Causes Section -->
 <section class="causes-section-two py-5">
     <div class="auto-container">
         <div class="sec-title centered">
-            <h2>كن سببًا في تغيير حياة الآخرين</h2>
-            <div class="text">تبرعك اليوم يمكن أن يصنع فرقًا كبيرًا في حياة محتاج، لا تتردد في أن تكون سببًا في الأمل.</div>
+            <h2 style="font-family: 'Cairo', sans-serif; font-weight: 600; text-align:center">كن سببًا في تغيير حياة الآخرين</h2>
+            <div class="text" style="font-family: 'Cairo', sans-serif; font-size: 16px; line-height: 1.5;">تبرعك اليوم يمكن أن يصنع فرقًا كبيرًا في حياة محتاج، لا تتردد في أن تكون سببًا في الأمل.</div>
         </div>
 
         <div class="row g-4">
@@ -120,30 +130,31 @@
 
                             <!-- المحتوى -->
                             <div class="lower-content flex-fill" style="text-align: right;">
-                                <h3><a href="{{ route('cause.show', $cause->id) }}">{{ $cause->title }}</a></h3>
-                                <div class="text">{{ Str::limit($cause->description, 100) }}</div>
+                                <h3 style="font-family: 'Cairo', sans-serif;">
+                                    <a href="{{ route('cause.show', $cause->id) }}" style="color: Black;">{{ $cause->title }}</a>
+                                </h3>
+                                <div class="text" style="font-family: 'Cairo', sans-serif;">{{ Str::limit($cause->description, 100) }}</div>
                             </div>
 
                             <!-- معلومات التبرع -->
                             <div class="donate-info mt-auto" style="text-align: right;">
                                 <div class="progress-box">
                                     <div class="bar">
-                                        <div class="bar-inner count-bar"
-                                             data-percent="{{ $cause->raised_amount / $cause->goal_amount * 100 }}%">
+                                        <div class="bar-inner count-bar" data-percent="{{ $cause->raised_amount / $cause->goal_amount * 100 }}%">
                                             <div class="count-text">
-                                                {{ number_format($cause->raised_amount / $cause->goal_amount * 100, 0) }}%
+                                                {{ convertToArabic(number_format($cause->raised_amount / $cause->goal_amount * 100, 0)) }}%
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="donation-count clearfix" style="direction: rtl;">
-                                    <span class="raised"><strong>تم جمع:</strong> {{ number_format($cause->raised_amount, 2) }} د.أ</span>
-                                    <span class="goal"><strong>الهدف:</strong> {{ number_format($cause->goal_amount, 2) }} د.أ</span>
+                                    <span class="raised"><strong>تم جمع:</strong> {{ convertToArabic(number_format($cause->raised_amount)) }} د.أ</span>
+                                    <span class="goal"><strong>الهدف:</strong> {{ convertToArabic(number_format($cause->goal_amount)) }} د.أ</span>
                                 </div>
 
                                 <div class="link-box text-center mt-3">
-                                    <a href="{{ route('cause.show', $cause->id) }}" class="theme-btn btn-style-two">
+                                    <a href="{{ route('cause.show', $cause->id) }}" class="theme-btn btn-style-two" style="font-family: 'Cairo', sans-serif;">
                                         <span class="btn-title">اقرأ المزيد</span>
                                     </a>
                                 </div>
@@ -156,14 +167,17 @@
 
         <!-- زر عرض المزيد -->
         <div class="text-center mt-5">
-            <a href="{{ route('cause.index') }}" class="theme-btn btn-style-one">
+            <a href="{{ route('cause.index') }}" class="theme-btn btn-style-one" style="font-family: 'Cairo', sans-serif;">
                 <span class="btn-title">عرض المزيد</span>
             </a>
         </div>
     </div>
 </section>
 
+
+
 <style>
+
 
     .default-text-block {
         background-color: #ffffff;
@@ -204,6 +218,21 @@
 
 </style>
 
+<script>
+    // عند الضغط على الزر
+    document.getElementById("show-info-btn").addEventListener("click", function(e) {
+        e.preventDefault();  // منع تصرف الرابط الافتراضي
+
+        // عرض نافذة SweetAlert تحتوي على المعلومات مع Scroll
+        Swal.fire({
+            title: 'معلومات عن التبرع',
+            html: '<div style="max-height: 300px; overflow-y: auto; text-align: right;">موقعنا يهدف إلى جمع التبرعات للمشاريع الإنسانية التي تساهم في تحسين حياة المحتاجين في مختلف أنحاء العالم. نحن نعمل مع العديد من المؤسسات الخيرية لتنفيذ برامج طبية وتعليمية وإنسانية للحد من الفقر والمساعدة في رفع مستوى المعيشة للمجتمعات الفقيرة. نحن نسعى لتوسيع نطاق مشاريعنا في جميع أنحاء العالم ونسعى لبناء شراكات جديدة مع المنظمات غير الحكومية والمؤسسات المانحة من أجل تحسين حياة الأفراد الذين يواجهون تحديات اقتصادية وصحية كبيرة. فريقنا ملتزم بتقديم المساعدة في الحالات الإنسانية الطارئة وتوفير الدعم الكامل للمجتمعات المتضررة من الأزمات.</div>',
+            icon: 'info',  // نوع الأيقونة
+            confirmButtonText: 'موافق',
+            confirmButtonColor: '#3cc88f'  // تخصيص لون الزر
+        });
+    });
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 @endsection

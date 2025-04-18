@@ -19,6 +19,7 @@ class Cause extends Model
         'additional_details',
         'category',
         'user_id',
+        'location', // إضافة حقل الموقع
     ];
 
     // ✅ العلاقة مع المستخدم
