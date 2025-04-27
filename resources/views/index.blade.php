@@ -13,7 +13,7 @@
             <div class="auto-container">
                 <div class="content-box text-center">
                     <h2>ساهم في إسعاد المحتاجين <br> واجعل عطاؤك نورًا لحياتهم</h2>
-                    <div class="text">
+                    <div class="text" >
                         تبرعك اليوم يمكن أن يكون السبب في إطعام جائع، إسعاد طفل، أو إنقاذ مريض.
                         لا تنتظر، فكل لحظة تحمل فرصة لصنع فرق حقيقي في حياة الآخرين.
                     </div>
@@ -47,7 +47,7 @@
                             <img class="lazy-image" src="{{ asset('storage/main-slider/peoplehelp12.jpg') }}" alt="Featured Image 3" style="width: 100%; height: auto; object-fit: cover;">
                         </figure>
                         <figure class="image wow fadeInRight" data-wow-delay="900ms">
-                            <!-- عرض الصورة الرابعة -->
+
                             <img class="lazy-image" src="{{ asset('storage/main-slider/Background11.jpg') }}" alt="Featured Image 4" style="width: 100%; height: auto; object-fit: cover;">
                         </figure>
                     </div>
@@ -61,10 +61,10 @@
                 <div class="inner">
                     <div class="sec-title">
                         <h2>كن جزءاً من التغيير - قدم يد المساعدة</h2>
-                        <div class="text" style="text-align: right">موقعنا يهدف إلى جمع التبرعات للمشاريع الإنسانية التي تساهم في تحسين حياة المحتاجين في مختلف أنحاء العالم. نحن نعمل مع العديد من المؤسسات الخيرية لتنفيذ برامج طبية وتعليمية وإنسانية للحد من الفقر والمساعدة في رفع مستوى المعيشة للمجتمعات الفقيرة.</div>
-                        <div class="link-box clearfix">
+                        <div class="text" style="text-align:right;">موقعنا يهدف إلى جمع التبرعات للمشاريع الإنسانية التي تساهم في تحسين حياة المحتاجين في مختلف أنحاء العالم. نحن نعمل مع العديد من المؤسسات الخيرية لتنفيذ برامج طبية وتعليمية وإنسانية للحد من الفقر والمساعدة في رفع مستوى المعيشة للمجتمعات الفقيرة.</div>
+                        {{-- <div class="link-box clearfix">
                             <a href="#" class="theme-btn btn-style-one" id="show-info-btn" style="float:right"><span class="btn-title">قراءة المزيد</span></a>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -75,7 +75,7 @@
         </div>
 
         <div class="text-blocks">
-            <div class="row clearfix">
+            <div class="row g-6 clearfix">
                 <div class="default-text-block col-lg-4 col-md-6 col-sm-12">
                     <div class="inner">
                         <div class="icon"><i class="fas fa-heart"></i></div>
@@ -100,13 +100,7 @@
             </div>
         </div>
     </div>
-    @php
-    function convertToArabic($number) {
-        $arabicNumbers = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-        return str_replace(range(0, 9), $arabicNumbers, $number);
-    }
-@endphp
-<!-- Causes Section -->
+    <!-- Causes Section -->
 <section class="causes-section-two py-5">
     <div class="auto-container">
         <div class="sec-title centered">
@@ -134,6 +128,18 @@
                                     <a href="{{ route('cause.show', $cause->id) }}" style="color: Black;">{{ $cause->title }}</a>
                                 </h3>
                                 <div class="text" style="font-family: 'Cairo', sans-serif;">{{ Str::limit($cause->description, 100) }}</div>
+
+                                <!-- Category and Location with Icons -->
+                                <div class="meta-info" style="margin-top: 10px; display: flex; justify-content: space-between;">
+                                    <div class="category" style="display: flex; align-items: center;">
+                                        <i class="fa fa-tag" style="margin-left: 5px; margin-right: 5px;"></i>
+                                        <span><strong>الفئة:</strong> {{ $cause->category }}</span>
+                                    </div>
+                                    <div class="location" style="display: flex; align-items: center;">
+                                        <i class="fa fa-map-marker-alt" style="margin-left: 5px; margin-right: 5px;"></i>
+                                        <span><strong>الموقع:</strong> {{ $cause->location }}</span>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- معلومات التبرع -->
@@ -173,6 +179,7 @@
         </div>
     </div>
 </section>
+
 
 
 
@@ -218,7 +225,7 @@
 
 </style>
 
-<script>
+{{-- <script>
     // عند الضغط على الزر
     document.getElementById("show-info-btn").addEventListener("click", function(e) {
         e.preventDefault();  // منع تصرف الرابط الافتراضي
@@ -231,8 +238,16 @@
             confirmButtonText: 'موافق',
             confirmButtonColor: '#3cc88f'  // تخصيص لون الزر
         });
+    }); --}}
+{{-- </script> --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.bar-inner').forEach(function(bar) {
+            const percent = bar.getAttribute('data-percent');
+            bar.style.width = percent;
+        });
     });
-</script>
+    </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 @endsection

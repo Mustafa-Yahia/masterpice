@@ -75,7 +75,7 @@
 
                         <!-- رابط إنشاء حساب -->
                         <div class="text-center mt-3" style="margin-top: 30px;">
-                            <p style="font-family: 'Cairo', sans-serif;">ليس لديك حساب؟ <a href="{{ route('register') }}" class="text-primary">إنشاء حساب جديد</a></p>
+                            <p style="font-family: 'Cairo', sans-serif; text-align:center;">ليس لديك حساب؟ <a href="{{ route('register') }}" class="text-primary">إنشاء حساب جديد</a></p>
                         </div>
                     </div>
                 </div>

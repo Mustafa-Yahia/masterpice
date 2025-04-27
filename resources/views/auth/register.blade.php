@@ -121,7 +121,7 @@
                         </form>
 
                         <div class="text-center mt-3" style="margin-top: 20px;">
-                            <p style="font-family: 'Cairo', sans-serif;">لديك حساب بالفعل؟ <a href="{{ route('login') }}" class="text-primary">تسجيل الدخول</a></p>
+                            <p style="font-family: 'Cairo', sans-serif; text-align:center;">لديك حساب بالفعل؟ <a href="{{ route('login') }}" class="text-primary">تسجيل الدخول</a></p>
                         </div>
                     </div>
                 </div>

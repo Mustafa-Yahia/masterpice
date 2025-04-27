@@ -100,6 +100,7 @@ button{
 }
 
 p,.text{
+    text-align: right;
 	font-size: 16px;
 	line-height: 1.7em;
 	font-weight: 400;
@@ -127,6 +128,7 @@ p,.text{
 }
 
 ul,li{
+    text-align: right;
 	list-style:none;
 	padding:0px;
 	margin:0px;
@@ -228,17 +230,18 @@ figure{
 /* Btn Style Two */
 
 .btn-style-two{
+    bottom: 15px;
 	position: relative;
 	display: inline-block;
 	font-size: 15px;
 	line-height: 28px;
-	color: white;
+	color: black;
 	font-weight: 600;
 	padding: 10px 30px;
 	text-transform:capitalize;
 	font-family: 'Open Sans', sans-serif;
 	border-radius:25px;
-	border:1px solid #e0e0e0;
+
 	overflow:hidden;
 }
 
@@ -2096,6 +2099,7 @@ img{
 }
 
 .sec-title h2{
+    text-align: center;
 	position: relative;
 	display: block;
 	font-size:60px;
@@ -2105,6 +2109,7 @@ img{
 }
 
 .sec-title .text{
+    text-align: center;
 	position: relative;
 	display: block;
 	padding-top:20px;
@@ -5044,6 +5049,7 @@ img{
 }
 
 .page-banner h1{
+    text-align: center;
 	position:relative;
 	font-size:60px;
 	line-height:1.2em;
@@ -5054,6 +5060,7 @@ img{
 }
 
 .page-banner .bread-crumb{
+    text-align: center;
 	position:relative;
 }
 
@@ -5276,119 +5283,122 @@ img{
 ====================================================================
 
 ***/
-
 .events-section{
-	position:relative;
-	padding:130px 0px 100px;
-	background-color:#ffffff;
-	overflow:hidden;
+    position:relative;
+    padding:100px 0px 80px; /* تقليص padding في الأعلى والأسفل */
+    background-color:#ffffff;
+    overflow:hidden;
 }
 
 .event-block-three{
-	position:relative;
-	margin-bottom:30px;
+    position:relative;
+    margin-bottom:20px; /* تقليص المسافة بين الـCards */
+    max-width: 100%; /* تأكيد أن العرض سيكون 100% داخل المساحة المحددة */
 }
 
 .event-block-three .inner-box{
-	position:relative;
-	display:block;
-	background:#ffffff;
-	border:1px solid #e5e5e5;
-	border-radius:20px;
-	overflow:hidden;
-	-webkit-transition:all 300ms ease;
-	-ms-transition:all 300ms ease;
-	-o-transition:all 300ms ease;
-	-moz-transition:all 300ms ease;
-	transition:all 300ms ease;
+    position:relative;
+    display:block;
+    background:#ffffff;
+    border:1px solid #e5e5e5;
+    border-radius:10px; /* تقليص الزوايا لتقليل حجم الـCard */
+    overflow:hidden;
+    transition: all 300ms ease;
+    height: 380px; /* تقليص الارتفاع العام للـCard */
 }
 
 .event-block-three .inner-box:hover{
-	-webkit-box-shadow:0px 15px 40px 5px rgba(0,0,0,0.10);
-	-ms-box-shadow:0px 15px 40px 5px rgba(0,0,0,0.10);
-	box-shadow:0px 15px 40px 5px rgba(0,0,0,0.10);
+    box-shadow:0px 15px 40px 5px rgba(0,0,0,0.10);
 }
 
 .event-block-three .image-box{
-	position:relative;
+    position:relative;
+    height: 180px; /* تقليص ارتفاع الصورة لتناسب الـCard */
+    overflow: hidden;
 }
 
 .event-block-three .image-box img{
-	width:100%;
+    width:100%;
+    height:100%; /* التأكد من أن الصورة تملأ المساحة المخصصة لها */
+    object-fit: cover;
 }
 
 .event-block-three .image-box .date{
-	position:absolute;
-	left:30px;
-	top:30px;
-	width:74px;
-	height:74px;
-	font-size:30px;
-	z-index:1;
-	line-height:1em;
-	font-family: 'Yeseva One', cursive;
-	color:#ffffff;
-	padding-top:15px;
-	text-align:center;
-	border-radius:20px 0px 20px 0px;
+    position:absolute;
+    left:15px;
+    top:15px;
+    width:50px;
+    height:50px;
+    font-size:22px;
+    z-index:1;
+    line-height:1em;
+    font-family: 'Yeseva One', cursive;
+    color:#ffffff;
+    padding-top:10px;
+    text-align:center;
+    border-radius:15px 0px 15px 0px;
 }
 
 .event-block-three .image-box .date .month{
-	position:relative;
-	display:block;
-	font-size:15px;
-	line-height:1.2em;
+    position:relative;
+    display:block;
+    font-size:12px;
+    line-height:1.2em;
 }
 
 .event-block-three .inner-box .lower-content{
-	position:relative;
-	padding:35px 30px 40px;
+    position:relative;
+    padding:10px 15px 25px; /* زيادة المسافة السفلية لضمان ظهور الزر */
+    height: auto; /* جعل الارتفاع تلقائي لتناسب المحتوى بالكامل */
+    overflow: visible; /* السماح بظهور الزر كاملًا */
 }
 
 .event-block-three .inner-box h3{
-	font-size:24px;
-	line-height:1.30em;
-	font-weight:400;
-	margin-bottom:15px;
-	color:#25283a;
+    font-size:20px;
+    line-height:1.3em;
+    font-weight:400;
+    margin-bottom:10px; /* تقليص المسافة بين العنوان والمحتوى */
+    color:#25283a;
+    text-align: center;
 }
 
 .event-block-three .inner-box h3 a{
-	color:#25283a;
+    color:#25283a;
 }
 
 .event-block-three .inner-box .text{
-	line-height:1.6em;
-	font-size:16px;
-	margin-bottom:30px;
+    text-align: right;
+    line-height:1.4em;
+    font-size:14px; /* تقليص حجم النص */
+    margin-bottom:15px; /* تقليص المسافة بين النص */
 }
 
 .event-block-three .info{
-	position:relative;
-	margin-bottom:20px;
+    position:relative;
+    margin-bottom:10px; /* تقليص المسافة */
 }
 
 .event-block-three .info li{
-	position:relative;
-	display:inline-block;
-	font-size:15px;
-	color:#848484;
-	margin-right:15px;
-	margin-bottom:10px;
+    position:relative;
+    display:inline-block;
+    font-size:13px; /* تقليص حجم النص */
+    color:#848484;
+    margin-right:10px; /* تقليص المسافة */
 }
 
 .event-block-three .info li:last-child{
-	margin-right:0;
+    margin-right:0;
 }
 
 .event-block-three .info li .icon{
-	position:relative;
-	padding-right:3px;
+    position:relative;
+    padding-right:3px;
 }
 
 .event-block-three .inner-box:hover .btn-style-two{
-	color: #ffffff;
+    color: #ffffff;
 }
+
 
 /***
 
@@ -6662,77 +6672,87 @@ img{
 .event-details .inner-box h3 a{
 	color:#25283a;
 }
-
-.event-details .inner-box .text{
-	line-height:1.6em;
-	font-size:15px;
-	margin-bottom:30px;
+/* تنسيق النصوص داخل العنصر الرئيسي */
+.event-details .inner-box {
+    text-align: right; /* لضبط النصوص إلى اليمين */
+    direction: rtl; /* لضبط الاتجاه من اليمين لليسار */
 }
 
-.event-details .inner-box p{
-	line-height:1.6em;
-	font-size:15px;
-	margin-bottom:20px;
+/* النصوص داخل النص الكبير */
+.event-details .inner-box .text {
+    line-height: 1.6em;
+    font-size: 15px;
+    margin-bottom: 30px;
 }
 
-
-.event-details .inner-box p.big-text{
-	font-size:17px;
+/* تنسيق الفقرات */
+.event-details .inner-box p {
+    line-height: 1.6em;
+    font-size: 15px;
+    margin-bottom: 20px;
 }
 
-.event-details .inner-box ul{
-	position:relative;
-	margin-bottom:30px;
+/* تنسيق الفقرات التي تحتوي على نص كبير */
+.event-details .inner-box p.big-text {
+    font-size: 17px;
 }
 
-.event-details .inner-box ul li{
-	position:relative;
-	padding-left:20px;
-	line-height:24px;
-	color:#25283a;
-	margin-bottom:7px;
+/* تنسيق القوائم */
+.event-details .inner-box ul {
+    text-align: right; /* لضبط النصوص إلى اليمين */
+    direction: rtl; /* لضبط الاتجاه من اليمين لليسار */
 }
 
-.event-details .inner-box ul li:before{
-	content:'';
-	position:absolute;
-	left:0;
-	top:9px;
-	width:6px;
-	height:6px;
-	background:#dadde0;
-	border-radius:50%;
+/* تنسيق العناصر في القوائم */
+.event-details .inner-box ul li {
+    position: relative;
+    padding-right: 20px; /* تغيير من padding-left إلى padding-right لأننا نعرض النص من اليمين */
+    line-height: 24px;
+    color: #25283a;
+    margin-bottom: 7px;
 }
 
-.event-details .inner-box ul li:last-child{
-	margin-bottom:0;
+/* إضافة دائرة قبل العناصر في القائمة */
+.event-details .inner-box ul li:before {
+    content: '';
+    position: absolute;
+    right: 0; /* تغيير من left إلى right */
+    top: 9px;
+    width: 6px;
+    height: 6px;
+    background: #dadde0;
+    border-radius: 50%;
 }
 
-.event-details .inner-box .info{
-	position:relative;
-	margin-bottom:20px;
+/* إزالة المسافة أسفل العنصر الأخير في القائمة */
+.event-details .inner-box ul li:last-child {
+    margin-bottom: 0;
 }
 
-.event-details .inner-box .info li{
-	position:relative;
-	display:inline-block;
-	font-size:15px;
-	color:#848484;
-	padding:0;
-	margin-right:15px;
-	margin-bottom:10px;
+/* تنسيق معلومات الحدث (مثل الوقت والموقع) */
+.event-details .inner-box .info {
+    position: relative;
+    margin-bottom: 20px;
 }
 
-.event-details .inner-box .info li:last-child{
-	margin-right:0;
+.event-details .inner-box .info li {
+    position: relative;
+    display: inline-block;
+    font-size: 15px;
+    color: #848484;
+    padding: 0;
+    margin-left: 15px; /* تغيير من margin-right إلى margin-left */
+    margin-bottom: 10px;
 }
 
-.event-details .inner-box .info li:before{
-	display:none;
+/* إزالة دائرة قبل العناصر في قائمة المعلومات */
+.event-details .inner-box .info li:before {
+    display: none;
 }
 
-.event-details .map-canvas{
-	border-radius:20px;
+/* تنسيق الخريطة */
+.event-details .map-canvas {
+    border-radius: 20px;
 }
 
 /***

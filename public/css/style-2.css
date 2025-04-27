@@ -140,46 +140,36 @@
 .cause-block-two .inner-box .progress-box .bar {
     position: relative;
     width: 100%;
-    height: 5px;
+    height: 10px;  /* زيادة ارتفاع الشريط */
     background: rgba(0, 0, 0, 0.10);
-    border-radius: 3px;
+    border-radius: 12px;  /* جعل الزوايا دائرية أكثر */
     margin-bottom: 20px;
+    overflow: hidden;  /* إخفاء أي محتوى يخرج عن الحدود */
 }
-
 .cause-block-two .inner-box .progress-box .bar-inner {
     position: relative;
-    display: block;
-    width: 0%; /* يبدأ من 0% حتى يصل إلى 100% */
-    height: 5px;
-    background: #3cc88f; /* تغيير اللون إلى الأخضر */
-    border-radius: 3px;
-    -webkit-transition: all 1500ms ease;
-    -ms-transition: all 1500ms ease;
-    -o-transition: all 1500ms ease;
-    -moz-transition: all 1500ms ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 0%;
+    height: 100%;  /* يأخذ الارتفاع الكامل للشريط */
+    background: #3cc88f;
+    border-radius: 12px;
     transition: all 1500ms ease;
-    direction: rtl; /* تحريك الشريط من اليمين لليسار */
+    direction: rtl;
 }
+
+
 
 .cause-block-two .inner-box .progress-box .count-text {
     position: absolute;
-    left: 0px; /* بدأ النص من الجهة اليسرى */
-    margin-left: -23px;
-    bottom: 18px;
-    width: 46px;
-    height: 26px;
     color: #ffffff;
-    line-height: 26px;
-    font-size: 13px;
-    font-weight: 600;
-    border-radius: 2px;
+    font-size: 14px;
+    font-weight: bold;
     text-align: center;
-    opacity: 0;
-    -webkit-transition: all 500ms ease;
-    -ms-transition: all 500ms ease;
-    -o-transition: all 500ms ease;
-    -moz-transition: all 500ms ease;
-    transition: all 500ms ease;
+    width: 100%;
+    opacity: 1;  /* جعل النص مرئي دائمًا */
+    z-index: 2;  /* التأكد من ظهور النص فوق الخلفية */
 }
 
 .cause-block-two .inner-box .progress-box .bar-inner.counted .count-text {
@@ -227,7 +217,9 @@
 }
 
 .cause-block-two .inner-box .donate-info .btn-style-two {
+    top: 2px;
     background-color: #3cc88f;
+    color: #fff;
     font-size: 12px; /* تقليل حجم النص في الأزرار */
     padding: 5px 10px;
     width: 100%;

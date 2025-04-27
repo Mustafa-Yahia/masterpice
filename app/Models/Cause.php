@@ -19,16 +19,17 @@ class Cause extends Model
         'additional_details',
         'category',
         'user_id',
-        'location', // إضافة حقل الموقع
+        'location',
+        'responsible_person_name',  // Added field
+        'responsible_person_email', // Added field
+        'extra_raised_amount', // Added field for excess amount
     ];
 
-    // ✅ العلاقة مع المستخدم
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // ✅ العلاقة مع التبرعات
     public function donations()
     {
         return $this->hasMany(Donation::class);

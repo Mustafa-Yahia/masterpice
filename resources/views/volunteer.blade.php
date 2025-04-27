@@ -92,7 +92,8 @@
 </section>
 <!-- End Video Section -->
 
-<section class="volunteer-section py-5" style="background-color: #f0f4f8; direction: rtl; text-align: right;">
+
+{{-- <section class="volunteer-section py-5" style="background-color: #f0f4f8; direction: rtl; text-align: right;">
     <div class="container">
         <div class="sec-title text-center mb-5">
             <h2 class="fw-bold text-dark">نموذج التطوع <i class="fa fa-handshake"></i></h2>
@@ -300,6 +301,6 @@
         border: 1px solid #ced4da;
     }
 </style>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> --}}
 
 @endsection

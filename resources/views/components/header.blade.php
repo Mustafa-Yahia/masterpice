@@ -28,12 +28,20 @@
                                         <i class="fas fa-caret-down"></i> <!-- Arrow Icon -->
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="userDropdown">
-                                        <a class="dropdown-item" href="#"> <i class="fas fa-user-circle"></i> الملف الشخصي</a>
+                                        <!-- رابط إلى صفحة الملف الشخصي -->
+                                        <a class="dropdown-item" href="{{ route('profile.index') }}">
+                                            <i class="fas fa-user-circle"></i> الملف الشخصي
+                                        </a>
+
+                                        <!-- نموذج تسجيل الخروج -->
                                         <form action="{{ route('logout') }}" method="POST">
                                             @csrf
-                                            <button type="submit" class="dropdown-item"> <i class="fas fa-sign-out-alt"></i> تسجيل الخروج</button>
+                                            <button type="submit" class="dropdown-item">
+                                                <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+                                            </button>
                                         </form>
                                     </div>
+
                                 </div>
                             @else
                                 <a href="{{ route('login') }}" class="theme-btn btn-style-one" style="font-size: 12px; margin: 1px;">
@@ -52,6 +60,10 @@
                             <ul class="navigation clearfix">
                                 <li><a href="{{ route('volunteer.form') }}" class="{{ Route::is('volunteer.form') ? 'active' : '' }}"><i class="fas fa-hands-helping"></i> التطوع</a></li>
                                 <li><a href="{{ route('cause.index') }}" class="{{ Route::is('cause.index') ? 'active' : '' }}"><i class="fas fa-heart"></i> تبرع</a></li>
+
+                                <!-- رابط "الأحداث" الجديد -->
+                                <li><a href="{{ route('event.index') }}" class="{{ Route::is('event.index') ? 'active' : '' }}"><i class="fas fa-calendar-alt"></i> الأحداث</a></li>
+
                                 <li><a href="/" class="{{ Route::is('home') ? 'active' : '' }}"><i class="fas fa-home"></i> الرئيسية</a></li>
                             </ul>
                         </div>
