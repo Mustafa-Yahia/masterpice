@@ -6,14 +6,17 @@
     <title>لوحة تحكم المسؤول</title>
 
     <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <!-- SweetAlert2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.min.css" rel="stylesheet">
 
-    <!-- يمكنك إضافة المزيد من الـ CSS الخاص بك هنا -->
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <style>
+        .toggled {
+            margin-right: 0 !important;
+        }
+    </style>
 </head>
 <body class="bg-light">
 
@@ -29,16 +32,21 @@
         </div>
     </div>
 
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
     <!-- Bootstrap 5 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.all.min.js"></script>
 
-    <!-- يمكنك إضافة المزيد من السكربتات هنا -->
+    <!-- Stack Scripts -->
+    @stack('scripts')
+
     <script>
         // Toggle Sidebar
-        document.getElementById("menu-toggle").addEventListener("click", function() {
+        document.getElementById("menu-toggle")?.addEventListener("click", function() {
             document.getElementById("wrapper").classList.toggle("toggled");
         });
     </script>

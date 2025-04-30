@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AdminDonationController;
+use App\Http\Controllers\Admin\AdminCauseController;
+use App\Http\Controllers\Admin\AdminEventController;
 
 
 
@@ -111,6 +113,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
 });
 
+
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('users', App\Http\Controllers\Admin\UserController::class);
 });
@@ -118,6 +121,40 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
 
 
-Route::prefix('admin')->name('admin.')->middleware('auth', 'admin')->group(function () {
-    Route::resource('donations', AdminDonationController::class);
+
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
+
+    // Routes إدارة الحملات
+    Route::prefix('causes')->name('causes.')->group(function () {
+        Route::get('/', [AdminCauseController::class, 'index'])->name('index');
+        Route::get('/create', [AdminCauseController::class, 'create'])->name('create');
+        Route::post('/', [AdminCauseController::class, 'store'])->name('store');
+        Route::get('/{id}', [AdminCauseController::class, 'show'])->name('show');
+        Route::get('/{id}/edit', [AdminCauseController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [AdminCauseController::class, 'update'])->name('update');
+        Route::delete('/{id}', [AdminCauseController::class, 'destroy'])->name('destroy');
+    });
+
 });
+
+
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
+
+    // Routes إدارة الحملات
+    Route::prefix('events')->name('events.')->group(function () {
+        Route::get('/', [AdminEventController::class, 'index'])->name('index');
+        Route::get('/create', [AdminEventController::class, 'create'])->name('create');
+        Route::post('/', [AdminEventController::class, 'store'])->name('store');
+        Route::get('/{id}', [AdminEventController::class, 'show'])->name('show');
+        Route::get('/{id}/edit', [AdminEventController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [AdminEventController::class, 'update'])->name('update');
+        Route::delete('/{id}', [AdminEventController::class, 'destroy'])->name('destroy');
+    });
+
+});
+
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+    Route::resource('events', \App\Http\Controllers\Admin\AdminEventController::class);
+});
+
+

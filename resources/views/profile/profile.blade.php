@@ -45,7 +45,7 @@
                     <!-- تغيير كلمة المرور -->
                     <div class="profile-section mb-4">
                         <h3 style="text-align: center">تغيير كلمة المرور</h3>
-                        <form method="POST" action="{{ route('password.update') }} >
+                        <form method="POST" action="{{ route('password.update') }} ">
                             @csrf
                             @method('PUT')
 
@@ -191,7 +191,6 @@
 
 <script>
    $(document).ready(function() {
-    // تحقق من كلمة المرور الحالية عند الكتابة
     $('#current_password').on('input', function() {
         var currentPassword = $(this).val();
 
