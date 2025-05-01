@@ -44,40 +44,42 @@ class AdminEventController extends Controller
     public function create()
     {
         return view('admin.events.create');
-    } 
+    }
 
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'date' => 'required|date',
-            'time' => 'required',
-            'location' => 'required|string|max:255',
-            'location_url' => 'nullable|url',
-            'latitude' => 'nullable|numeric',
-            'longitude' => 'nullable|numeric',
-            'volunteers_needed' => 'required|integer|min:1',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'mission' => 'required|string',
-            'mission_point_1' => 'nullable|string|max:255',
-            'mission_point_2' => 'nullable|string|max:255',
-            'mission_point_3' => 'nullable|string|max:255',
-        ]);
+{
+    $validated = $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'date' => 'required|date',
+        'time' => 'required',
+        'location' => 'required|string|max:255',
+        'location_url' => 'nullable|url',
+        'latitude' => 'nullable|numeric',
+        'longitude' => 'nullable|numeric',
+        'volunteers_needed' => 'required|integer|min:1',
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'mission' => 'required|string',
+        'mission_point_1' => 'nullable|string|max:255',
+        'mission_point_2' => 'nullable|string|max:255',
+        'mission_point_3' => 'nullable|string|max:255',
+    ]);
 
-        if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('events', 'public');
-        }
-
-        Event::create($validated);
-
-        return redirect()->route('admin.events.index')
-                         ->with('swal', [
-                             'icon' => 'success',
-                             'title' => 'نجاح',
-                             'text' => 'تم إضافة الحدث بنجاح'
-                         ]);
+    // حفظ الصورة في المجلد الصحيح
+    if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('events', 'public');
+        $validated['image'] = $imagePath; // سيحفظ المسار كـ 'events/filename.jpg'
     }
+
+    Event::create($validated);
+
+    return redirect()->route('admin.events.index')
+                     ->with('swal', [
+                         'icon' => 'success',
+                         'title' => 'نجاح',
+                         'text' => 'تم إضافة الحدث بنجاح'
+                     ]);
+}
 
     public function show(Event $event)
     {
@@ -89,6 +91,7 @@ class AdminEventController extends Controller
         $event = Event::findOrFail($id);
         return view('admin.events.edit', compact('event'));
     }
+
     public function update(Request $request, $id)
     {
         $event = Event::findOrFail($id);
@@ -110,15 +113,17 @@ class AdminEventController extends Controller
             'mission_point_3' => 'nullable|string|max:255',
         ]);
 
-        // معالجة صورة الحدث
         if ($request->hasFile('image')) {
             // حذف الصورة القديمة إذا كانت موجودة
             if ($event->image) {
                 Storage::disk('public')->delete($event->image);
             }
-            $validated['image'] = $request->file('image')->store('events', 'public');
+
+            // حفظ الصورة الجديدة
+            $imageName = time().'.'.$request->image->extension();
+            $imagePath = $request->file('image')->storeAs('', $imageName, 'public');
+            $validated['image'] = $imageName;
         } else {
-            // الاحتفاظ بالصورة القديمة إذا لم يتم تحميل صورة جديدة
             $validated['image'] = $event->image;
         }
 

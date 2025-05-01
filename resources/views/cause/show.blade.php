@@ -49,8 +49,7 @@
 <div class="col-lg-7">
     <div class="p-4 rounded bg-white shadow-sm wow fadeInUp text-end">
         <h2   class="mb-4 text-primary"><i class="fas fa-campaign"></i> {{ $cause->title }}</h2>
-
-        <img class="img-fluid rounded mb-4" src="{{ asset('storage/images/' . $cause->image) }}" alt="{{ $cause->title }}">
+        <img class="img-fluid rounded mb-4" src="{{ asset('storage/' . $cause->image) }}" alt="{{ $cause->title }}" style="height: 230px; object-fit: cover;">
 
         <div class="mb-3">
             <h5 class="fw-bold"><i class="fas fa-info-circle"></i> الوصف:</h5>

@@ -37,27 +37,46 @@ class UserController extends Controller
         return view('admin.users.create');
     }
 
-    // تخزين مستخدم جديد
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'phone' => 'required',
-            'role' => 'required',
-            'password' => 'required|min:6',
-        ]);
 
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'role' => $request->role,
-            'password' => Hash::make($request->password),
-        ]);
+public function store(Request $request)
+{
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'date' => 'required|date',
+        'time' => 'required',
+        'location' => 'required|string',
+        'volunteers_needed' => 'required|integer|min:1',
+        'mission' => 'required|string',
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
 
-        return redirect()->route('admin.users.index')->with('success', 'تم إضافة المستخدم بنجاح');
+    // Handle image upload
+    if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('public/events');
+        $imageName = basename($imagePath); // يحفظ اسم الملف فقط بدون المسار
     }
+
+    Event::create([
+        'title' => $request->title,
+        'description' => $request->description,
+        'date' => $request->date,
+        'time' => $request->time,
+        'location' => $request->location,
+        'location_url' => $request->location_url,
+        'latitude' => $request->latitude,
+        'longitude' => $request->longitude,
+        'volunteers_needed' => $request->volunteers_needed,
+        'mission' => $request->mission,
+        'mission_point_1' => $request->mission_point_1,
+        'mission_point_2' => $request->mission_point_2,
+        'mission_point_3' => $request->mission_point_3,
+        'image' => $imageName ?? null, // يحفظ اسم الملف فقط
+    ]);
+
+    return redirect()->route('admin.events.index')->with('success', 'تم إضافة الحدث بنجاح');
+}
+
 
     // عرض صفحة تعديل مستخدم
     public function edit(User $user)

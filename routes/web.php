@@ -137,24 +137,20 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 
 });
 
-
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
-
-    // Routes إدارة الحملات
     Route::prefix('events')->name('events.')->group(function () {
         Route::get('/', [AdminEventController::class, 'index'])->name('index');
         Route::get('/create', [AdminEventController::class, 'create'])->name('create');
         Route::post('/', [AdminEventController::class, 'store'])->name('store');
-        Route::get('/{id}', [AdminEventController::class, 'show'])->name('show');
-        Route::get('/{id}/edit', [AdminEventController::class, 'edit'])->name('edit');
-        Route::put('/{id}', [AdminEventController::class, 'update'])->name('update');
-        Route::delete('/{id}', [AdminEventController::class, 'destroy'])->name('destroy');
+        Route::get('/{event}', [AdminEventController::class, 'show'])->name('show');
+        Route::get('/{event}/edit', [AdminEventController::class, 'edit'])->name('edit');
+        Route::put('/{event}', [AdminEventController::class, 'update'])->name('update');
+        Route::delete('/{event}', [AdminEventController::class, 'destroy'])->name('destroy');
     });
-
 });
 
-Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
-    Route::resource('events', \App\Http\Controllers\Admin\AdminEventController::class);
-});
+// Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+//     Route::resource('events', \App\Http\Controllers\Admin\AdminEventController::class);
+// });
 
 

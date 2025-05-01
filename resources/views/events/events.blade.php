@@ -102,7 +102,8 @@
                         <div class="image-box">
                             <figure class="image">
                                 <a href="{{ route('event.show', $event->id) }}">
-                                    <img class="lazy-image" src="{{ asset('storage/events/' . $event->image) }}" alt="{{ $event->title }}">
+                                    <img class="lazy-image" src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->title }}">
+
                                 </a>
                             </figure>
                             <div class="date">{{ \Carbon\Carbon::parse($event->date)->format('d') }} <span class="month">{{ \Carbon\Carbon::parse($event->date)->format('M') }}</span></div>

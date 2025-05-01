@@ -5,7 +5,6 @@
 @push('styles')
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-<!-- SweetAlert2 Styles -->
 <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.min.css" rel="stylesheet">
 <style>
     .filter-container {
@@ -15,7 +14,8 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         margin-bottom: 20px;
     }
-    .filter-container .form-control, .filter-container .form-select {
+    .filter-container .form-control,
+    .filter-container .form-select {
         border-radius: 8px;
     }
     .filter-container button {
@@ -28,40 +28,58 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.all.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- SweetAlert2 Script -->
 
 <script>
     $(document).ready(function() {
-        $('.delete-form').on('submit', function(e) {
-            e.preventDefault(); // Prevent the form from submitting immediately
+        // تأكيد الحذف مع SweetAlert2
+        $('.delete-btn').click(function(e) {
+            e.preventDefault();
+            var form = $(this).closest('form');
 
-            var form = $(this); // Store the form for later submission
-
-            // SweetAlert confirmation
             Swal.fire({
                 title: 'هل أنت متأكد؟',
-                text: "لا يمكنك التراجع عن هذا القرار!",
+                text: "لا يمكنك التراجع عن هذا الإجراء!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'نعم، حذف!',
-                cancelButtonText: 'إلغاء'
+                confirmButtonText: 'نعم، احذف!',
+                cancelButtonText: 'إلغاء',
+                reverseButtons: true
             }).then((result) => {
                 if (result.isConfirmed) {
-                    form.submit(); // Submit the form if confirmed
+                    form.submit();
                 }
             });
+        });
+
+        // فلترة البيانات
+        $('#filterForm').submit(function(e) {
+            e.preventDefault();
+            window.location.href = "{{ route('admin.users.index') }}?" + $(this).serialize();
         });
     });
 </script>
 @endpush
 
 <div class="container-fluid" style="padding-right: 270px; padding-top: 20px;">
-    @include('admin.sidebar')
-
     <div class="content" style="background: #f4f6f9; padding: 30px; min-height: 100vh; direction: rtl;">
         <h1 class="text-center fw-bold text-primary mb-5">إدارة المستخدمين</h1>
+
+        <!-- عرض رسائل التنبيه -->
+        @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
+        @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
 
         <!-- فلتر البيانات -->
         <div class="filter-container mb-4">
@@ -118,15 +136,14 @@
                             <td>{{ $user->created_at->format('Y-m-d') }}</td>
                             <td>
                                 <div class="d-flex justify-content-center gap-2">
-                                    <!-- إضافة أيقونات التعديل والحذف -->
                                     <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-sm btn-warning">
                                         <i class="fas fa-edit"></i> تعديل
                                     </a>
 
-                                    <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline delete-form">
+                                    <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger">
+                                        <button type="submit" class="btn btn-sm btn-danger delete-btn">
                                             <i class="fas fa-trash"></i> حذف
                                         </button>
                                     </form>
@@ -138,7 +155,6 @@
                 </table>
             </div>
 
-            <!-- زر إضافة مستخدم جديد مع أيقونة -->
             <div class="text-center mt-4">
                 <a href="{{ route('admin.users.create') }}" class="btn btn-success btn-lg fw-bold">
                     <i class="fas fa-user-plus"></i> إضافة مستخدم جديد

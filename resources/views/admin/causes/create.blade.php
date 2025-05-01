@@ -1,231 +1,257 @@
 @extends('layouts.admin')
 
 @section('content')
-@push('styles')
-<!-- Bootstrap RTL -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-<!-- Font Awesome -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-<!-- Summernote Editor -->
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-<!-- Custom Styles -->
-<style>
-    .form-container {
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        padding: 30px;
-    }
-    .form-label {
-        font-weight: 600;
-        margin-bottom: 8px;
-    }
-    .required-field::after {
-        content: " *";
-        color: red;
-    }
-    .image-preview {
-        max-width: 200px;
-        max-height: 200px;
-        margin-top: 10px;
-        display: none;
-    }
-</style>
-@endpush
-
-<div class="container-fluid py-4">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="form-container">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h2 class="fw-bold text-primary">
-                        <i class="fas fa-plus-circle me-2"></i>إضافة حملة جديدة
-                    </h2>
-                    <a href="{{ route('admin.causes.index') }}" class="btn btn-outline-secondary">
-                        <i class="fas fa-arrow-left me-2"></i>رجوع
-                    </a>
-                </div>
-
-                <form action="{{ route('admin.causes.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-
-                    <div class="row">
-                        <!-- العنوان -->
-                        <div class="col-md-6 mb-4">
-                            <label for="title" class="form-label required-field">عنوان الحملة</label>
-                            <input type="text" class="form-control @error('title') is-invalid @enderror"
-                                   id="title" name="title" value="{{ old('title') }}" required>
-                            @error('title')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- الفئة -->
-                        <div class="col-md-6 mb-4">
-                            <label for="category" class="form-label">الفئة</label>
-                            <select class="form-select @error('category') is-invalid @enderror" id="category" name="category">
-                                <option value="">اختر الفئة</option>
-                                <option value="medical" {{ old('category') == 'medical' ? 'selected' : '' }}>طبية</option>
-                                <option value="education" {{ old('category') == 'education' ? 'selected' : '' }}>تعليمية</option>
-                                <option value="social" {{ old('category') == 'social' ? 'selected' : '' }}>اجتماعية</option>
-                                <option value="emergency" {{ old('category') == 'emergency' ? 'selected' : '' }}>طارئة</option>
-                            </select>
-                            @error('category')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- المبلغ المجموع -->
-                        <div class="col-md-6 mb-4">
-                            <label for="raised_amount" class="form-label required-field">المبلغ المجموع ($)</label>
-                            <input type="number" step="0.01" class="form-control @error('raised_amount') is-invalid @enderror"
-                                   id="raised_amount" name="raised_amount" value="{{ old('raised_amount', 0) }}" required>
-                            @error('raised_amount')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- الهدف المطلوب -->
-                        <div class="col-md-6 mb-4">
-                            <label for="goal_amount" class="form-label required-field">الهدف المطلوب ($)</label>
-                            <input type="number" step="0.01" class="form-control @error('goal_amount') is-invalid @enderror"
-                                   id="goal_amount" name="goal_amount" value="{{ old('goal_amount') }}" required>
-                            @error('goal_amount')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- تاريخ الانتهاء -->
-                        <div class="col-md-6 mb-4">
-                            <label for="end_date" class="form-label required-field">تاريخ الانتهاء</label>
-                            <input type="date" class="form-control @error('end_date') is-invalid @enderror"
-                                   id="end_date" name="end_date" value="{{ old('end_date') }}" required>
-                            @error('end_date')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- الموقع -->
-                        <div class="col-md-6 mb-4">
-                            <label for="location" class="form-label">الموقع</label>
-                            <input type="text" class="form-control @error('location') is-invalid @enderror"
-                                   id="location" name="location" value="{{ old('location') }}">
-                            @error('location')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- صورة الحملة -->
-                        <div class="col-12 mb-4">
-                            <label for="image" class="form-label">صورة الحملة</label>
-                            <input type="file" class="form-control @error('image') is-invalid @enderror"
-                                   id="image" name="image" accept="image/*" onchange="previewImage(this)">
-                            @error('image')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                            <img id="imagePreview" class="image-preview img-thumbnail" alt="معاينة الصورة">
-                        </div>
-
-                        <!-- الوصف -->
-                        <div class="col-12 mb-4">
-                            <label for="description" class="form-label required-field">الوصف</label>
-                            <textarea class="form-control @error('description') is-invalid @enderror"
-                                      id="description" name="description" rows="5" required>{{ old('description') }}</textarea>
-                            @error('description')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- التفاصيل الإضافية -->
-                        <div class="col-12 mb-4">
-                            <label for="additional_details" class="form-label">تفاصيل إضافية</label>
-                            <textarea class="form-control @error('additional_details') is-invalid @enderror"
-                                      id="additional_details" name="additional_details" rows="3">{{ old('additional_details') }}</textarea>
-                            @error('additional_details')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- مسؤول الحملة -->
-                        <div class="col-md-6 mb-4">
-                            <label for="responsible_person_name" class="form-label required-field">اسم المسؤول</label>
-                            <input type="text" class="form-control @error('responsible_person_name') is-invalid @enderror"
-                                   id="responsible_person_name" name="responsible_person_name" value="{{ old('responsible_person_name') }}" required>
-                            @error('responsible_person_name')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="col-md-6 mb-4">
-                            <label for="responsible_person_email" class="form-label required-field">بريد المسؤول</label>
-                            <input type="email" class="form-control @error('responsible_person_email') is-invalid @enderror"
-                                   id="responsible_person_email" name="responsible_person_email" value="{{ old('responsible_person_email') }}" required>
-                            @error('responsible_person_email')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary btn-lg">
-                                <i class="fas fa-save me-2"></i>حفظ الحملة
-                            </button>
-                        </div>
+<div class="container-fluid" style="padding-top: 20px;">
+    <div class="row">
+        <!-- Main content -->
+        <div class="col-md-9 col-lg-10" style="margin-right: 250px; padding-left: 30px;">
+            <div class="content" style="background: #f9fafb; padding: 30px; min-height: 100vh; direction: rtl;">
+                <div class="card shadow-lg">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="card-title mb-0">
+                            <i class="fas fa-plus-circle"></i> إضافة حملة تبرعات جديدة
+                        </h3>
                     </div>
-                </form>
+
+                    <div class="card-body">
+                        <form action="{{ route('admin.causes.store') }}" method="POST" enctype="multipart/form-data" id="create-cause-form">
+                            @csrf
+
+                            <div class="row">
+                                <!-- معلومات أساسية -->
+                                <div class="col-md-12 mb-4">
+                                    <h5 class="text-primary border-bottom pb-2 mb-3">
+                                        <i class="fas fa-info-circle"></i> المعلومات الأساسية
+                                    </h5>
+
+                                    <div class="row">
+                                        <!-- عنوان الحملة -->
+                                        <div class="col-md-6 mb-3">
+                                            <label for="title" class="form-label">عنوان الحملة <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control @error('title') is-invalid @enderror"
+                                                   id="title" name="title" value="{{ old('title') }}" required>
+                                            @error('title')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <!-- الفئة -->
+                                        <div class="col-md-6 mb-3">
+                                            <label for="category" class="form-label">الفئة</label>
+                                            <input type="text" class="form-control @error('category') is-invalid @enderror"
+                                                   id="category" name="category" value="{{ old('category') }}">
+                                            @error('category')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <!-- الوصف -->
+                                    <div class="mb-3">
+                                        <label for="description" class="form-label">وصف الحملة <span class="text-danger">*</span></label>
+                                        <textarea class="form-control @error('description') is-invalid @enderror"
+                                                  id="description" name="description" rows="4" required>{{ old('description') }}</textarea>
+                                        @error('description')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <!-- المعلومات المالية -->
+                                <div class="col-md-12 mb-4">
+                                    <h5 class="text-primary border-bottom pb-2 mb-3">
+                                        <i class="fas fa-money-bill-wave"></i> المعلومات المالية
+                                    </h5>
+
+                                    <div class="row">
+                                        <!-- المبلغ المجموع -->
+                                        <div class="col-md-4 mb-3">
+                                            <label for="raised_amount" class="form-label">المبلغ المجموع ($) <span class="text-danger">*</span></label>
+                                            <input type="number" step="0.01" class="form-control @error('raised_amount') is-invalid @enderror"
+                                                   id="raised_amount" name="raised_amount" value="{{ old('raised_amount', 0) }}" required>
+                                            @error('raised_amount')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <!-- الهدف المطلوب -->
+                                        <div class="col-md-4 mb-3">
+                                            <label for="goal_amount" class="form-label">الهدف المطلوب ($) <span class="text-danger">*</span></label>
+                                            <input type="number" step="0.01" class="form-control @error('goal_amount') is-invalid @enderror"
+                                                   id="goal_amount" name="goal_amount" value="{{ old('goal_amount') }}" required>
+                                            @error('goal_amount')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <!-- مبلغ إضافي -->
+                                        <div class="col-md-4 mb-3">
+                                            <label for="extra_raised_amount" class="form-label">مبلغ إضافي ($)</label>
+                                            <input type="number" step="0.01" class="form-control @error('extra_raised_amount') is-invalid @enderror"
+                                                   id="extra_raised_amount" name="extra_raised_amount" value="{{ old('extra_raised_amount', 0) }}">
+                                            @error('extra_raised_amount')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- معلومات الموقع والمسؤول -->
+                                <div class="col-md-12 mb-4">
+                                    <h5 class="text-primary border-bottom pb-2 mb-3">
+                                        <i class="fas fa-map-marker-alt"></i> معلومات الموقع والمسؤول
+                                    </h5>
+
+                                    <div class="row">
+                                        <!-- الموقع -->
+                                        <div class="col-md-6 mb-3">
+                                            <label for="location" class="form-label">الموقع</label>
+                                            <input type="text" class="form-control @error('location') is-invalid @enderror"
+                                                   id="location" name="location" value="{{ old('location') }}">
+                                            @error('location')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <!-- اسم المسؤول -->
+                                        <div class="col-md-6 mb-3">
+                                            <label for="responsible_person_name" class="form-label">اسم المسؤول</label>
+                                            <input type="text" class="form-control @error('responsible_person_name') is-invalid @enderror"
+                                                   id="responsible_person_name" name="responsible_person_name" value="{{ old('responsible_person_name') }}">
+                                            @error('responsible_person_name')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <!-- بريد المسؤول -->
+                                        <div class="col-md-6 mb-3">
+                                            <label for="responsible_person_email" class="form-label">بريد المسؤول</label>
+                                            <input type="email" class="form-control @error('responsible_person_email') is-invalid @enderror"
+                                                   id="responsible_person_email" name="responsible_person_email" value="{{ old('responsible_person_email') }}">
+                                            @error('responsible_person_email')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <!-- تاريخ الانتهاء -->
+                                        <div class="col-md-6 mb-3">
+                                            <label for="end_date" class="form-label">تاريخ الانتهاء</label>
+                                            <input type="date" class="form-control @error('end_date') is-invalid @enderror"
+                                                   id="end_date" name="end_date" value="{{ old('end_date') }}">
+                                            @error('end_date')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- الصورة -->
+                                <div class="col-md-12 mb-4">
+                                    <h5 class="text-primary border-bottom pb-2 mb-3">
+                                        <i class="fas fa-image"></i> صورة الحملة
+                                    </h5>
+
+                                    <div class="mb-3">
+                                        <label for="image" class="form-label">اختر صورة للحملة</label>
+                                        <input type="file" class="form-control @error('image') is-invalid @enderror"
+                                               id="image" name="image" accept="image/*">
+                                        @error('image')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                        <div class="form-text">سيتم حفظ الصورة في: public/storage/causes/</div>
+                                    </div>
+
+                                    <div id="image-preview" class="mt-2 text-center" style="display: none;">
+                                        <img id="preview-image" src="#" alt="Preview" class="img-thumbnail" style="max-height: 200px;">
+                                    </div>
+                                </div>
+
+                                <!-- تفاصيل إضافية -->
+                                <div class="col-md-12 mb-4">
+                                    <h5 class="text-primary border-bottom pb-2 mb-3">
+                                        <i class="fas fa-ellipsis-h"></i> تفاصيل إضافية
+                                    </h5>
+
+                                    <div class="mb-3">
+                                        <label for="additional_details" class="form-label">تفاصيل إضافية</label>
+                                        <textarea class="form-control @error('additional_details') is-invalid @enderror"
+                                                  id="additional_details" name="additional_details" rows="3">{{ old('additional_details') }}</textarea>
+                                        @error('additional_details')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- أزرار الحفظ والإلغاء -->
+                            <div class="d-flex justify-content-between mt-4">
+                                <button type="submit" class="btn btn-success px-4 py-2">
+                                    <i class="fas fa-save"></i> حفظ الحملة
+                                </button>
+
+                                <a href="{{ route('admin.causes.index') }}" class="btn btn-outline-secondary px-4 py-2">
+                                    <i class="fas fa-times"></i> إلغاء
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+@endsection
 
 @push('scripts')
-<!-- Summernote Editor -->
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-<!-- Arabic Language for Summernote -->
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/lang/summernote-ar-AR.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    // معاينة الصورة
-    function previewImage(input) {
-        const preview = document.getElementById('imagePreview');
-        const file = input.files[0];
-        const reader = new FileReader();
+    document.addEventListener('DOMContentLoaded', function() {
+        // معاينة الصورة قبل الرفع
+        const imageInput = document.getElementById('image');
+        const imagePreview = document.getElementById('image-preview');
+        const previewImage = document.getElementById('preview-image');
 
-        reader.onload = function(e) {
-            preview.src = e.target.result;
-            preview.style.display = 'block';
+        if (imageInput && previewImage) {
+            imageInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+
+                    reader.addEventListener('load', function() {
+                        previewImage.src = this.result;
+                        imagePreview.style.display = 'block';
+                    });
+
+                    reader.readAsDataURL(file);
+                } else {
+                    imagePreview.style.display = 'none';
+                }
+            });
         }
 
-        if (file) {
-            reader.readAsDataURL(file);
+        // تأكيد الحفظ
+        const form = document.getElementById('create-cause-form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'هل أنت متأكد؟',
+                    text: "سيتم إضافة الحملة الجديدة إلى النظام",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#28a745',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'نعم، أضف الحملة',
+                    cancelButtonText: 'إلغاء',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.submit();
+                    }
+                });
+            });
         }
-    }
-
-    // تفعيل محرر النصوص للوصف
-    $(document).ready(function() {
-        $('#description').summernote({
-            lang: 'ar-AR',
-            height: 200,
-            toolbar: [
-                ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['font', ['strikethrough']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['insert', ['link', 'picture']],
-                ['view', ['fullscreen', 'codeview', 'help']]
-            ]
-        });
-
-        // تفعيل محرر النصوص للتفاصيل الإضافية
-        $('#additional_details').summernote({
-            lang: 'ar-AR',
-            height: 150,
-            toolbar: [
-                ['style', ['bold', 'italic', 'underline']],
-                ['para', ['ul', 'ol']],
-                ['view', ['codeview']]
-            ]
-        });
     });
 </script>
 @endpush
-
-@endsection

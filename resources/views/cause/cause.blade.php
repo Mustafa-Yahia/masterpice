@@ -81,8 +81,10 @@
             <div class="card shadow-sm h-100 border-0 rounded-4 overflow-hidden d-flex flex-column">
                 <!-- Image -->
                 <a href="{{ route('cause.show', $cause->id) }}">
-                    <img class="card-img-top" src="{{ asset('storage/images/' . $cause->image) }}" alt="{{ $cause->title }}" style="height: 230px; object-fit: cover;">
+                    <img class="card-img-top" src="{{ asset('storage/' . $cause->image) }}" alt="{{ $cause->title }}" style="height: 230px; object-fit: cover;">
                 </a>
+
+     
 
                 <!-- Content -->
                 <div class="card-body d-flex flex-column justify-content-between flex-grow-1">

@@ -72,6 +72,7 @@
                                 <div class="col-md-6 mb-3">
                                     <label for="image" class="form-label">صورة الحدث <span class="text-danger">*</span></label>
                                     <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+                                    <small class="text-muted">يتم حفظ الصور في: storage/app/public/</small>
                                 </div>
 
                                 <!-- المهمة -->
