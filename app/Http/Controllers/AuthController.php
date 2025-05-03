@@ -74,6 +74,23 @@ class AuthController extends Controller
                 'string',
                 'min:3',
                 'regex:/^[\p{Arabic}\s]+$/u',
+                function ($attribute, $value, $fail) {
+                    $segments = preg_split('/\s+/', trim($value));
+
+                    // التحقق من وجود 3 مقاطع
+                    if (count($segments) < 3) {
+                        $fail('يجب أن يتكون الاسم من ثلاثة مقاطع (مثال: أحمد محمد عبدالله)');
+                        return;
+                    }
+
+                    // التحقق من أن كل مقطع يحتوي على 3 أحرف على الأقل
+                    foreach ($segments as $segment) {
+                        if (mb_strlen($segment) < 3) {
+                            $fail('يجب أن يحتوي كل مقطع من الاسم على 3 أحرف على الأقل');
+                            return;
+                        }
+                    }
+                },
             ],
             'email' => 'required|string|email|max:255|unique:users',
             'password' => [
@@ -117,8 +134,6 @@ class AuthController extends Controller
             'status' => 'تم إنشاء الحساب بنجاح! يمكنك الآن تسجيل الدخول.',
         ]);
     }
-
-
 
 
     // تسجيل الخروج
