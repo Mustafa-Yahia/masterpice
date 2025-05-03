@@ -27,20 +27,22 @@ class User extends Authenticatable
 
 
     public function donations()
-    {
-        return $this->hasMany(Donation::class);
-    }
-
-
-    public function subscriptions()
 {
-    return $this->hasMany(Subscription::class);
+    return $this->hasMany(Donation::class)->with(['cause', 'paymentMethod']);
 }
+
+
+//     public function subscriptions()
+// {
+//     return $this->hasMany(Subscription::class);
+// }
 
 public function events()
 {
     return $this->belongsToMany(Event::class, 'event_volunteer', 'user_id', 'event_id');
 }
+
+
 
 
 public function volunteers()

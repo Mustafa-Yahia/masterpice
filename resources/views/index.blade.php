@@ -103,67 +103,77 @@
     <!-- Causes Section -->
 <section class="causes-section-two py-5">
     <div class="auto-container">
-        <div class="sec-title centered">
+        <div class="sec-title centered mb-5">
             <h2 style="font-family: 'Cairo', sans-serif; font-weight: 600; text-align:center">كن سببًا في تغيير حياة الآخرين</h2>
             <div class="text" style="font-family: 'Cairo', sans-serif; font-size: 16px; line-height: 1.5;">تبرعك اليوم يمكن أن يصنع فرقًا كبيرًا في حياة محتاج، لا تتردد في أن تكون سببًا في الأمل.</div>
         </div>
 
-        <div class="row g-4">
+        <div id="causes-list" class="row gy-4">
             @foreach($causes->take(6) as $cause)
-                <div class="col-lg-4 col-md-6 col-sm-12 d-flex">
-                    <div class="cause-block-two w-100 d-flex flex-column">
-                        <div class="inner-box wow fadeInUp flex-fill d-flex flex-column">
-                            <!-- صورة -->
-                            <div class="image-box">
-                                <figure class="image">
-                                    <a href="{{ route('cause.show', $cause->id) }}">
-                                        <img class="img-fluid" src="{{ asset('storage/images/' . $cause->image) }}" alt="{{ $cause->title }}">
-                                    </a>
-                                </figure>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card shadow-sm h-100 border-0 rounded-4 overflow-hidden d-flex flex-column cause-card">
+                        <!-- Badge for urgent causes -->
+                        @if($cause->is_urgent)
+                        <div class="urgent-badge">
+                            <span class="badge bg-danger py-2 px-3 rounded-pill pulse-animation">
+                                <i class="fas fa-exclamation-circle me-1"></i> حملة عاجلة
+                            </span>
+                        </div>
+                        @endif
+
+                        <!-- Image with hover effect -->
+                        <a href="{{ route('cause.show', $cause->id) }}" class="cause-image-link">
+                            <img class="card-img-top cause-image" src="{{ asset('storage/images/' . $cause->image) }}" alt="{{ $cause->title }}" loading="lazy">
+                            <div class="image-overlay">
+                                <span class="view-details-btn">عرض التفاصيل</span>
                             </div>
+                        </a>
 
-                            <!-- المحتوى -->
-                            <div class="lower-content flex-fill" style="text-align: right;">
-                                <h3 style="font-family: 'Cairo', sans-serif;">
-                                    <a href="{{ route('cause.show', $cause->id) }}" style="color: Black;">{{ $cause->title }}</a>
-                                </h3>
-                                <div class="text" style="font-family: 'Cairo', sans-serif;">{{ Str::limit($cause->description, 100) }}</div>
+                        <!-- Content -->
+                        <div class="card-body d-flex flex-column justify-content-between flex-grow-1">
+                            <div>
+                                <h5 class="card-title text-primary">{{ $cause->title }}</h5>
+                                <p class="card-text text-muted">{{ Str::limit($cause->description, 100) }}</p>
 
-                                <!-- Category and Location with Icons -->
-                                <div class="meta-info" style="margin-top: 10px; display: flex; justify-content: space-between;">
-                                    <div class="category" style="display: flex; align-items: center;">
-                                        <i class="fa fa-tag" style="margin-left: 5px; margin-right: 5px;"></i>
-                                        <span><strong>الفئة:</strong> {{ $cause->category }}</span>
-                                    </div>
-                                    <div class="location" style="display: flex; align-items: center;">
-                                        <i class="fa fa-map-marker-alt" style="margin-left: 5px; margin-right: 5px;"></i>
-                                        <span><strong>الموقع:</strong> {{ $cause->location }}</span>
-                                    </div>
+                                <div class="d-flex justify-content-between mt-3 small text-secondary">
+                                    <span><i class="fa fa-tag me-1"></i> {{ $cause->category }}</span>
+                                    <span><i class="fa fa-map-marker-alt me-1"></i> {{ $cause->location }}</span>
                                 </div>
-                            </div>
 
-                            <!-- معلومات التبرع -->
-                            <div class="donate-info mt-auto" style="text-align: right;">
-                                <div class="progress-box">
-                                    <div class="bar">
-                                        <div class="bar-inner count-bar" data-percent="{{ $cause->raised_amount / $cause->goal_amount * 100 }}%">
-                                            <div class="count-text">
-                                                {{ convertToArabic(number_format($cause->raised_amount / $cause->goal_amount * 100, 0)) }}%
-                                            </div>
+                                <!-- Progress with animation -->
+                                <div class="mt-3 progress-container">
+                                    @php
+                                        $percentage = $cause->goal_amount > 0
+                                            ? ($cause->raised_amount / $cause->goal_amount) * 100
+                                            : 0;
+                                    @endphp
+
+                                    <div class="progress position-relative" style="height: 20px; background-color: #f1f1f1;">
+                                        <div class="progress-bar bg-success progress-animate"
+                                             role="progressbar"
+                                             style="width: 0;"
+                                             data-percentage="{{ $percentage }}"
+                                             aria-valuenow="{{ $cause->raised_amount }}"
+                                             aria-valuemin="0"
+                                             aria-valuemax="{{ $cause->goal_amount }}">
+                                            {{ convertToArabic(number_format($percentage, 0)) }}%
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="donation-count clearfix" style="direction: rtl;">
-                                    <span class="raised"><strong>تم جمع:</strong> {{ convertToArabic(number_format($cause->raised_amount)) }} د.أ</span>
-                                    <span class="goal"><strong>الهدف:</strong> {{ convertToArabic(number_format($cause->goal_amount)) }} د.أ</span>
+                                    <div class="d-flex justify-content-between mt-2 small">
+                                        <span><strong>تم جمع:</strong> {{ convertToArabic(number_format($cause->raised_amount)) }} د.أ</span>
+                                        <span><strong>الهدف:</strong> {{ convertToArabic(number_format($cause->goal_amount)) }} د.أ</span>
+                                    </div>
                                 </div>
+                            </div>
 
-                                <div class="link-box text-center mt-3">
-                                    <a href="{{ route('cause.show', $cause->id) }}" class="theme-btn btn-style-two" style="font-family: 'Cairo', sans-serif;">
-                                        <span class="btn-title">اقرأ المزيد</span>
-                                    </a>
-                                </div>
+                            <!-- Button with hover effect -->
+                            <div class="mt-4 mt-auto">
+                                <a href="{{ route('cause.show', $cause->id) }}"
+                                   class="btn w-100 rounded-pill read-more-btn">
+                                    اقرأ المزيد
+                                    <i class="fas fa-arrow-left ms-2 transition-all"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -171,10 +181,11 @@
             @endforeach
         </div>
 
-        <!-- زر عرض المزيد -->
+        <!-- View More Button -->
         <div class="text-center mt-5">
-            <a href="{{ route('cause.index') }}" class="theme-btn btn-style-one" style="font-family: 'Cairo', sans-serif;">
-                <span class="btn-title">عرض المزيد</span>
+            <a href="{{ route('cause.index') }}" class="btn btn-outline-primary rounded-pill px-4">
+                عرض المزيد
+                <i class="fas fa-arrow-left ms-2"></i>
             </a>
         </div>
     </div>
@@ -183,7 +194,122 @@
 
 
 
+
 <style>
+  .cause-card {
+        transition: all 0.3s ease;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        position: relative;
+    }
+
+    .cause-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Image Styles */
+    .cause-image-link {
+        position: relative;
+        display: block;
+        overflow: hidden;
+        height: 230px;
+    }
+
+    .cause-image {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(60, 200, 143, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .view-details-btn {
+        color: white;
+        font-weight: bold;
+        padding: 8px 16px;
+        border: 2px solid white;
+        border-radius: 30px;
+        transform: scale(0.9);
+        transition: all 0.3s ease;
+    }
+
+    .cause-image-link:hover .cause-image {
+        transform: scale(1.05);
+    }
+
+    .cause-image-link:hover .image-overlay {
+        opacity: 1;
+    }
+
+    .cause-image-link:hover .view-details-btn {
+        transform: scale(1);
+    }
+
+    /* Progress Bar Animation */
+    .progress-animate {
+        transition: width 1.5s ease-in-out;
+    }
+
+    /* Read More Button */
+    .read-more-btn {
+        border: 2px solid #3cc88f;
+        color: #3cc88f;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .read-more-btn:hover {
+        background-color: #3cc88f;
+        color: white;
+    }
+
+    .read-more-btn .transition-all {
+        transition: all 0.3s ease;
+    }
+
+    .read-more-btn:hover .transition-all {
+        transform: translateX(-5px);
+    }
+
+    /* Urgent Badge */
+    .urgent-badge {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        z-index: 2;
+    }
+
+    .pulse-animation {
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7);
+        }
+        70% {
+            box-shadow: 0 0 0 10px rgba(220, 53, 69, 0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+        }
+    }
 
 
     .default-text-block {
@@ -240,6 +366,46 @@
         });
     }); --}}
 {{-- </script> --}}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Animate progress bars on scroll
+        const progressBars = document.querySelectorAll('.progress-animate');
+
+        const animateProgressBars = () => {
+            progressBars.forEach(bar => {
+                const percentage = bar.getAttribute('data-percentage');
+                bar.style.width = percentage + '%';
+            });
+        };
+
+        // Intersection Observer for progress bars
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateProgressBars();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {threshold: 0.1});
+
+        progressBars.forEach(bar => {
+            observer.observe(bar.closest('.progress-container'));
+        });
+
+        // Add hover effect to cards
+        const cards = document.querySelectorAll('.cause-card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.classList.add('hover');
+            });
+            card.addEventListener('mouseleave', () => {
+                card.classList.remove('hover');
+            });
+        });
+    });
+</script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.bar-inner').forEach(function(bar) {

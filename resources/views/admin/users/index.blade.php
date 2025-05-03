@@ -1,6 +1,258 @@
 @extends('layouts.admin')
 
 @section('content')
+<div class="admin-container">
+    @include('admin.sidebar')
+
+    <div class="admin-content">
+        <!-- Header Section -->
+        <div class="content-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="page-title">
+                    <i class="fas fa-users"></i> إدارة المستخدمين
+                </h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">الرئيسية</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">المستخدمين</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Alerts -->
+        @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle me-2"></i>
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
+        @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-circle me-2"></i>
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
+        <!-- Filters Card -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <form id="filterForm">
+                    <div class="row g-3">
+                        <div class="col-md-5">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                <input type="text" name="search" class="form-control" placeholder="ابحث بالاسم أو البريد..." value="{{ request('search') }}">
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <select name="role" class="form-select">
+                                <option value="">جميع المستخدمين</option>
+                                <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>مشرف</option>
+                                <option value="user" {{ request('role') == 'user' ? 'selected' : '' }}>مستخدم</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 d-grid">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-filter me-2"></i>تصفية
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Users Table Card -->
+        <div class="card shadow-sm">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h3 class="card-title mb-0">قائمة المستخدمين</h3>
+                <a href="{{ route('admin.users.create') }}" class="btn btn-success">
+                    <i class="fas fa-user-plus me-2"></i>إضافة مستخدم
+                </a>
+            </div>
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead class="table-light">
+                            <tr>
+                                <th width="5%">#</th>
+                                <th>الاسم</th>
+                                <th>البريد الإلكتروني</th>
+                                <th>رقم الهاتف</th>
+                                <th>نوع المستخدم</th>
+                                <th>تاريخ التسجيل</th>
+                                <th width="15%">الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($users as $user)
+                            <tr>
+                                <td>{{ $user->id }}</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar me-3">
+                                            <img src="{{ $user->avatar ?? 'https://ui-avatars.com/api/?name='.$user->name.'&background=random' }}"
+                                                 alt="{{ $user->name }}"
+                                                 class="rounded-circle"
+                                                 width="40"
+                                                 height="40">
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-0">{{ $user->name }}</h6>
+                                            <small class="text-muted">{{ '@'.$user->username }}</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{{ $user->email }}</td>
+                                <td>{{ $user->phone ?? '--' }}</td>
+                                <td>
+                                    @if($user->role == 'admin')
+                                        <span class="badge bg-primary rounded-pill">
+                                            <i class="fas fa-shield-alt me-1"></i> مشرف
+                                        </span>
+                                    @else
+                                        <span class="badge bg-secondary rounded-pill">
+                                            <i class="fas fa-user me-1"></i> متبرع
+                                        </span>
+                                    @endif
+                                </td>
+                                <td>{{ $user->created_at->format('Y-m-d') }}</td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <a href="{{ route('admin.users.edit', $user->id) }}"
+                                           class="btn btn-sm btn-outline-primary"
+                                           data-bs-toggle="tooltip"
+                                           title="تعديل">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+
+                                        <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                    class="btn btn-sm btn-outline-danger delete-btn"
+                                                    data-bs-toggle="tooltip"
+                                                    title="حذف">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+
+                                        <a href="{{ route('admin.users.show', $user->id) }}"
+                                           class="btn btn-sm btn-outline-info"
+                                           data-bs-toggle="tooltip"
+                                           title="عرض التفاصيل">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                @if($users->hasPages())
+                <div class="d-flex justify-content-center mt-4">
+                    {{ $users->withQueryString()->links() }}
+                </div>
+                @endif
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@push('styles')
+<style>
+.avatar img {
+    object-fit: cover;
+}
+
+.table th {
+    font-weight: 600;
+    color: var(--dark);
+    border-top: none;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.btn-sm {
+    padding: 0.35rem 0.65rem;
+    font-size: 0.875rem;
+}
+
+.badge {
+    font-weight: 500;
+    padding: 0.35em 0.65em;
+}
+
+.page-item.active .page-link {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.page-link {
+    color: var(--primary);
+}
+</style>
+@endpush
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize tooltips
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl, {
+            trigger: 'hover'
+        });
+    });
+
+    // Delete confirmation with SweetAlert2
+    document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const form = this.closest('form');
+
+            Swal.fire({
+                title: 'هل أنت متأكد؟',
+                text: "لن تتمكن من استعادة هذا المستخدم!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'نعم، احذف!',
+                cancelButtonText: 'إلغاء',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+
+    // Filter form submission
+    document.getElementById('filterForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const params = new URLSearchParams(new FormData(this));
+        window.location.href = "{{ route('admin.users.index') }}?" + params.toString();
+    });
+});
+</script>
+@endpush
+
+{{-- @extends('layouts.admin')
+
+@section('content')
 
 @push('styles')
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
@@ -164,4 +416,4 @@
     </div>
 </div>
 
-@endsection
+@endsection --}}

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Donation;
+use App\Models\Event;
 
 class UserController extends Controller
 {
@@ -25,11 +27,10 @@ class UserController extends Controller
             $query->where('role', $request->role);
         }
 
-        $users = $query->latest()->paginate(10); // مع التقسيم الصفحي مثلا 10 عناصر في الصفحة
+        $users = $query->latest()->paginate(10);
 
         return view('admin.users.index', compact('users'));
     }
-
 
     // عرض صفحة إضافة مستخدم
     public function create()
@@ -37,46 +38,27 @@ class UserController extends Controller
         return view('admin.users.create');
     }
 
+    // حفظ مستخدم جديد
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users',
+            'phone' => 'required|string',
+            'role' => 'required|in:donor,admin',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
 
-public function store(Request $request)
-{
-    $request->validate([
-        'title' => 'required|string|max:255',
-        'description' => 'required|string',
-        'date' => 'required|date',
-        'time' => 'required',
-        'location' => 'required|string',
-        'volunteers_needed' => 'required|integer|min:1',
-        'mission' => 'required|string',
-        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-    ]);
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'role' => $request->role,
+            'password' => Hash::make($request->password),
+        ]);
 
-    // Handle image upload
-    if ($request->hasFile('image')) {
-        $imagePath = $request->file('image')->store('public/events');
-        $imageName = basename($imagePath); // يحفظ اسم الملف فقط بدون المسار
+        return redirect()->route('admin.users.index')->with('success', 'تم إضافة المستخدم بنجاح');
     }
-
-    Event::create([
-        'title' => $request->title,
-        'description' => $request->description,
-        'date' => $request->date,
-        'time' => $request->time,
-        'location' => $request->location,
-        'location_url' => $request->location_url,
-        'latitude' => $request->latitude,
-        'longitude' => $request->longitude,
-        'volunteers_needed' => $request->volunteers_needed,
-        'mission' => $request->mission,
-        'mission_point_1' => $request->mission_point_1,
-        'mission_point_2' => $request->mission_point_2,
-        'mission_point_3' => $request->mission_point_3,
-        'image' => $imageName ?? null, // يحفظ اسم الملف فقط
-    ]);
-
-    return redirect()->route('admin.events.index')->with('success', 'تم إضافة الحدث بنجاح');
-}
-
 
     // عرض صفحة تعديل مستخدم
     public function edit(User $user)
@@ -84,30 +66,55 @@ public function store(Request $request)
         return view('admin.users.edit', compact('user'));
     }
 
-    // تحديث بيانات مستخدم
     public function update(Request $request, User $user)
-    {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$user->id,
-            'phone' => 'required',
-            'role' => 'required',
-        ]);
+{
+    $request->validate([
+        'name' => 'required',
+        'email' => 'required|email|unique:users,email,'.$user->id,
+        'phone' => 'required',
+        'role' => 'required|in:donor,admin', // تأكد من تطابق القيم مع قاعدة البيانات
+        'password' => 'nullable|string|min:8|confirmed',
+    ]);
 
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'role' => $request->role,
-        ]);
+    $updateData = [
+        'name' => $request->name,
+        'email' => $request->email,
+        'phone' => $request->phone,
+        'role' => $request->role,
+    ];
 
-        return redirect()->route('admin.users.index')->with('success', 'تم تحديث المستخدم بنجاح');
+    if ($request->filled('password')) {
+        $updateData['password'] = Hash::make($request->password);
     }
 
+    $user->update($updateData);
+
+    return redirect()->route('admin.users.index')->with('success', 'تم تحديث المستخدم بنجاح');
+}
     // حذف مستخدم
     public function destroy(User $user)
     {
         $user->delete();
         return redirect()->route('admin.users.index')->with('success', 'تم حذف المستخدم بنجاح');
     }
+
+
+ // app/Http/Controllers/Admin/UserController.php
+public function show(User $user)
+{
+    $user->load([
+        'donations' => function($query) {
+            $query->with(['cause' => function($q) {
+                $q->where(function($query) {
+                    $query->whereNull('deleted_at')->orWhereNotNull('deleted_at');
+                });
+            }, 'paymentMethod'])->latest();
+        },
+        'events' => function($query) {
+            $query->withCount('volunteers')->latest();
+        }
+    ]);
+
+    return view('admin.users.show', compact('user'));
+}
 }

@@ -84,28 +84,21 @@ Route::get('storage/{file}', function($file) {
         return response()->file($path);
     }
     abort(404);
+});// Profile Routes
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [UserProfileController::class, 'index'])->name('profile.index');
+    Route::put('/profile', [UserProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/password', [UserProfileController::class, 'updatePassword'])->name('password.update');
+    Route::post('/profile/avatar', [UserProfileController::class, 'updateAvatar'])->name('profile.avatar.update');
+
+    // AJAX Routes
+    Route::post('/profile/check-password', [UserProfileController::class, 'checkCurrentPassword'])->name('password.checkCurrentPassword');
+    Route::post('/profile/check-strength', [UserProfileController::class, 'checkPasswordStrength'])->name('password.checkStrength');
+
+    // Other profile routes
+    Route::get('/profile/donations', [UserProfileController::class, 'donations'])->name('profile.donations');
+    Route::get('/profile/subscriptions', [UserProfileController::class, 'subscriptions'])->name('profile.subscriptions');
 });
-// عرض الملف الشخصي
-Route::get('/profile', [UserProfileController::class, 'index'])->name('profile.index');
-
-Route::put('/profile', [UserProfileController::class, 'update'])->name('profile.update'); // لتحديث البيانات
-
-// تحديث كلمة المرور
-Route::put('/profile/password', [UserProfileController::class, 'updatePassword'])->name('password.update');
-
-// عرض التبرعات
-Route::get('/profile/donations', [UserProfileController::class, 'donations'])->name('profile.donations');
-
-// عرض طلبات الاشتراك في التطوع
-Route::get('event/subscribe/{eventId}', [EventController::class, 'subscribe'])->name('event.subscribe');
-Route::get('/profile/subscriptions', [UserProfileController::class, 'subscriptions'])->name('profile.subscriptions');
-
-// routes/web.php
-// routes/web.php
-Route::get('/event/subscribe/{event}', [EventController::class, 'subscribe'])->name('event.subscribe')->middleware('auth');
-
-Route::post('/password/check-current-password', [UserProfileController::class, 'checkCurrentPassword'])->name('password.checkCurrentPassword');
-Route::post('/password/check-strength', [UserProfileController::class, 'checkPasswordStrength'])->name('password.checkStrength');
 
 
 // مسار لوحة تحكم الادمن
@@ -146,8 +139,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         Route::get('/{event}/edit', [AdminEventController::class, 'edit'])->name('edit');
         Route::put('/{event}', [AdminEventController::class, 'update'])->name('update');
         Route::delete('/{event}', [AdminEventController::class, 'destroy'])->name('destroy');
+        Route::post('/{event}/remove-volunteer/{volunteer}', [AdminEventController::class, 'removeVolunteer'])
+        ->name('removeVolunteer');
     });
 });
+
+
+
+Route::get('/admin/dashboard/get-yearly-data', [DashboardController::class, 'getYearlyData']);
 
 // Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 //     Route::resource('events', \App\Http\Controllers\Admin\AdminEventController::class);

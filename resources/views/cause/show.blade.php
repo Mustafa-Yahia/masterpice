@@ -122,7 +122,8 @@
             <a href="https://wa.me/?text={{ urlencode(route('cause.show', $cause->id)) }}" target="_blank" class="btn btn-outline-success w-100"><i class="fab fa-whatsapp"></i> واتساب</a>
             <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('cause.show', $cause->id)) }}" target="_blank" class="btn btn-outline-primary w-100"><i class="fab fa-facebook-square"></i> فيسبوك</a>
         </div>
-    </div><!-- التبرع -->
+    </div>
+    <!-- التبرع -->
     <div class="inner p-4 mt-4 bg-white rounded shadow-sm wow fadeInUp text-end" data-wow-delay="0.4s">
         <h4 class="mb-4" style="text-align:center"><i class="fas fa-hand-holding-heart"></i> تبرع الآن</h4>
         <form method="POST" action="{{ route('donation.store') }}" style="direction: rtl;" id="donation-form">

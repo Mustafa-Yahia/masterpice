@@ -17,7 +17,7 @@
 
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-8 col-sm-12">
-                    <div class="login-box shadow p-4 rounded" style="background-color: rgba(255, 255, 255, 0.2); border-radius: 10px; border: 2px solid rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+                    <div class="login-box shadow p-4 rounded" style="background-color: rgba(255, 255, 255, 0.6); border-radius: 10px; border: 2px solid rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
                         <div class="sec-title centered" style="margin-bottom: 20px;">
                             <h2 style="font-family: 'Cairo', sans-serif; font-weight: 600; font-size: 34px; margin-bottom: 10px;">إنشاء حساب</h2>
                             <div class="text" style="font-family: 'Cairo', sans-serif; font-size: 16px; line-height: 1.5;">قم بإنشاء حساب جديد للبدء في التبرع</div>
@@ -141,7 +141,7 @@
                 fetch("https://ipinfo.io?token=YOUR_IPINFO_TOKEN")
                     .then(response => response.json())
                     .then(data => callback(data.country))
-                    .catch(() => callback("US"));
+                    .catch(() => callback("JO"));
             },
             separateDialCode: true,
             utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"

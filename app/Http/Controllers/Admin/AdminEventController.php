@@ -152,4 +152,18 @@ class AdminEventController extends Controller
                              'text' => 'تم حذف الحدث بنجاح'
                          ]);
     }
+
+// app/Http/Controllers/AdminEventController.php
+
+public function removeVolunteer(Event $event, User $volunteer)
+{
+    // التحقق من وجود المتطوع في الحدث
+    if (!$event->volunteers()->where('user_id', $volunteer->id)->exists()) {
+        return back()->with('error', 'المتطوع غير مسجل في هذا الحدث');
+    }
+
+    $event->volunteers()->detach($volunteer->id);
+
+    return back()->with('success', 'تم إزالة المتطوع بنجاح');
+}
 }
