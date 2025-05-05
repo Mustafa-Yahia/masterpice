@@ -7,7 +7,7 @@
     <div class="auto-container">
         <div class="row clearfix">
             <!-- استخدام الـ Sidebar Component هنا -->
-            <x-user-sidebar :subscriptions="$subscriptions" />
+            @include('components.user-sidebar')
 
             <!-- Content Side (المحتوى الرئيسي) -->
             <div class="content-side col-lg-8 col-md-12 col-sm-12">
@@ -28,7 +28,6 @@
                                     <td>{{ $donation->amount }}</td>
                                     <td>{{ $donation->currency }}</td>
                                     <td>
-                                        <!-- ربط مع جدول طرق الدفع باستخدام payment_method_id -->
                                         @if($donation->paymentMethod)
                                             {{ $donation->paymentMethod->method_name }}
                                         @else
@@ -84,7 +83,6 @@
     }
 </style>
 @endsection
-
 
 {{-- @extends('layouts.app')
 

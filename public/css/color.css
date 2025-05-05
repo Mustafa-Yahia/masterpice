@@ -66,12 +66,13 @@ a{
 }
 
 .main-header .header-upper .logo-box .logo{
-	background:#3cc88f;
+	/* background:#3cc88f; */
+   background: #3cc8901c;
 }
 
-.main-header .header-upper .logo-box .logo:before{
+/* .main-header .header-upper .logo-box .logo:before{
     background: #3cc88f;
-}
+} */
 
 .main-header .nav-outer .link-box .cart-link a:hover{
 	color:#3cc88f;

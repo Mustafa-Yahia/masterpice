@@ -8,7 +8,7 @@
                 <div class="logo-box">
                     <div class="logo">
                         <a href="/" title="منصة التبرع">
-                            <img src="{{ asset('images/logo.png') }}" alt="Logo">
+                            <img src="{{ asset('images/LogoAwn.png') }}" alt="Logo">
                         </a>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
     <div class="sticky-header">
         <div class="auto-container clearfix">
             <div class="logo pull-left">
-                <a href="/"><img src="{{ asset('images/sticky-logo.png') }}" alt=""></a>
+                <a href="/"><img src="{{ asset('images/LogoAwn.png') }}" alt="" width="75px"></a>
             </div>
             <div class="pull-right">
                 <nav class="main-menu clearfix">

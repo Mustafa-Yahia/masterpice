@@ -22,84 +22,101 @@
         </div>
     </div>
 </section>
-
-<!-- About Section -->
 <section class="about-section style-two alternate">
     <div class="circle-one"></div>
     <div class="circle-two"></div>
     <div class="auto-container">
         <div class="row clearfix">
-            <!-- Right Column -->
+            <!-- Right Column - Images -->
             <div class="right-column col-lg-6 col-md-12 col-sm-12">
                 <div class="inner">
-                    <div class="images clearfix">
-                        <!-- عرض صور مختلفة باستخدام حلقة -->
+                    <div class="images-grid clearfix">
                         <figure class="image wow fadeInRight" data-wow-delay="0ms">
-                            <!-- عرض الصورة الأولى -->
-                            <img class="lazy-image" src="{{ asset('storage/main-slider/PeopleFood.jpg') }}" alt="Featured Image 1" style="width: 100%; height: auto; object-fit: cover;">
+                            <img class="lazy-image"
+                                 src="{{ asset('storage/main-slider/PeopleFood.jpg') }}"
+                                 alt="مساعدة المحتاجين بالطعام"
+                                 loading="lazy">
                         </figure>
                         <figure class="image wow fadeInRight" data-wow-delay="300ms">
-                            <!-- عرض الصورة الثانية -->
-                            <img class="lazy-image" src="{{ asset('storage/main-slider/peoplehelp22.jpg') }}" alt="Featured Image 2" style="width: 100%; height: auto; object-fit: cover;">
+                            <img class="lazy-image"
+                                 src="{{ asset('storage/main-slider/peoplehelp22.jpg') }}"
+                                 alt="توزيع المساعدات الإنسانية"
+                                 loading="lazy">
                         </figure>
                         <figure class="image wow fadeInRight" data-wow-delay="600ms">
-                            <!-- عرض الصورة الثالثة -->
-                            <img class="lazy-image" src="{{ asset('storage/main-slider/peoplehelp12.jpg') }}" alt="Featured Image 3" style="width: 100%; height: auto; object-fit: cover;">
+                            <img class="lazy-image"
+                                 src="{{ asset('storage/main-slider/peoplehelp12.jpg') }}"
+                                 alt="دعم الأسر المحتاجة"
+                                 loading="lazy">
                         </figure>
                         <figure class="image wow fadeInRight" data-wow-delay="900ms">
-
-                            <img class="lazy-image" src="{{ asset('storage/main-slider/Background11.jpg') }}" alt="Featured Image 4" style="width: 100%; height: auto; object-fit: cover;">
+                            <img class="lazy-image"
+                                 src="{{ asset('storage/main-slider/Background11.jpg') }}"
+                                 alt="أنشطتنا الخيرية"
+                                 loading="lazy">
                         </figure>
                     </div>
                 </div>
             </div>
 
-
-
-            <!-- Left Column -->
+            <!-- Left Column - Content -->
             <div class="left-column col-lg-6 col-md-12 col-sm-12">
-                <div class="inner">
+                <div class="inner pr-4">
                     <div class="sec-title">
-                        <h2>كن جزءاً من التغيير - قدم يد المساعدة</h2>
-                        <div class="text" style="text-align:right;">موقعنا يهدف إلى جمع التبرعات للمشاريع الإنسانية التي تساهم في تحسين حياة المحتاجين في مختلف أنحاء العالم. نحن نعمل مع العديد من المؤسسات الخيرية لتنفيذ برامج طبية وتعليمية وإنسانية للحد من الفقر والمساعدة في رفع مستوى المعيشة للمجتمعات الفقيرة.</div>
-                        {{-- <div class="link-box clearfix">
-                            <a href="#" class="theme-btn btn-style-one" id="show-info-btn" style="float:right"><span class="btn-title">قراءة المزيد</span></a>
-                        </div> --}}
+                        <h2 class="mb-4">كن جزءاً من التغيير - قدم يد المساعدة</h2>
+                        <div class="text text-right" style="line-height: 1.8;">
+                 يهدف الموقع إلى توفير منصة مبتكرة لجمع التبرعات لدعم الجمعية الخيرية التي تعمل على مساعدة الفقراء في المملكة الأردنية الهاشمية. من خلال هذا الموقع، يتم تأمين احتياجات الأسر المحتاجة وتقديم الدعم اللازم لتحسين حياتهم. كما يقدم الموقع فرصًا واسعة للمشاركة في حملات تطوعية تسهم في خدمة المجتمع والمساهمة في تحسين ظروف حياة الناس                        </div>
                     </div>
                 </div>
             </div>
-
-            <!-- إضافة SweetAlert عبر CDN -->
-            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
         </div>
 
-        <div class="text-blocks">
-            <div class="row g-6 clearfix">
-                <div class="default-text-block col-lg-4 col-md-6 col-sm-12">
-                    <div class="inner">
-                        <div class="icon"><i class="fas fa-heart"></i></div>
-                        <h3>مهمتنا</h3>
-                        <div class="text">نهدف لتحسين حياة الأشخاص المحتاجين من خلال دعم مشاريع إنسانية في التعليم والصحة والمجتمع.</div>
+        <!-- Text Blocks Section -->
+        <div class="text-blocks mt-5 pt-4">
+            <div class="row g-4">
+                <!-- Mission Block -->
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="text-block-card">
+                        <div class="icon-box">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3 class="mt-3">مهمتنا</h3>
+                        <p class="mt-2">
+                            نهدف لتحسين حياة الأشخاص المحتاجين من خلال دعم مشاريع إنسانية
+                            في التعليم والصحة والمجتمع.
+                        </p>
                     </div>
                 </div>
-                <div class="default-text-block col-lg-4 col-md-6 col-sm-12">
-                    <div class="inner">
-                        <div class="icon"><i class="fas fa-eye"></i></div>
-                        <h3>رؤيتنا</h3>
-                        <div class="text">أن نكون الجسر بين الخير والمحتاجين عبر منصة موثوقة وشفافة.</div>
+
+                <!-- Vision Block -->
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="text-block-card">
+                        <div class="icon-box">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h3 class="mt-3">رؤيتنا</h3>
+                        <p class="mt-2">
+                            أن نكون الجسر بين الخير والمحتاجين عبر منصة موثوقة وشفافة.
+                        </p>
                     </div>
                 </div>
-                <div class="default-text-block col-lg-4 col-md-6 col-sm-12">
-                    <div class="inner">
-                        <div class="icon"><i class="fas fa-hand-holding-heart"></i></div>
-                        <h3>قيمنا</h3>
-                        <div class="text">نؤمن بالشفافية والإنسانية والجودة في تنفيذ جميع مشاريعنا الخيرية.</div>
+
+                <!-- Values Block -->
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="text-block-card">
+                        <div class="icon-box">
+                            <i class="fas fa-hand-holding-heart"></i>
+                        </div>
+                        <h3 class="mt-3">قيمنا</h3>
+                        <p class="mt-2">
+                            نؤمن بالشفافية والإنسانية والجودة في تنفيذ جميع مشاريعنا الخيرية.
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</section>
     <!-- Causes Section -->
 <section class="causes-section-two py-5">
     <div class="auto-container">
@@ -122,12 +139,22 @@
                         @endif
 
                         <!-- Image with hover effect -->
-                        <a href="{{ route('cause.show', $cause->id) }}" class="cause-image-link">
-                            <img class="card-img-top cause-image" src="{{ asset('storage/images/' . $cause->image) }}" alt="{{ $cause->title }}" loading="lazy">
-                            <div class="image-overlay">
-                                <span class="view-details-btn">عرض التفاصيل</span>
-                            </div>
-                        </a>
+                        <!-- Image with Hover Effect -->
+                    <div class="cause-image-container">
+                        <img src="{{ asset('storage/' . $cause->image) }}"
+                             alt="{{ $cause->title }}"
+                             class="cause-image">
+                        <div class="image-overlay">
+                            <a href="{{ route('cause.show', $cause->id) }}" class="view-btn">
+                                <i class="fas fa-eye"></i>
+                                عرض التفاصيل
+                            </a>
+                        </div>
+                        <div class="category-badge">
+                            <i class="fas fa-tag"></i>
+                            {{ $cause->category }}
+                        </div>
+                    </div>
 
                         <!-- Content -->
                         <div class="card-body d-flex flex-column justify-content-between flex-grow-1">
@@ -183,8 +210,8 @@
 
         <!-- View More Button -->
         <div class="text-center mt-5">
-            <a href="{{ route('cause.index') }}" class="btn btn-outline-primary rounded-pill px-4">
-                عرض المزيد
+            <a href="{{ route('cause.index') }}" class="btn btn-primary rounded-pill view-more-btn">
+                عرض المزيد من الحملات
                 <i class="fas fa-arrow-left ms-2"></i>
             </a>
         </div>
@@ -196,6 +223,152 @@
 
 
 <style>
+
+
+    /* Read More Button */
+    .read-more-btn {
+        border: 2px solid #3cc88f;
+        color: #3cc88f;
+        font-weight: 600;
+        padding: 10px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .read-more-btn:hover {
+        background-color: #3cc88f;
+        color: white;
+        box-shadow: 0 5px 15px rgba(60, 200, 143, 0.3);
+    }
+
+    .read-more-btn .transition-all {
+        transition: all 0.3s ease;
+    }
+
+    .read-more-btn:hover .transition-all {
+        transform: translateX(-5px);
+    }
+
+  /* View More Button */
+  .view-more-btn {
+        background: linear-gradient(90deg, #3cc88f 0%, #2da578 100%);
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        font-weight: 600;
+        box-shadow: 0 5px 20px rgba(60, 200, 143, 0.3);
+        transition: all 0.3s ease;
+    }
+
+    .view-more-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(60, 200, 143, 0.4);
+        color: white;
+    }
+
+    .view-more-btn i {
+        transition: transform 0.3s ease;
+    }
+
+    .view-more-btn:hover i {
+        transform: translateX(-5px);
+    }
+
+      /* About Section Styles */
+      .about-section {
+        position: relative;
+        padding: 80px 0;
+        background-color: #f9f9f9;
+    }
+
+    .circle-one, .circle-two {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(60, 200, 143, 0.1);
+    }
+
+    .circle-one {
+        width: 200px;
+        height: 200px;
+        top: 10%;
+        left: 5%;
+    }
+
+    .circle-two {
+        width: 150px;
+        height: 150px;
+        bottom: 15%;
+        right: 8%;
+    }
+
+    /* Images Grid Layout */
+    .images-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .images-grid .image {
+        margin: 0;
+        overflow: hidden;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .images-grid img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .images-grid .image:hover img {
+        transform: scale(1.05);
+    }
+
+    /* Text Block Cards */
+    .text-block-card {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        height: 100%;
+        text-align: center;
+        transition: transform 0.3s ease;
+    }
+
+    .text-block-card:hover {
+        transform: translateY(-10px);
+    }
+
+    .icon-box {
+        width: 70px;
+        height: 70px;
+        margin: 0 auto;
+        background: rgba(60, 200, 143, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .icon-box i {
+        font-size: 30px;
+        color: #3cc88f;
+    }
+
+    .text-block-card h3 {
+        color: #333;
+        font-weight: 700;
+        font-size: 22px;
+    }
+
+    .text-block-card p {
+        color: #666;
+        font-size: 16px;
+        line-height: 1.6;
+    }
   .cause-card {
         transition: all 0.3s ease;
         border: 1px solid rgba(0, 0, 0, 0.1);
@@ -247,21 +420,216 @@
         transition: all 0.3s ease;
     }
 
-    .cause-image-link:hover .cause-image {
-        transform: scale(1.05);
+
+
+      /* Base Styles */
+      .causes-section-two {
+        background-color: #f8f9fc;
+        position: relative;
+        overflow: hidden;
     }
 
-    .cause-image-link:hover .image-overlay {
+    /* Background Patterns */
+    .bg-pattern {
+        position: absolute;
+        background-size: contain;
+        background-repeat: no-repeat;
+        opacity: 0.05;
+        z-index: 0;
+    }
+
+    .pattern-1 {
+        width: 300px;
+        height: 300px;
+        top: -50px;
+        left: -50px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%233cc88f' d='M50 0 L100 50 L50 100 L0 50 Z'/%3E%3C/svg%3E");
+    }
+
+    .pattern-2 {
+        width: 200px;
+        height: 200px;
+        bottom: 20px;
+        right: -30px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle fill='%233cc88f' cx='50' cy='50' r='50'/%3E%3C/svg%3E");
+    }
+
+    .pattern-3 {
+        width: 150px;
+        height: 150px;
+        top: 30%;
+        right: 10%;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%233cc88f' d='M50 0 L100 100 L0 100 Z'/%3E%3C/svg%3E");
+    }
+
+    /* Section Header */
+    .sec-title.centered {
+        position: relative;
+        z-index: 1;
+    }
+
+    .title-badge {
+        display: inline-block;
+        background: linear-gradient(90deg, #3cc88f 0%, #2da578 100%);
+        color: white;
+        padding: 6px 20px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 15px;
+        box-shadow: 0 4px 15px rgba(60, 200, 143, 0.3);
+    }
+
+    .sec-title h2 {
+        font-family: 'Cairo', sans-serif;
+        font-weight: 700;
+        color: #2a2a2a;
+        margin-bottom: 15px;
+        position: relative;
+        font-size: 2.2rem;
+    }
+
+    .sec-title .text {
+        font-family: 'Cairo', sans-serif;
+        font-size: 1.1rem;
+        color: #555;
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.8;
+    }
+
+    /* Cause Card */
+    .cause-card {
+        transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        background: white;
+        position: relative;
+        z-index: 1;
+    }
+
+    .cause-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Image Container */
+    .cause-image-container {
+        position: relative;
+        height: 230px;
+        overflow: hidden;
+    }
+
+    .cause-image-link {
+        display: block;
+        height: 100%;
+    }
+
+    .cause-image {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(60, 200, 143, 0.85);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .view-details-btn {
+        color: white;
+        font-weight: 600;
+        padding: 8px 20px;
+        border: 2px solid white;
+        border-radius: 30px;
+        transform: scale(0.9);
+        transition: all 0.3s ease;
+    }
+
+    .cause-card:hover .cause-image {
+        transform: scale(1.08);
+    }
+
+    .cause-card:hover .image-overlay {
         opacity: 1;
     }
 
-    .cause-image-link:hover .view-details-btn {
+    .cause-card:hover .view-details-btn {
         transform: scale(1);
     }
 
-    /* Progress Bar Animation */
-    .progress-animate {
+    /* Category Label */
+    .category-label {
+        position: absolute;
+        bottom: 15px;
+        left: 15px;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 500;
+    }
+
+    /* Card Content */
+    .card-body {
+        padding: 25px;
+    }
+
+    .card-title {
+        font-family: 'Cairo', sans-serif;
+        font-weight: 700;
+        color: #2a2a2a;
+        font-size: 1.3rem;
+        margin-bottom: 12px;
+    }
+
+    .card-text {
+        color: #555;
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    /* Cause Meta */
+    .cause-meta {
+        font-size: 13px;
+        color: #666;
+    }
+
+    .cause-meta i {
+        margin-left: 5px;
+    }
+
+    /* Progress Bar - نفس النمط المطلوب */
+    .progress-container {
+        margin-top: 20px;
+    }
+
+    .progress {
+        height: 20px;
+        background-color: #f1f1f1;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    .progress-bar {
+        background-color: #3cc88f;
         transition: width 1.5s ease-in-out;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        color: white;
+        font-weight: bold;
     }
 
     /* Read More Button */
@@ -269,6 +637,7 @@
         border: 2px solid #3cc88f;
         color: #3cc88f;
         font-weight: 600;
+        padding: 10px;
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
@@ -277,6 +646,7 @@
     .read-more-btn:hover {
         background-color: #3cc88f;
         color: white;
+        box-shadow: 0 5px 15px rgba(60, 200, 143, 0.3);
     }
 
     .read-more-btn .transition-all {
@@ -287,11 +657,36 @@
         transform: translateX(-5px);
     }
 
+    /* View More Button */
+    .view-more-btn {
+        background: linear-gradient(90deg, #3cc88f 0%, #2da578 100%);
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        font-weight: 600;
+        box-shadow: 0 5px 20px rgba(60, 200, 143, 0.3);
+        transition: all 0.3s ease;
+    }
+
+    .view-more-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(60, 200, 143, 0.4);
+        color: white;
+    }
+
+    .view-more-btn i {
+        transition: transform 0.3s ease;
+    }
+
+    .view-more-btn:hover i {
+        transform: translateX(-5px);
+    }
+
     /* Urgent Badge */
     .urgent-badge {
         position: absolute;
         top: 15px;
-        left: 15px;
+        right: 15px;
         z-index: 2;
     }
 
@@ -311,61 +706,33 @@
         }
     }
 
+    /* Responsive Styles */
+    @media (max-width: 991px) {
+        .sec-title h2 {
+            font-size: 1.8rem;
+        }
 
-    .default-text-block {
-        background-color: #ffffff;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        text-align: center;
+        .cause-image-container {
+            height: 200px;
+        }
     }
 
-    .default-text-block:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    @media (max-width: 767px) {
+        .sec-title h2 {
+            font-size: 1.6rem;
+        }
+
+        .sec-title .text {
+            font-size: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+        }
     }
-
-
-    .default-text-block:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    }
-
-    .icon {
-        font-size: 40px;
-        color: #3cc88f;
-        margin-bottom: 15px;
-    }
-
-    h3 {
-        color: #3cc88f;
-        font-size: 22px;
-        margin-bottom: 15px;
-    }
-
-    .text {
-        font-size: 16px;
-        color: #000;
-    }
-
 </style>
 
-{{-- <script>
-    // عند الضغط على الزر
-    document.getElementById("show-info-btn").addEventListener("click", function(e) {
-        e.preventDefault();  // منع تصرف الرابط الافتراضي
 
-        // عرض نافذة SweetAlert تحتوي على المعلومات مع Scroll
-        Swal.fire({
-            title: 'معلومات عن التبرع',
-            html: '<div style="max-height: 300px; overflow-y: auto; text-align: right;">موقعنا يهدف إلى جمع التبرعات للمشاريع الإنسانية التي تساهم في تحسين حياة المحتاجين في مختلف أنحاء العالم. نحن نعمل مع العديد من المؤسسات الخيرية لتنفيذ برامج طبية وتعليمية وإنسانية للحد من الفقر والمساعدة في رفع مستوى المعيشة للمجتمعات الفقيرة. نحن نسعى لتوسيع نطاق مشاريعنا في جميع أنحاء العالم ونسعى لبناء شراكات جديدة مع المنظمات غير الحكومية والمؤسسات المانحة من أجل تحسين حياة الأفراد الذين يواجهون تحديات اقتصادية وصحية كبيرة. فريقنا ملتزم بتقديم المساعدة في الحالات الإنسانية الطارئة وتوفير الدعم الكامل للمجتمعات المتضررة من الأزمات.</div>',
-            icon: 'info',  // نوع الأيقونة
-            confirmButtonText: 'موافق',
-            confirmButtonColor: '#3cc88f'  // تخصيص لون الزر
-        });
-    }); --}}
-{{-- </script> --}}
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

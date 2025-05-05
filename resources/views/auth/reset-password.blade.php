@@ -12,16 +12,29 @@
                 <div class="col-lg-5 col-md-7 col-sm-12">
                     <div class="login-box shadow p-4 rounded"
                         style="background-color: rgba(255, 255, 255, 0.6); border-radius: 10px; border: 2px solid rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
-                        <form method="POST" action="{{ route('login') }}" onsubmit="return validateForm()">
+                        <form method="POST" action="{{ route('reset.password.post') }}">
                             @csrf
+                            <input type="hidden" name="token" value="{{ $token }}">
+
                             <div class="sec-title centered" style="margin-bottom: 30px;">
                                 <h2
                                     style="font-family: 'Cairo', sans-serif; font-weight: 600; font-size: 34px; margin-bottom: 10px;">
-                                    تسجيل الدخول</h2>
+                                    إعادة تعيين كلمة المرور</h2>
                                 <div class="text"
-                                    style="font-family: 'Cairo', sans-serif; font-size: 16px; line-height: 1.5;">أدخل
-                                    بياناتك للوصول إلى حسابك والمساهمة في التبرعات</div>
+                                    style="font-family: 'Cairo', sans-serif; font-size: 16px; line-height: 1.5;">أدخل كلمة المرور الجديدة</div>
                             </div>
+
+                            @if (session('success'))
+                                <div class="alert alert-success" style="font-family: 'Cairo', sans-serif;">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+
+                            @if (session('error'))
+                                <div class="alert alert-danger" style="font-family: 'Cairo', sans-serif;">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
 
                             <!-- البريد الإلكتروني -->
                             <div class="form-group" style="margin-bottom: 20px;">
@@ -36,7 +49,7 @@
                                     </div>
                                     <input type="email" id="email" name="email"
                                         class="form-control @error('email') is-invalid @enderror"
-                                        value="{{ old('email') ?: request()->cookie('remember_email') }}" required
+                                        value="{{ $request->email ?? old('email') }}" required
                                         placeholder="أدخل بريدك الإلكتروني">
                                 </div>
                                 @error('email')
@@ -45,11 +58,10 @@
                                 @enderror
                             </div>
 
-                            <!-- كلمة المرور -->
+                            <!-- كلمة المرور الجديدة -->
                             <div class="form-group" style="margin-bottom: 20px;">
                                 <label for="password"
-                                    style="font-family: 'Cairo', sans-serif; text-align: right; display: block;">كلمة
-                                    المرور</label>
+                                    style="font-family: 'Cairo', sans-serif; text-align: right; display: block;">كلمة المرور الجديدة</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="password-icon">
@@ -58,8 +70,7 @@
                                     </div>
                                     <input type="password" id="password" name="password"
                                         class="form-control @error('password') is-invalid @enderror"
-                                        value="{{ old('password') ?: request()->cookie('remember_password') }}" required
-                                        placeholder="********">
+                                        required placeholder="********">
                                 </div>
                                 @error('password')
                                     <div class="invalid-feedback" style="font-family: 'Cairo', sans-serif; display: block;">
@@ -67,35 +78,28 @@
                                 @enderror
                             </div>
 
-                            <!-- تذكرني ونسيت كلمة المرور -->
-                            <div class="form-group d-flex justify-content-between" style="margin-top: 20px;">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="remember" name="remember"
-                                        {{ old('remember') ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="remember"
-                                        style="font-family: 'Cairo', sans-serif; margin-right:22px; text-align: right;">
-                                        تذكرني
-                                    </label>
+                            <!-- تأكيد كلمة المرور الجديدة -->
+                            <div class="form-group" style="margin-bottom: 20px;">
+                                <label for="password_confirmation"
+                                    style="font-family: 'Cairo', sans-serif; text-align: right; display: block;">تأكيد كلمة المرور الجديدة</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="password-confirm-icon">
+                                            <i class="fas fa-lock"></i>
+                                        </span>
+                                    </div>
+                                    <input type="password" id="password_confirmation" name="password_confirmation"
+                                        class="form-control" required placeholder="********">
                                 </div>
-                                <a href="{{ route('forget.password.get') }}" class="text-primary"
-                                style="font-family: 'Cairo', sans-serif; color: #007bff;">
-                                <i class="fas fa-question-circle"></i> نسيت كلمة المرور؟
-                            </a>
                             </div>
 
-                            <!-- زر تسجيل الدخول -->
+                            <!-- زر إعادة التعيين -->
                             <button type="submit" class="theme-btn btn-style-one w-100" style="margin-top: 20px;">
                                 <span class="btn-title" style="font-family: 'Cairo', sans-serif;">
-                                    <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+                                    <i class="fas fa-sync-alt"></i> إعادة تعيين كلمة المرور
                                 </span>
                             </button>
                         </form>
-
-                        <!-- رابط إنشاء حساب -->
-                        <div class="text-center mt-3" style="margin-top: 30px;">
-                            <p style="font-family: 'Cairo', sans-serif; text-align:center;">ليس لديك حساب؟ <a
-                                    href="{{ route('register') }}" class="text-primary">إنشاء حساب جديد</a></p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -107,73 +111,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        .login-section {
-            background-color: #f8f9fa;
-        }
-
-        .login-box {
-            border-radius: 10px;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .theme-btn {
-            background-color: #007bff;
-            color: #fff;
-            font-family: 'Cairo', sans-serif;
-            padding: 12px;
-            font-size: 16px;
-        }
-
-        .theme-btn:hover {
-            background-color: #0056b3;
-        }
-
-        .form-control {
-            font-family: 'Cairo', sans-serif;
-            height: 50px;
-            padding: 10px;
-        }
-
-        .form-check-label {
-            font-family: 'Cairo', sans-serif;
-        }
-
-        /* تخصيص لرسائل الخطأ */
-        .is-invalid {
-            border-color: #dc3545;
-        }
-
-        .invalid-feedback {
-            display: block;
-            color: #dc3545;
-            font-family: 'Cairo', sans-serif;
-            margin-top: 5px;
-        }
-
-        /* تخصيص زر تذكرني */
-        .form-check-label {
-            font-family: 'Cairo', sans-serif;
-            margin-right: 10px;
-        }
+        /* نفس الأنماط الموجودة في ملف تسجيل الدخول */
     </style>
-
-    <script>
-        // JavaScript for validating the form
-        function validateForm() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            if (!email) {
-                alert('يرجى إدخال بريد إلكتروني');
-                return false;
-            }
-
-            if (!password) {
-                alert('يرجى إدخال كلمة المرور');
-                return false;
-            }
-
-            return true;
-        }
-    </script>
 @endsection

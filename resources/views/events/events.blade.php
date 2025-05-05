@@ -15,84 +15,8 @@
         </ul>
     </div>
 </section>
-<!-- End Banner Section -->
-{{--
-<!-- Events Section -->
-<section class="events-section py-5">
-    <div class="auto-container">
-        <div class="sec-title text-center mb-5">
-            <h2 class="fw-bold text-dark">الأحداث القادمة</h2>
-            <p class="text-muted" style="text-align: center">انضم إلينا في هذه الأحداث القادمة وكن جزءًا من التغيير!</p>
-        </div>
 
-        <div class="row g-4">
-            @forelse($events as $event)
-                <div class="col-lg-4 col-md-6 col-sm-12 d-flex">
-                    <div class="event-block-three w-100 d-flex flex-column">
-                        <div class="inner-box wow fadeInUp" data-wow-delay="0ms">
-                            <!-- Event Image -->
-                            <div class="image-box">
-                                <figure class="image">
-                                    <a href="{{ route('event.show', $event->id) }}">
-                                        <img class="lazy-image" src="{{ asset('storage/events/' . $event->image) }}" alt="{{ $event->title }}">
-                                    </a>
-                                </figure>
-                                <div class="date">{{ \Carbon\Carbon::parse($event->date)->format('d') }} <span class="month">{{ \Carbon\Carbon::parse($event->date)->format('M') }}</span></div>
-                            </div>
 
-                            <!-- Event Content -->
-                            <div class="lower-content">
-                                <h3 style="text-align: center; font-weight: bold;">
-                                    <a href="{{ route('event.show', $event->id) }}" style="color: #333;">{{ $event->title }}</a>
-                                </h3>
-                                <div class="text">
-                                    @if(empty($event->description))
-                                        <p>وصف الحدث فارغ</p>
-                                    @else
-                                        {{ Str::limit($event->description, 100) }}
-                                    @endif
-                                </div>
-
-                                <!-- Event Information -->
-                                <ul class="info clearfix" style="text-align: right; list-style-position: inside; display: flex; justify-content: flex-end; gap: 20px;">
-                                    <li style="display: flex; align-items: center;">
-                                        <span>
-                                            @if(empty($event->time))
-                                                <span>الوقت غير محدد</span>
-                                            @else
-                                                {{ \Carbon\Carbon::parse($event->time)->format('h:i A') }}
-                                            @endif
-                                        </span>
-                                        <span class="icon far fa-clock" style="margin-left: 10px;"></span>
-                                    </li>
-                                    <li style="display: flex; align-items: center;">
-                                        <span>
-                                            @if(empty($event->location))
-                                                <span>الموقع غير محدد</span>
-                                            @else
-                                                {{ $event->location }}
-                                            @endif
-                                        </span>
-                                        <span class="icon fa fa-map-marker-alt" style="margin-left: 10px;"></span>
-                                    </li>
-                                </ul>
-
-                                <!-- Read More Button -->
-                                <div class="link-box" style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
-                                    <a href="{{ route('event.show', $event->id) }}" class="theme-btn btn-style-two" style="padding: 10px 20px; font-size: 14px;">
-                                        <span class="btn-title">اقرأ المزيد</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @empty
-                <p class="text-center text-muted">لا توجد أحداث حالياً لعرضها.</p>
-            @endforelse
-        </div>
-    </div>
-</section> --}}
 <section class="events-section">
     <div class="auto-container">
         <div class="row clearfix">
@@ -115,7 +39,7 @@
                                 <li><span class="icon far fa-clock"></span> {{ \Carbon\Carbon::parse($event->time)->format('h:i A') }}</li>
                             </ul>
                             <p class="description">{{ $event->description }}</p>
-                            <div class="link-box">
+                            <div class="link-boxx">
                                 <a href="{{ route('event.show', $event->id) }}" class="theme-btn btn-style-two">
                                     <span class="btn-title">قراءة المزيد</span>
                                 </a>
@@ -247,14 +171,13 @@
     font-size: 0.9rem;
 }
 
-.link-box {
+.link-boxx{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 30px; /* تم زيادة هذه القيمة من 20px إلى 30px */
     text-align: center;
 }
-.link-box .btn-style-two {
+.link-boxx .btn-style-two {
     background-color: #3cc88f;
     color: #fff;
     padding: 6px 16px; /* حجم أصغر */

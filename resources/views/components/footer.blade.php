@@ -1,99 +1,1046 @@
-@props(['news' => []])
+@props(['contactInfo' => []])
 
-<!-- Main Footer -->
-<footer class="main-footer" style="direction: rtl; text-align: right; padding-bottom: 0;">
-    <div class="auto-container">
-        <!--Widgets Section-->
-        <div class="widgets-section">
-            <div class="row clearfix" style="margin-bottom: 20px;">
+<!-- Professional Footer -->
+<footer class="professional-footer" dir="rtl">
+    <!-- Footer Top Section -->
+    <div class="footer-top-section bg-gradient-primary">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h3 class="footer-cta-title">جاهزون لمساعدتك على مدار الساعة</h3>
+                    <p class="footer-cta-text">فريق دعم العملاء متاح 24/7 للإجابة على استفساراتك</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="" class="btn btn-light btn-lg rounded-pill">
+                        <i class="fas fa-headset me-2"></i> اتصل بنا الآن
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                <!-- Column -->
-                <div class="column col-lg-3 col-md-6 col-sm-12">
-                    <div class="footer-widget logo-widget">
-                        <div class="widget-content">
-                            <div class="footer-logo">
-                                <a href="/"><img class="lazy-image" src="{{ asset('images/footer-logo.png') }}" alt="Logo" /></a>
-                            </div>
-                            <div class="text" style="font-size: 14px; line-height: 1.6; color: #555; margin-top: 15px;">
-                                منصة تبرع تهدف إلى دعم المحتاجين في الأردن من خلال حملات تبرعية مختلفة. مساهمتك تساهم في بناء مجتمع أفضل.
-                            </div>
-                            <ul class="social-links clearfix" style="margin-top: 15px;">
-                                <li><a href="#"><span class="fab fa-facebook-f"></span></a></li>
-                                <li><a href="#"><span class="fab fa-twitter"></span></a></li>
-                                <li><a href="#"><span class="fab fa-vimeo-v"></span></a></li>
-                                <li><a href="#"><span class="fab fa-instagram"></span></a></li>
-                            </ul>
+    <!-- Main Footer Content -->
+    <div class="main-footer-content bg-dark">
+        <div class="container py-5">
+            <div class="row g-5">
+                <!-- Brand Info Column -->
+                <div class="col-lg-4">
+                    <div class="brand-widget text-center text-lg-start">
+                        <div class="logo-container mb-4">
+                            <a href="/" class="footer-logo">
+                                <img class="lazy-image" src="{{ asset('images/LogoAwn.png') }}" alt="Logo" width="100px" />
+                            </a>
+                        </div>
+                        <p class="brand-description mt-4">
+                            جمعية خيرية أردنية تسعى لتقديم المساعدات الإنسانية وتمكين المجتمع المحلي من خلال برامج التبرع والتطوع المستدامة.
+                        </p>
+                        <div class="trust-badges mt-4 text-center text-lg-start">
+                            {{-- <img src="{{ asset('images/ssl-secured.png') }}" alt="SSL Secured" width="80" class="me-2">
+                            <img src="{{ asset('images/payment-verified.png') }}" alt="Payment Verified" width="80"> --}}
+                         <!-- Jordanian Kingdom Logo -->
+                            {{-- <img src="{{ asset('images/jordan-kingdom-logo.png') }}" alt="Jordanian Kingdom Logo" width="80" class="mt-3"> --}}
+                            <img src="{{ asset('images/wst.png') }}" alt="Jordanian Kingdom Logo" width="400px"  class="mt-3">
                         </div>
                     </div>
                 </div>
 
-                <!-- Column -->
-                <div class="column col-lg-3 col-md-6 col-sm-12">
-                    <div class="footer-widget links-widget">
-                        <div class="widget-content">
-                            <h3 style="font-size: 18px; color: #3cc88f; margin-bottom: 15px;">الخدمات</h3>
-                            <ul style="list-style: none; padding: 0; color: #555; font-size: 14px;">
-                                <li><a href="#">التبرع</a></li>
-                                <li><a href="#">الرعاية</a></li>
-                                <li><a href="#">جمع التبرعات</a></li>
-                                <li><a href="#">التطوع</a></li>
-                                <li><a href="#">الشراكة</a></li>
-                                <li><a href="#">الوظائف</a></li>
-                            </ul>
-                        </div>
+                <!-- Quick Links Column -->
+                <div class="col-lg-2 col-md-4">
+                    <div class="footer-widget">
+                        <h4 class="widget-title">روابط سريعة</h4>
+                        <ul class="footer-links">
+                            <li><a href="{{ route('home') }}">الرئيسية</a></li>
+                            <li><a href="">عن الجمعية</a></li>
+                            <li><a href="">مشاريعنا</a></li>
+                            <li><a href="">التطوع</a></li>
+                            <li><a href="">المدونة</a></li>
+                            {{-- <li><a href="">اتصل بنا</a></li> --}}
+                        </ul>
                     </div>
                 </div>
 
-                <!-- Column -->
-                <div class="column col-lg-3 col-md-6 col-sm-12">
-                    <div class="footer-widget info-widget">
-                        <div class="widget-content">
-                            <h3 style="font-size: 18px; color: #3cc88f; margin-bottom: 15px;">جهات الاتصال</h3>
-                            <ul class="contact-info" style="list-style: none; padding: 0; color: #555; font-size: 14px;">
-                                <li>عمان، الأردن</li>
-                                <li><a href="tel:+96212345678" style="color: #3cc88f;">+962 12 345 678</a></li>
-                                <li><a href="mailto:info@platformjo.com" style="color: #3cc88f;">info@platformjo.com</a></li>
-                            </ul>
-                        </div>
+                <!-- Services Column -->
+                <div class="col-lg-2 col-md-4">
+                    <div class="footer-widget">
+                        <h4 class="widget-title">حملاتنا</h4>
+                        <ul class="footer-links">
+                            <li><a href="">أفطار صائم</a></li>
+                            <li><a href="">تكافل تعليمي</a></li>
+                            <li><a href="">شتاء دافئ</a></li>
+                            <li><a href="">كفالة الأيتام</a></li>
+                            <li><a href="">علاج المرضى</a></li>
+                            {{-- <li><a href="">استضافة المواقع</a></li> --}}
+                        </ul>
                     </div>
                 </div>
 
-                <!-- Column -->
-                <div class="column col-lg-3 col-md-6 col-sm-12">
-                    <div class="footer-widget news-widget">
-                        <div class="widget-content">
-                            <h3 style="font-size: 18px; color: #3cc88f; margin-bottom: 15px;">أهم الأخبار</h3>
-                            @foreach($news as $item)
-                            <div class="news-post" style="margin-bottom: 15px;">
-                                <div class="post-thumb">
-                                    <a href="#">
-                                        <img class="lazy-image" src="{{ asset($item['image']) }}" alt="{{ $item['title'] }}">
-                                    </a>
+                <!-- Contact Info Column -->
+                <div class="col-lg-4 col-md-4">
+                    <div class="footer-widget">
+                        <h4 class="widget-title">تواصل معنا</h4>
+                        <ul class="contact-info">
+                            <li class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
                                 </div>
-                                <h5 style="font-size: 16px; color: #25282a; margin-top: 10px;">
-                                    <a href="#">{{ $item['title'] }}</a>
-                                </h5>
-                                <div class="date" style="font-size: 14px; color: #777;">{{ $item['date'] }}</div>
+                                <div class="contact-text">
+                                    <span>العنوان:</span>
+                                    <p>عمان، المملكة الأردنية الهاشمية </p>
+                                </div>
+                            </li>
+                            <li class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <span>الهاتف:</span>
+                                    <p><a href="tel:+966112345678">+962 78 021 1175</a></p>
+                                </div>
+                            </li>
+                            <li class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <span>البريد الإلكتروني:</span>
+                                    <p><a href="mailto:info@example.com">mustafayahia120@example.com</a></p>
+                                </div>
+                            </li>
+                            <li class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <span>ساعات العمل:</span>
+                                    <p>الأحد - الخميس: 8 صباحاً - 5 مساءً</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Bottom Section -->
+    <div class="footer-bottom bg-darker">
+        <div class="container">
+            <div class="footer-bottom-content">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="copyright-text">
+                            <p>&copy; <span id="current-year"></span> جميع الحقوق محفوظة لشركة <a href="/">عون</a></p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="footer-extras">
+                            <div class="social-links">
+                                <a href="#" class="social-link" target="_blank" aria-label="Facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="social-link" target="_blank" aria-label="Twitter">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="social-link" target="_blank" aria-label="Instagram">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="social-link" target="_blank" aria-label="LinkedIn">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="#" class="social-link" target="_blank" aria-label="YouTube">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
                             </div>
-                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+</footer>
+
+<style>
+    /* Professional Footer Styles */
+    .professional-footer {
+        font-family: 'Tajawal', sans-serif;
+        position: relative;
+    }
+
+    /* Footer Top Section */
+    .footer-top-section {
+        padding: 30px 0;
+        background: linear-gradient(135deg, #2c3e50 0%, #3cc88f 100%);
+        color: #fff;
+    }
+
+    .footer-cta-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .footer-cta-text {
+        font-size: 1.1rem;
+        opacity: 0.9;
+    }
+
+    /* Main Footer Content */
+    .main-footer-content {
+        background-color: #1a1a1a;
+        color: #fff;
+    }
+
+    .footer-logo img {
+        max-width: 180px;
+        height: auto;
+    }
+
+    .brand-description {
+        color: #aaa;
+        line-height: 1.8;
+        font-size: 0.95rem;
+    }
+
+    .trust-badges img {
+        transition: transform 0.3s ease;
+    }
+
+    .trust-badges img:hover {
+        transform: translateY(-5px);
+    }
+
+    /* Footer Widgets */
+    .footer-widget {
+        margin-bottom: 30px;
+    }
+
+    .widget-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        position: relative;
+    }
+
+    .widget-title::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 50px;
+        height: 3px;
+        background: linear-gradient(to right, #3cc88f, #2c3e50);
+    }
+
+    /* Footer Links */
+    .footer-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .footer-links li {
+        margin-bottom: 12px;
+    }
+
+    .footer-links a {
+        color: #aaa;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: block;
+        padding: 5px 0;
+        position: relative;
+        font-size: 0.95rem;
+    }
+
+    .footer-links a::before {
+        content: '';
+        position: absolute;
+        right: -15px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 0;
+        height: 1px;
+        background-color: #3cc88f;
+        transition: width 0.3s ease;
+    }
+
+    .footer-links a:hover {
+        color: #fff;
+        padding-right: 15px;
+    }
+
+    .footer-links a:hover::before {
+        width: 10px;
+    }
+
+    /* Contact Info */
+    .contact-info {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .contact-item {
+        display: flex;
+        margin-bottom: 20px;
+    }
+
+    .contact-icon {
+        width: 40px;
+        height: 40px;
+        background-color: rgba(76, 161, 175, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 15px;
+        flex-shrink: 0;
+        color: #4ca1af;
+    }
+
+    .contact-text {
+        flex: 1;
+    }
+
+    .contact-text span {
+        display: block;
+        color: #3cc88f;
+        font-size: 0.85rem;
+        margin-bottom: 3px;
+    }
+
+     /* Logo Container */
+     .logo-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    @media (min-width: 992px) {
+        .logo-container {
+            justify-content: flex-start;
+        }
+    }
+    .contact-text p,
+    .contact-text a {
+        color: #aaa;
+        margin: 0;
+        font-size: 0.95rem;
+        transition: color 0.3s ease;
+    }
+
+    .contact-text a:hover {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    /* Footer Bottom */
+    .footer-bottom {
+        background-color: #111;
+        padding: 20px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .copyright-text {
+        color: #777;
+        font-size: 0.9rem;
+    }
+
+    .copyright-text a {
+        color: #3cc88f;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .copyright-text a:hover {
+        color: #fff;
+    }
+
+    /* Social Links */
+    .social-links {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+    }
+
+
+    /*  */
+
+    .fa-envelope:before {
+    color: #3cc88f;
+    content: "\f0e0";
+}
+
+.fa-map-marker-alt:before {
+    color: #3cc88f;
+    content: "\f3c5";
+}
+
+.fa-phone-alt:before {
+    color: #3cc88f;
+    content: "\f879";
+}
+
+.fa-clock:before {
+    color: #3cc88f;
+    content: "\f017";
+}
+
+    .social-link {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.05);
+        color: #aaa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    .social-link:hover {
+        background-color: #3cc88f;
+        color: #fff;
+        transform: translateY(-3px);
+    }
+
+    /* Back to Top Button */
+    .back-to-top {
+        position: fixed;
+        bottom: 30px;
+        left: 30px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #3cc88f;
+        color: #fff;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .back-to-top.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .back-to-top:hover {
+        background-color: #2c3e50;
+        transform: translateY(-3px);
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 991.98px) {
+        .footer-cta-title {
+            font-size: 1.5rem;
+        }
+
+        .footer-widget {
+            margin-bottom: 40px;
+        }
+    }
+
+    @media (max-width: 767.98px) {
+        .footer-top-section {
+            text-align: center;
+        }
+
+        .footer-top-section .btn {
+            margin-top: 15px;
+        }
+
+        .widget-title::after {
+            right: auto;
+            left: 0;
+        }
+
+        .copyright-text,
+        .social-links {
+            justify-content: center;
+            text-align: center;
+        }
+
+        .social-links {
+            margin-top: 15px;
+        }
+
+        .back-to-top {
+            width: 40px;
+            height: 40px;
+            bottom: 20px;
+            left: 20px;
+        }
+    }
+</style>
+
+<script>
+    // Back to Top Button
+    document.addEventListener('DOMContentLoaded', function() {
+        const backToTopBtn = document.querySelector('.back-to-top');
+
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('active');
+            } else {
+                backToTopBtn.classList.remove('active');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Update current year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    });
+</script>
+
+
+
+{{--
+
+@props(['contactInfo' => []])
+
+<!-- Professional Footer -->
+<footer class="professional-footer" dir="rtl">
+    <!-- Footer Top Section -->
+    <div class="footer-top-section bg-gradient-primary">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h3 class="footer-cta-title">جاهزون لمساعدتك على مدار الساعة</h3>
+                    <p class="footer-cta-text">فريق دعم العملاء متاح 24/7 للإجابة على استفساراتك</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="" class="btn btn-light btn-lg rounded-pill">
+                        <i class="fas fa-headset me-2"></i> اتصل بنا الآن
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Footer Content -->
+    <div class="main-footer-content bg-dark">
+        <div class="container py-5">
+            <div class="row g-5">
+                <!-- Brand Info Column -->
+                <div class="col-lg-4">
+                    <div class="brand-widget text-center text-lg-start">
+                        <div class="logo-container mb-4">
+                            <a href="/" class="footer-logo">
+                                <img class="lazy-image" src="{{ asset('images/footer-logo.png') }}" alt="Logo" />
+                            </a>
+                        </div>
+                        <p class="brand-description mt-4">
+                            نقدم حلولاً مبتكرة تلبي احتياجات عملائنا بجودة عالية وكفاءة مميزة، نسعى لبناء شراكات طويلة الأمد مع عملائنا الكرام.
+                        </p>
+                        <div class="trust-badges mt-4 text-center text-lg-start">
+                            <img src="{{ asset('images/ssl-secured.png') }}" alt="SSL Secured" width="80" class="me-2">
+                            <img src="{{ asset('images/payment-verified.png') }}" alt="Payment Verified" width="80">
                         </div>
                     </div>
                 </div>
 
+                <!-- Quick Links Column -->
+                <div class="col-lg-2 col-md-4">
+                    <div class="footer-widget">
+                        <h4 class="widget-title">روابط سريعة</h4>
+                        <ul class="footer-links">
+                            <li><a href="{{ route('home') }}">الرئيسية</a></li>
+                            <li><a href="">عن الشركة</a></li>
+                            <li><a href="">خدماتنا</a></li>
+                            <li><a href="">أعمالنا</a></li>
+                            <li><a href="">المدونة</a></li>
+                            <li><a href="">اتصل بنا</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Services Column -->
+                <div class="col-lg-2 col-md-4">
+                    <div class="footer-widget">
+                        <h4 class="widget-title">خدماتنا</h4>
+                        <ul class="footer-links">
+                            <li><a href="">تطوير المواقع</a></li>
+                            <li><a href="">تطبيقات الجوال</a></li>
+                            <li><a href="">التسويق الرقمي</a></li>
+                            <li><a href="">التصميم الجرافيكي</a></li>
+                            <li><a href="">تحسين محركات البحث</a></li>
+                            <li><a href="">استضافة المواقع</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Contact Info Column -->
+                <div class="col-lg-4 col-md-4">
+                    <div class="footer-widget">
+                        <h4 class="widget-title">تواصل معنا</h4>
+                        <ul class="contact-info">
+                            <li class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <span>العنوان:</span>
+                                    <p>الرياض، المملكة العربية السعودية</p>
+                                </div>
+                            </li>
+                            <li class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <span>الهاتف:</span>
+                                    <p><a href="tel:+966112345678">+966 11 234 5678</a></p>
+                                </div>
+                            </li>
+                            <li class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <span>البريد الإلكتروني:</span>
+                                    <p><a href="mailto:info@example.com">info@example.com</a></p>
+                                </div>
+                            </li>
+                            <li class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <span>ساعات العمل:</span>
+                                    <p>الأحد - الخميس: 8 صباحاً - 5 مساءً</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Footer Bottom -->
-    <div class="footer-bottom" style="background-color: #25282A; padding: 15px 0; color: white;">
-        <div class="auto-container">
-            <div class="clearfix d-flex justify-content-between align-items-center flex-wrap">
-                <div class="copyright" style="font-size: 14px; color: #fff;">منصة التبرع في الأردن 2025 &copy; جميع الحقوق محفوظة</div>
-                <ul class="bottom-links d-flex gap-3" style="list-style: none; padding: 0; margin: 0;">
-                    <li><a href="#" style="color: #fff;">شروط الخدمة</a></li>
-                    <li><a href="#" style="color: #fff;">سياسة الخصوصية</a></li>
-                </ul>
+    <!-- Footer Bottom Section -->
+    <div class="footer-bottom bg-darker">
+        <div class="container">
+            <div class="footer-bottom-content">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="copyright-text">
+                            <p>&copy; <span id="current-year"></span> جميع الحقوق محفوظة لشركة <a href="/">اسم الشركة</a></p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="footer-extras">
+                            <div class="social-links">
+                                <a href="#" class="social-link" target="_blank" aria-label="Facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="social-link" target="_blank" aria-label="Twitter">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="social-link" target="_blank" aria-label="Instagram">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="social-link" target="_blank" aria-label="LinkedIn">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="#" class="social-link" target="_blank" aria-label="YouTube">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 </footer>
+
+<style>
+    /* Professional Footer Styles */
+    .professional-footer {
+        font-family: 'Tajawal', sans-serif;
+        position: relative;
+    }
+
+    /* Footer Top Section */
+    .footer-top-section {
+        padding: 30px 0;
+        background: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%);
+        color: #fff;
+    }
+
+    .footer-cta-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .footer-cta-text {
+        font-size: 1.1rem;
+        opacity: 0.9;
+    }
+
+    /* Main Footer Content */
+    .main-footer-content {
+        background-color: #1a1a1a;
+        color: #fff;
+    }
+
+    /* Logo Container */
+    .logo-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    @media (min-width: 992px) {
+        .logo-container {
+            justify-content: flex-start;
+        }
+    }
+
+    .footer-logo img {
+        max-width: 180px;
+        height: auto;
+        transition: transform 0.3s ease;
+    }
+
+    .footer-logo:hover img {
+        transform: scale(1.05);
+    }
+
+    .brand-description {
+        color: #aaa;
+        line-height: 1.8;
+        font-size: 0.95rem;
+        text-align: center;
+    }
+
+    @media (min-width: 992px) {
+        .brand-description {
+            text-align: right;
+        }
+    }
+
+    .trust-badges img {
+        transition: transform 0.3s ease;
+    }
+
+    .trust-badges img:hover {
+        transform: translateY(-5px);
+    }
+
+    /* Footer Widgets */
+    .footer-widget {
+        margin-bottom: 30px;
+    }
+
+    .widget-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        position: relative;
+    }
+
+    .widget-title::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 50px;
+        height: 3px;
+        background: linear-gradient(to right, #4ca1af, #2c3e50);
+    }
+
+    /* Footer Links */
+    .footer-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .footer-links li {
+        margin-bottom: 12px;
+    }
+
+    .footer-links a {
+        color: #aaa;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: block;
+        padding: 5px 0;
+        position: relative;
+        font-size: 0.95rem;
+    }
+
+    .footer-links a::before {
+        content: '';
+        position: absolute;
+        right: -15px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 0;
+        height: 1px;
+        background-color: #4ca1af;
+        transition: width 0.3s ease;
+    }
+
+    .footer-links a:hover {
+        color: #fff;
+        padding-right: 15px;
+    }
+
+    .footer-links a:hover::before {
+        width: 10px;
+    }
+
+    /* Contact Info */
+    .contact-info {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .contact-item {
+        display: flex;
+        margin-bottom: 20px;
+    }
+
+    .contact-icon {
+        width: 40px;
+        height: 40px;
+        background-color: rgba(76, 161, 175, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 15px;
+        flex-shrink: 0;
+        color: #4ca1af;
+    }
+
+    .contact-text {
+        flex: 1;
+    }
+
+    .contact-text span {
+        display: block;
+        color: #4ca1af;
+        font-size: 0.85rem;
+        margin-bottom: 3px;
+    }
+
+    .contact-text p,
+    .contact-text a {
+        color: #aaa;
+        margin: 0;
+        font-size: 0.95rem;
+        transition: color 0.3s ease;
+    }
+
+    .contact-text a:hover {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    /* Footer Bottom */
+    .footer-bottom {
+        background-color: #111;
+        padding: 20px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .copyright-text {
+        color: #777;
+        font-size: 0.9rem;
+    }
+
+    .copyright-text a {
+        color: #4ca1af;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .copyright-text a:hover {
+        color: #fff;
+    }
+
+    /* Social Links */
+    .social-links {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+    }
+
+    .social-link {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.05);
+        color: #aaa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    .social-link:hover {
+        background-color: #4ca1af;
+        color: #fff;
+        transform: translateY(-3px);
+    }
+
+    /* Back to Top Button */
+    .back-to-top {
+        position: fixed;
+        bottom: 30px;
+        left: 30px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #4ca1af;
+        color: #fff;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .back-to-top.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .back-to-top:hover {
+        background-color: #2c3e50;
+        transform: translateY(-3px);
+    }
+
+    /* Lazy Image Loading */
+    .lazy-image {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .lazy-image.loaded {
+        opacity: 1;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 991.98px) {
+        .footer-cta-title {
+            font-size: 1.5rem;
+        }
+
+        .footer-widget {
+            margin-bottom: 40px;
+        }
+    }
+
+    @media (max-width: 767.98px) {
+        .footer-top-section {
+            text-align: center;
+        }
+
+        .footer-top-section .btn {
+            margin-top: 15px;
+        }
+
+        .widget-title::after {
+            right: auto;
+            left: 0;
+        }
+
+        .copyright-text,
+        .social-links {
+            justify-content: center;
+            text-align: center;
+        }
+
+        .social-links {
+            margin-top: 15px;
+        }
+
+        .back-to-top {
+            width: 40px;
+            height: 40px;
+            bottom: 20px;
+            left: 20px;
+        }
+    }
+</style>
+
+<script>
+    // Back to Top Button
+    document.addEventListener('DOMContentLoaded', function() {
+        const backToTopBtn = document.querySelector('.back-to-top');
+
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('active');
+            } else {
+                backToTopBtn.classList.remove('active');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Update current year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Lazy Load Images
+        const lazyImages = document.querySelectorAll('.lazy-image');
+
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src || img.src;
+                    img.classList.add('loaded');
+                    observer.unobserve(img);
+                }
+            });
+        });
+
+        lazyImages.forEach(img => {
+            imageObserver.observe(img);
+        });
+    });
+</script> --}}

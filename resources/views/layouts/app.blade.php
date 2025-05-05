@@ -39,9 +39,7 @@
         @yield('content')
     </main>
 
-    <div class="scroll-to-top scroll-to-target" data-target="html">
-        <span class="flaticon-up-arrow"></span>
-    </div>
+
 
     {{-- ✅ الفوتر --}}
     <x-footer />
@@ -69,10 +67,7 @@
             minDate: "today",   // تحديد الحد الأدنى للتاريخ ليكون اليوم
         });
 
-        document.querySelector('.scroll-to-top').addEventListener('click', function () {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
+      
         // تأكد من تنفيذ SweetAlert2 عندما يكون هناك session status
         $(document).ready(function() {
             if ('{{ session('status') }}') {

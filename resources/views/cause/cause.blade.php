@@ -402,7 +402,7 @@
                     activateProgressBars(); // إعادة التفعيل بعد تحميل الفلتر
                 },
                 error: function (xhr) {
-                    console.error(xhr.responseText);
+                    console.error(xhr.responseText); 
                 }
             });
         });

@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- رسالة النجاح عند إتمام التسجيل بنجاح -->
     @if(session('status'))
         <div class="alert alert-success text-center" role="alert" style="font-family: 'Cairo', sans-serif; margin-bottom: 20px;">
             {{ session('status') }}
@@ -10,7 +9,6 @@
 
     <section class="login-section" style="padding: 80px 0; direction: rtl; background-image: url('{{ asset('storage/background/Backgroundlogin.png') }}'); background-size: cover; background-position: center center; background-repeat: no-repeat;">
         <div class="auto-container">
-            <!-- إضافة الشعار في أعلى اليمين -->
             <div style="position: absolute; top: 20px; right: 20px;">
                 <img src="{{ asset('path/to/logo.png') }}" alt="Logo" style="width: 100px; height: auto;">
             </div>
@@ -28,7 +26,6 @@
 
                             <div class="form-row">
                                 <div class="col-md-6 mb-3">
-                                    <!-- الاسم الكامل -->
                                     <label for="name" style="font-family: 'Cairo', sans-serif; text-align: right; display: block;">الاسم الكامل</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -49,7 +46,6 @@
                                 </div>
 
                                 <div class="col-md-6 mb-3">
-                                    <!-- رقم الهاتف -->
                                     <label for="phone" style="font-family: 'Cairo', sans-serif; text-align: right; display: block;">رقم الهاتف</label>
                                     <div class="input-group">
                                         <input type="tel" id="phone" name="phone" class="form-control @error('phone') is-invalid @enderror"
@@ -66,7 +62,6 @@
 
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
-                                    <!-- البريد الإلكتروني -->
                                     <label for="email" style="font-family: 'Cairo', sans-serif; text-align: right; display: block;">البريد الإلكتروني</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -86,7 +81,6 @@
 
                             <div class="form-row">
                                 <div class="col-md-6 mb-3">
-                                    <!-- كلمة المرور مع مؤشر القوة -->
                                     <label for="password" style="font-family: 'Cairo', sans-serif; text-align: right; display: block;">كلمة المرور</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -101,7 +95,6 @@
                                         </div>
                                     </div>
 
-                                    <!-- مؤشر قوة كلمة المرور (مخفي في البداية) -->
                                     <div id="password-strength-container" class="password-strength-meter mt-2" style="font-family: 'Cairo', sans-serif; display: none;">
                                         <div class="progress" style="height: 5px;">
                                             <div id="password-strength-bar" class="progress-bar" role="progressbar" style="width: 0%"></div>
@@ -141,7 +134,6 @@
                                 </div>
                             </div>
 
-                            <!-- زر إنشاء حساب -->
                             <div class="form-group text-center" style="margin-top: 20px;">
                                 <button type="submit" class="theme-btn btn-style-one w-100">
                                     <span class="btn-title" style="font-family: 'Cairo', sans-serif;"><i class="fas fa-user-plus"></i> إنشاء حساب</span>
@@ -166,7 +158,6 @@
         </div>
     </section>
 
-    <!-- intl-tel-input (لإضافة رموز الدول في رقم الهاتف) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 
@@ -186,7 +177,7 @@
 
         input.addEventListener("input", function() {
             document.querySelector("#phone").value = iti.getNumber();
-            console.log(iti.getNumber());  // تحقق من الرقم المرسل
+            console.log(iti.getNumber());
         });
 
         @if(session('status'))
@@ -197,17 +188,15 @@
                 confirmButtonText: 'موافق'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = "{{ route('login') }}";  // إعادة التوجيه إلى صفحة تسجيل الدخول
+                    window.location.href = "{{ route('login') }}";
                 }
             });
         @endif
 
-        // التحقق الفوري من حقل الاسم
         document.getElementById('name').addEventListener('input', function() {
             var name = this.value.trim();
             var nameError = document.getElementById('name-error');
 
-            // Split name into segments by spaces and filter out empty strings
             var nameSegments = name.split(/\s+/).filter(segment => segment.length > 0);
 
             if (nameSegments.length !== 3 || /[^A-Za-z\u0600-\u06FF ]/.test(name)) {
@@ -219,15 +208,12 @@
             }
         });
 
-        // التحقق الفوري من حقل الاسم
 document.getElementById('name').addEventListener('input', function() {
     var name = this.value.trim();
     var nameError = document.getElementById('name-error');
 
-    // تقسيم الاسم إلى مقاطع وإزالة الفراغات الفارغة
     var nameSegments = name.split(/\s+/).filter(segment => segment.length > 0);
 
-    // التحقق من عدد المقاطع وطول كل مقطع
     let isValid = true;
     if (nameSegments.length !== 3) {
         isValid = false;
@@ -240,7 +226,6 @@ document.getElementById('name').addEventListener('input', function() {
         }
     }
 
-    // التحقق من وجود أحرف غير عربية
     if (/[^A-Za-z\u0600-\u06FF ]/.test(name)) {
         isValid = false;
     }
@@ -366,7 +351,7 @@ document.getElementById('name').addEventListener('input', function() {
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.5.2/dist/sweetalert2.min.css" rel="stylesheet">
 
     <style>
-        
+
         .login-section {
             background-color: #f8f9fa;
         }
