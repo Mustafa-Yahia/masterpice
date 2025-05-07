@@ -36,7 +36,7 @@
                         <!-- Search Field -->
                         <div class="col-md-4">
                             <div class="input-group">
-                                <span class="input-group-text bg-primary text-white">
+                                <span class="input-group-text  text-white" style="background-color: #3cc88f;">
                                     <i class="fas fa-search"></i>
                                 </span>
                                 <input type="text" class="form-control" name="search" value="{{ request('search') }}" placeholder="ابحث بالعنوان أو الوصف...">
@@ -67,7 +67,7 @@
                         <!-- Date Range -->
                         <div class="col-md-6">
                             <div class="input-group">
-                                <span class="input-group-text bg-primary text-white">
+                                <span class="input-group-text  text-white" style="background-color: #3cc88f;">
                                     <i class="fas fa-calendar-day"></i>
                                 </span>
                                 <input type="date" class="form-control" name="start_date" value="{{ request('start_date') }}" placeholder="من تاريخ">
@@ -76,7 +76,7 @@
 
                         <div class="col-md-6">
                             <div class="input-group">
-                                <span class="input-group-text bg-primary text-white">
+                                <span class="input-group-text  text-white" style="background-color: #3cc88f;">
                                     <i class="fas fa-calendar-day"></i>
                                 </span>
                                 <input type="date" class="form-control" name="end_date" value="{{ request('end_date') }}" placeholder="إلى تاريخ">
@@ -86,7 +86,7 @@
                         <!-- Filter Buttons -->
                         <div class="col-12">
                             <div class="d-flex justify-content-between">
-                                <button type="submit" class="btn btn-primary px-4">
+                                <button type="submit" class="btn  px-4" style="background-color: #3cc88f; color: white;">
                                     <i class="fas fa-filter me-2"></i> تطبيق الفلتر
                                 </button>
                                 <a href="{{ route('admin.causes.index') }}" class="btn btn-outline-secondary">
@@ -103,7 +103,7 @@
         <div class="card shadow-sm">
             <div class="card-header d-flex justify-content-between align-items-center bg-white">
                 <h5 class="mb-0">قائمة الحملات</h5>
-                <a href="{{ route('admin.causes.create') }}" class="btn btn-success">
+                <a href="{{ route('admin.causes.create') }}" class="btn" style="background-color: #3cc88f; color: white;">
                     <i class="fas fa-plus me-2"></i> إضافة حملة جديدة
                 </a>
             </div>
@@ -132,7 +132,8 @@
                                             @if($cause->image)
                                                 <img src="{{ asset('storage/'.$cause->image) }}" alt="{{ $cause->title }}" class="rounded" width="40" height="40">
                                             @else
-                                                <div class="bg-primary text-white rounded d-flex align-items-center justify-content-center" style="width:40px;height:40px;">
+                                                <div class=" text-white rounded d-flex align-items-center justify-content-center" style="width:40px;height:40px; background-color: #3cc88f;">
+                                                    {{ strtoupper(substr($cause->title, 0, 1)) }}
                                                     <i class="fas fa-hands-helping"></i>
                                                 </div>
                                             @endif
@@ -178,7 +179,7 @@
                                             <i class="fas fa-times-circle me-1"></i> منتهية
                                         </span>
                                     @else
-                                        <span class="badge bg-primary rounded-pill">
+                                        <span class="badge  rounded-pill" style="background-color: #3cc88f;">
                                             <i class="fas fa-spinner me-1"></i> نشطة
                                         </span>
                                     @endif
@@ -217,7 +218,7 @@
                                     <div class="empty-state">
                                         <i class="fas fa-hands-helping fa-3x text-muted mb-3"></i>
                                         <h5 class="text-muted">لا توجد حملات مسجلة</h5>
-                                        <a href="{{ route('admin.causes.create') }}" class="btn btn-primary mt-3">
+                                        <a href="{{ route('admin.causes.create') }}" class="btn mt-3" style="background-color: #3cc88f; color: white;">
                                             <i class="fas fa-plus me-2"></i> إنشاء حملة جديدة
                                         </a>
                                     </div>

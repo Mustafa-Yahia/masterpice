@@ -1,95 +1,227 @@
-
-
 @extends('layouts.app')
 @section('content')
 
-
-    <!-- Banner Section -->
-    <section class="banner-section style-two">
-		<div class="banner-carousel love-carousel owl-theme owl-carousel" data-options='{"loop": true, "margin": 0, "autoheight":true, "lazyload":true, "nav": true, "dots": true, "autoplay": true, "autoplayTimeout": 6000, "smartSpeed": 300, "responsive":{ "0" :{ "items": "1" }, "768" :{ "items" : "1" } , "1000":{ "items" : "1" }}}'>
-			<!-- Slide Item -->
-<div class="slide-item">
-    <div class="image-layer lazy-image" style="background-image: url('{{ asset('storage/main-slider/tatow.jpg') }}');"></div>
-
+<!-- Banner Section -->
+<section class="impact-banner" style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{{ asset('images/impact-bg.jpg') }}'); background-size: cover; padding: 100px 0; text-align: center; color: white;">
     <div class="auto-container">
-        <div class="content-box">
-            <h2>نحن بحاجة إلى مساعدتك</h2>
-            <div class="text">انضم إلى جهودنا التطوعية للمساهمة في تحسين حياة الآخرين. نحن بحاجة إلى متطوعين مثلك لتقديم الدعم والمساعدة في مشاريعنا الخيرية.</div>
-            <div class="btn-box"><a href="volunteer" class="theme-btn btn-style-one"><span class="btn-title">التطوع الآن</span></a></div>
-        </div>
+        <h1 style="font-size: 42px; margin-bottom: 20px;">التأثير الذي نصنعه معاً</h1>
+        <p style="font-size: 18px; max-width: 800px; margin: 0 auto;">شاهد كيف تتحول التبرعات والأعمال التطوعية إلى تغيير ملموس في حياة الناس والمجتمعات</p>
     </div>
-</div>
+</section>
 
-
-			<!-- Slide Item -->
-<div class="slide-item">
-    <div class="image-layer lazy-image" style="background-image: url('{{ asset('storage/main-slider/tataw1.jpg') }}');"></div>
-
+<!-- Transformation Stories Section -->
+<section class="transformation-section" style="padding: 80px 0; background-color: #f9f9f9;">
     <div class="auto-container">
-        <div class="content-box">
-            <h2>كن جزءًا من التغيير</h2>
-            <div class="text">ساهم بوقتك وجهدك في تحسين حياة الآخرين. نحن نحتاج إليك لدعم مشروعاتنا التطوعية التي تساهم في بناء مجتمع أفضل. </div>
-            <div class="btn-box"><a href="volunteer" class="theme-btn btn-style-one"><span class="btn-title">التطوع الآن</span></a></div>
+        <div class="sec-title text-center" style="margin-bottom: 60px;">
+            <h2 style="color: #3cc88f;">قصص التحول</h2>
+            <p>من حال إلى حال أفضل بفضل دعمكم وتطوعكم</p>
         </div>
-    </div>
-</div>
 
-
-			<!-- Slide Item -->
-<div class="slide-item">
-    <div class="image-layer lazy-image" style="background-image: url('{{ asset('storage/main-slider/tataw2.jpg') }}');"></div>
-
-    <div class="auto-container">
-        <div class="content-box">
-            <h2>ساهم في إحداث الفارق</h2>
-            <div class="text">نحن بحاجة لمتطوعين مثلك للمشاركة في جهودنا الإنسانية. تبرع بوقتك وساهم في مساعدة المجتمع وتحقيق التغيير الإيجابي.</div>
-            <div class="btn-box"><a href="volunteer" class="theme-btn btn-style-one"><span class="btn-title">التطوع الآن</span></a></div>
-        </div>
-    </div>
-</div>
-
-
-		</div>
-    </section>
-    <!--End Banner Section -->
-<!-- Video Section -->
-<!-- Video Section -->
-<section class="video-section style-two">
-    <div class="auto-container">
-        <div class="row clearfix">
-            <!-- Text Column -->
-            <div class="text-column col-lg-6 col-md-12 col-sm-12">
-                <div class="inner">
-                    <div class="sec-title text-right">
-                        <div class="sub-title">شاهد الفيديو</div>
-                        <h2>انضم إلى جهودنا التطوعية</h2>
-                        <div class="text">
-                            منذ تأسيس جمعيتنا ونحن نرحب بالمتطوعين من جميع أنحاء المملكة، من مختلف الأعمار والقطاعات الخاصة والحكومية والتعليمية وغيرها، الذين يتطلعون إلى فعل الخير والمساعدة في تحسين حياة الآخرين.
-                            تطوعك معنا لا يقتصر على تقديم الدعم الغذائي فقط، بل يتعدى ذلك إلى الحفاظ على كرامة الإنسان والمساهمة في تحسين ظروفه المعيشية والنفسية.
-                            نحن نفخر بأننا استقبلنا أكثر من 40,000 متطوع منذ عام 2014، الذين قدموا يد العون ودعموا المجتمع بشكل عام وأفراد الجمعية بشكل خاص.
-                            إن تطوعك معنا يعني أنك تساهم في تحقيق تغيير حقيقي في حياة الآخرين. شاهد الفيديو لتتعرف أكثر على جهودنا وكيف يمكنك أن تكون جزءًا منها.
-                        </div>
-                        <div class="link-box clearfix text-right">
-                            <a href="volunteer" class="theme-btn btn-style-one"><span class="btn-title">انضم الآن كمتطوع</span></a>
+        <div class="row">
+            <!-- Transformation 1 -->
+            <div class="col-lg-6 col-md-12 mb-5">
+                <div class="transformation-card" style="background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <div class="before-after" style="position: relative; height: 300px;">
+                        <div class="before" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('{{ asset('images/school-before.jpg') }}') center/cover;"></div>
+                        <div class="after" style="position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: url('{{ asset('images/school-after.jpg') }}') center/cover; border-right: 3px solid #3cc88f;"></div>
+                        <div class="slider-handle" style="position: absolute; left: 50%; top: 0; bottom: 0; width: 4px; background: #3cc88f; cursor: ew-resize;"></div>
+                    </div>
+                    <div class="content" style="padding: 20px;">
+                        <h3 style="color: #3cc88f;">مدرسة القرية</h3>
+                        <p>من مبنى مهدم إلى مدرسة حديثة بفصول دراسية مجهزة، استفاد منها أكثر من 200 طالب وطالبة</p>
+                        <div class="stats" style="display: flex; justify-content: space-between; margin-top: 15px;">
+                            <div>
+                                <span style="font-weight: bold; color: #3cc88f;">التبرعات:</span>
+                                <span>250,000 ريال</span>
+                            </div>
+                            <div>
+                                <span style="font-weight: bold; color: #3cc88f;">المتطوعون:</span>
+                                <span>45 متطوع</span>
+                            </div>
+                            <div>
+                                <span style="font-weight: bold; color: #3cc88f;">المدة:</span>
+                                <span>6 أشهر</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Image Column -->
-            <div class="image-column col-lg-6 col-md-12 col-sm-12">
-                <div class="inner wow fadeInLeft" data-wow-delay="0ms">
-                    <figure class="image-box" style="background-image: url('images/resource/video-image-1.jpg'); background-size: cover; background-position: center;">
-                        <img class="lazy-image" src="images/resource/image-spacer-for-validation.png" data-src="images/resource/video-image-1.jpg" alt="" style="opacity: 0;">
-                        <a href="https://www.youtube.com/watch?v=GwkfEwKlIbk" class="lightbox-image over-link">
-                            <span class="icon flaticon-play-button"></span>
-                        </a>
-                    </figure>
+
+            <!-- Transformation 2 -->
+            <div class="col-lg-6 col-md-12 mb-5">
+                <div class="transformation-card" style="background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <div class="before-after" style="position: relative; height: 300px;">
+                        <div class="before" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('{{ asset('images/house-before.jpg') }}') center/cover;"></div>
+                        <div class="after" style="position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: url('{{ asset('images/house-after.jpg') }}') center/cover; border-right: 3px solid #3cc88f;"></div>
+                        <div class="slider-handle" style="position: absolute; left: 50%; top: 0; bottom: 0; width: 4px; background: #3cc88f; cursor: ew-resize;"></div>
+                    </div>
+                    <div class="content" style="padding: 20px;">
+                        <h3 style="color: #3cc88f;">منزل الأسرة الفقيرة</h3>
+                        <p>تحول من خيمة صغيرة إلى منزل آمن يحمي من تقلبات الطقس ويوفر حياة كريمة لأسرة مكونة من 7 أفراد</p>
+                        <div class="stats" style="display: flex; justify-content: space-between; margin-top: 15px;">
+                            <div>
+                                <span style="font-weight: bold; color: #3cc88f;">التبرعات:</span>
+                                <span>120,000 ريال</span>
+                            </div>
+                            <div>
+                                <span style="font-weight: bold; color: #3cc88f;">المتطوعون:</span>
+                                <span>30 متطوع</span>
+                            </div>
+                            <div>
+                                <span style="font-weight: bold; color: #3cc88f;">المدة:</span>
+                                <span>3 أشهر</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
+
+<!-- Impact Statistics Section -->
+<section class="impact-stats" style="padding: 80px 0; background: linear-gradient(135deg, #3cc88f 0%, #2da578 100%); color: white;">
+    <div class="auto-container">
+        <div class="sec-title text-center" style="margin-bottom: 60px;">
+            <h2>أرقامنا تتحدث</h2>
+            <p>إنجازاتنا بفضل دعمكم الكريم</p>
+        </div>
+
+        <div class="row text-center">
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stat-item" style="padding: 20px;">
+                    <h3 style="font-size: 42px; font-weight: bold; margin-bottom: 10px;">47</h3>
+                    <p>مشروعاً تم إنجازه</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stat-item" style="padding: 20px;">
+                    <h3 style="font-size: 42px; font-weight: bold; margin-bottom: 10px;">1,250</h3>
+                    <p>متطوع مشارك</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stat-item" style="padding: 20px;">
+                    <h3 style="font-size: 42px; font-weight: bold; margin-bottom: 10px;">4.7M</h3>
+                    <p>ريال قيمة التبرعات</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stat-item" style="padding: 20px;">
+                    <h3 style="font-size: 42px; font-weight: bold; margin-bottom: 10px;">12,500</h3>
+                    <p>مستفيد مباشر</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials-section" style="padding: 80px 0; background-color: white;">
+    <div class="auto-container">
+        <div class="sec-title text-center" style="margin-bottom: 60px;">
+            <h2 style="color: #3cc88f;">كلمات الشكر</h2>
+            <p>ما يقوله المستفيدون والمتطوعون</p>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="testimonial-card" style="background: #f9f9f9; padding: 30px; border-radius: 10px; height: 100%;">
+                    <div class="quote-icon" style="color: #3cc88f; font-size: 30px; margin-bottom: 15px;">"</div>
+                    <p style="font-style: italic; margin-bottom: 20px;">بفضل الله ثم بفضل المتبرعين والمتطوعين، تحولت حياتنا من الشقاء إلى السعادة. بني لنا منزل أحلامنا بعد أن كنا نعيش في خيمة.</p>
+                    <div class="author" style="display: flex; align-items: center;">
+                        <img src="{{ asset('images/testimonial1.jpg') }}" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; margin-left: 15px;">
+                        <div>
+                            <h5 style="margin-bottom: 0;">أحمد السليم</h5>
+                            <small>مستفيد من مشروع بناء المنازل</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="testimonial-card" style="background: #f9f9f9; padding: 30px; border-radius: 10px; height: 100%;">
+                    <div class="quote-icon" style="color: #3cc88f; font-size: 30px; margin-bottom: 15px;">"</div>
+                    <p style="font-style: italic; margin-bottom: 20px;">شاركت في بناء مدرسة القرية وكانت من أجمل التجارب في حياتي. رؤية الفرحة في عيون الأطفال عند افتتاح المدرسة لا تقدر بثمن.</p>
+                    <div class="author" style="display: flex; align-items: center;">
+                        <img src="{{ asset('images/testimonial2.jpg') }}" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; margin-left: 15px;">
+                        <div>
+                            <h5 style="margin-bottom: 0;">نورة الفهد</h5>
+                            <small>متطوعة في مشروع المدارس</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="testimonial-card" style="background: #f9f9f9; padding: 30px; border-radius: 10px; height: 100%;">
+                    <div class="quote-icon" style="color: #3cc88f; font-size: 30px; margin-bottom: 15px;">"</div>
+                    <p style="font-style: italic; margin-bottom: 20px;">كنت أشعر أن تبرعاتي الصغيرة لا قيمة لها، لكن عندما زرت المشاريع وشاهدت تأثيرها، أدركت أن كل ريال يحدث فرقاً.</p>
+                    <div class="author" style="display: flex; align-items: center;">
+                        <img src="{{ asset('images/testimonial3.jpg') }}" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; margin-left: 15px;">
+                        <div>
+                            <h5 style="margin-bottom: 0;">خالد الرشيد</h5>
+                            <small>متبرع دائم</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section" style="padding: 60px 0; background-color: #3cc88f; color: white; text-align: center;">
+    <div class="auto-container">
+        <h2 style="margin-bottom: 20px;">كن جزءاً من التغيير</h2>
+        <p style="font-size: 18px; max-width: 700px; margin: 0 auto 30px;">ساهم معنا في صنع المزيد من قصص النجاح وتحويل الأحلام إلى حقائق</p>
+        <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+            <a href="donate" class="btn" style="background: white; color: #3cc88f; padding: 12px 30px; border-radius: 30px; font-weight: bold; text-decoration: none;">تبرع الآن</a>
+            <a href="volunteer" class="btn" style="background: transparent; border: 2px solid white; color: white; padding: 12px 30px; border-radius: 30px; font-weight: bold; text-decoration: none;">تطوع معنا</a>
+        </div>
+    </div>
+</section>
+
+<script>
+// Simple before-after slider functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const sliders = document.querySelectorAll('.before-after');
+
+    sliders.forEach(slider => {
+        const handle = slider.querySelector('.slider-handle');
+        const after = slider.querySelector('.after');
+        let isDragging = false;
+
+        function moveSlider(e) {
+            if (!isDragging) return;
+
+            const rect = slider.getBoundingClientRect();
+            let x = e.clientX - rect.left;
+
+            // Constrain x to slider boundaries
+            x = Math.max(0, Math.min(x, rect.width));
+
+            const percent = (x / rect.width) * 100;
+
+            after.style.width = `${percent}%`;
+            handle.style.left = `${percent}%`;
+        }
+
+        handle.addEventListener('mousedown', () => isDragging = true);
+        document.addEventListener('mouseup', () => isDragging = false);
+        document.addEventListener('mousemove', moveSlider);
+
+        // Touch support
+        handle.addEventListener('touchstart', () => isDragging = true);
+        document.addEventListener('touchend', () => isDragging = false);
+        document.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            moveSlider(e.touches[0]);
+        });
+    });
+});
+</script>
+
 <!-- End Video Section -->
 
 

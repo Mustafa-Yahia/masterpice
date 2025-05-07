@@ -56,7 +56,7 @@
                             </select>
                         </div>
                         <div class="col-md-2 d-grid">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn " style="background:#3cc88f; color:white;">
                                 <i class="fas fa-filter me-2"></i>تصفية
                             </button>
                         </div>
@@ -69,7 +69,7 @@
         <div class="card shadow-sm">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="card-title mb-0">قائمة المستخدمين</h3>
-                <a href="{{ route('admin.users.create') }}" class="btn btn-success">
+                <a href="{{ route('admin.users.create') }}" class="btn" style="background:#3cc88f; color:white;">
                     <i class="fas fa-user-plus me-2"></i>إضافة مستخدم
                 </a>
             </div>
@@ -111,7 +111,7 @@
                                 <td>{{ $user->phone ?? '--' }}</td>
                                 <td>
                                     @if($user->role == 'admin')
-                                        <span class="badge bg-primary rounded-pill">
+                                        <span class="badge  rounded-pill" style="background:#3cc88f;">
                                             <i class="fas fa-shield-alt me-1"></i> مشرف
                                         </span>
                                     @else

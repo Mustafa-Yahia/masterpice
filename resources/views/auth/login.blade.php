@@ -78,7 +78,7 @@
                                     </label>
                                 </div>
                                 <a href="{{ route('forget.password.get') }}" class="text-primary"
-                                style="font-family: 'Cairo', sans-serif; color: #007bff;">
+                                style="font-family: 'Cairo', sans-serif; color: #2c3e50;">
                                 <i class="fas fa-question-circle"></i> نسيت كلمة المرور؟
                             </a>
                             </div>
@@ -107,6 +107,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
+
+
         .login-section {
             background-color: #f8f9fa;
         }

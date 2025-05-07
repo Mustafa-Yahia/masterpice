@@ -23,14 +23,14 @@
 
         <!-- Edit Event Form -->
         <div class="card shadow-lg">
-            <div class="card-header bg-gradient-primary text-white">
+            <div class="card-header  text-white" style="background-color: #3cc88f;">
                 <h5 class="mb-0">
                     <i class="fas fa-calendar-alt me-2"></i> تعديل بيانات الحدث: {{ $event->title }}
                 </h5>
             </div>
 
             <div class="card-body">
-                <form id="eventForm" action="{{ route('admin.events.update', $event->id) }}" method="POST" enctype="multipart/form-data" novalidate>
+                <form id="eventForm" action="{{ route('admin.events.update', $event->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
@@ -72,7 +72,11 @@
                                 <div class="col-md-6">
                                     <label for="description" class="form-label">الوصف المختصر <span class="text-danger">*</span></label>
                                     <textarea class="form-control @error('description') is-invalid @enderror"
-                                              id="description" name="description" rows="3" required>{{ old('description', $event->description) }}</textarea>
+                                              id="description" name="description" rows="3" required
+                                              oninput="checkWordAndCharCount(this)">{{ old('description', $event->description) }}</textarea>
+                                    <div id="error-message" class="invalid-feedback" style="display:none;">
+                                        يجب ألا يتجاوز عدد الكلمات 20 كلمة، وألا تتجاوز أطول كلمة 15 حرف.
+                                    </div>
                                     @error('description')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -82,14 +86,14 @@
                                 <div class="col-md-4">
                                     <label for="date" class="form-label">التاريخ <span class="text-danger">*</span></label>
                                     <input type="date" class="form-control @error('date') is-invalid @enderror"
-                                           id="date" name="date"value="{{ old('date', \Carbon\Carbon::parse($event->date)->format('Y-m-d')) }}" required>
+                                           id="date" name="date" value="{{ old('date', \Carbon\Carbon::parse($event->date)->format('Y-m-d')) }}" required>
                                     @error('date')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label for="time" class="form-label">الوقت <span class="text-danger">*</span></label>
+                                    <label for="time" class="form-label">وقت البدء <span class="text-danger">*</span></label>
                                     <input type="time" class="form-control @error('time') is-invalid @enderror"
                                            id="time" name="time" value="{{ old('time', $event->time) }}" required>
                                     @error('time')
@@ -97,8 +101,17 @@
                                     @enderror
                                 </div>
 
-                                <!-- Volunteers -->
                                 <div class="col-md-4">
+                                    <label for="end_time" class="form-label">وقت الانتهاء <span class="text-danger">*</span></label>
+                                    <input type="time" class="form-control @error('end_time') is-invalid @enderror"
+                                           id="end_time" name="end_time" value="{{ old('end_time', $event->end_time) }}" required>
+                                    @error('end_time')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <!-- Volunteers -->
+                                <div class="col-md-6">
                                     <label for="volunteers_needed" class="form-label">عدد المتطوعين <span class="text-danger">*</span></label>
                                     <input type="number" min="1" class="form-control @error('volunteers_needed') is-invalid @enderror"
                                            id="volunteers_needed" name="volunteers_needed" value="{{ old('volunteers_needed', $event->volunteers_needed) }}" required>
@@ -113,6 +126,34 @@
                                     <textarea class="form-control @error('mission') is-invalid @enderror"
                                               id="mission" name="mission" rows="4" required>{{ old('mission', $event->mission) }}</textarea>
                                     @error('mission')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <!-- Mission Points -->
+                                <div class="col-md-4">
+                                    <label for="mission_point_1" class="form-label">نقطة المهمة 1 <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control @error('mission_point_1') is-invalid @enderror"
+                                           id="mission_point_1" name="mission_point_1" value="{{ old('mission_point_1', $event->mission_point_1) }}" required>
+                                    @error('mission_point_1')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="mission_point_2" class="form-label">نقطة المهمة 2 <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control @error('mission_point_2') is-invalid @enderror"
+                                           id="mission_point_2" name="mission_point_2" value="{{ old('mission_point_2', $event->mission_point_2) }}" required>
+                                    @error('mission_point_2')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="mission_point_3" class="form-label">نقطة المهمة 3 <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control @error('mission_point_3') is-invalid @enderror"
+                                           id="mission_point_3" name="mission_point_3" value="{{ old('mission_point_3', $event->mission_point_3) }}" required>
+                                    @error('mission_point_3')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -134,9 +175,9 @@
 
                                 <!-- Location URL -->
                                 <div class="col-md-6">
-                                    <label for="location_url" class="form-label">رابط الموقع</label>
+                                    <label for="location_url" class="form-label">رابط الموقع <span class="text-danger">*</span></label>
                                     <input type="url" class="form-control @error('location_url') is-invalid @enderror"
-                                           id="location_url" name="location_url" value="{{ old('location_url', $event->location_url) }}">
+                                           id="location_url" name="location_url" value="{{ old('location_url', $event->location_url) }}" required>
                                     @error('location_url')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -163,8 +204,10 @@
 
                                 <div class="col-md-4">
                                     <label class="form-label">خريطة الموقع <span class="text-danger">*</span></label>
-                                    <button type="button" class="btn btn-outline-primary w-100" id="openMapModal">
-                                        <i class="fas fa-map-marked-alt me-2"></i> تحديد على الخريطة
+                                    <button type="button" class="btn w-100" id="openMapModal" style="background-color: #3cc88f; border-color: #3cc88f; color: white;">
+                                        فتح الخريطة
+                                      </button>
+                                                                              <i class="fas fa-map-marked-alt me-2"></i> تحديد على الخريطة
                                     </button>
                                     <small class="text-muted d-block mt-1">اضغط لتحديد الموقع على الخريطة</small>
                                 </div>
@@ -173,8 +216,7 @@
                                 <div class="col-12">
                                     <div id="mapPreview" style="height: 300px; border-radius: 0.25rem; border: 1px solid #dee2e6; margin-top: 10px;">
                                         @if($event->latitude && $event->longitude)
-                                            <img src="https://maps.googleapis.com/maps/api/staticmap?center={{ $event->latitude }},{{ $event->longitude }}&zoom=15&size=600x300&maptype=roadmap&markers=color:red%7C{{ $event->latitude }},{{ $event->longitude }}&key=YOUR_API_KEY"
-                                                 alt="موقع الحدث" style="width: 100%; height: 100%; object-fit: cover; border-radius: 0.25rem;">
+                                            <div id="miniMap" style="width: 100%; height: 100%;"></div>
                                         @else
                                             <div class="d-flex align-items-center justify-content-center h-100 bg-light">
                                                 <p class="text-muted mb-0">لم يتم تحديد موقع بعد</p>
@@ -190,12 +232,13 @@
                             <div class="row g-3">
                                 <!-- Main Image -->
                                 <div class="col-md-6">
-                                    <label for="image" class="form-label">الصورة الرئيسية</label>
+                                    <label for="image" class="form-label">الصورة الرئيسية <span class="text-danger">*</span></label>
                                     <input type="file" class="form-control @error('image') is-invalid @enderror"
                                            id="image" name="image" accept="image/*">
                                     @error('image')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
+                                    <small class="text-muted">الصيغ المسموحة: JPEG, PNG, JPG - الحد الأقصى للحجم: 2MB</small>
 
                                     @if($event->image)
                                     <div class="mt-3">
@@ -210,34 +253,7 @@
                                     @endif
                                 </div>
 
-                                <!-- Gallery -->
-                                <div class="col-md-6">
-                                    <label for="gallery" class="form-label">معرض الصور</label>
-                                    <input type="file" class="form-control @error('gallery') is-invalid @enderror"
-                                           id="gallery" name="gallery[]" multiple accept="image/*">
-                                    @error('gallery')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
 
-                                    @if($event->gallery && count($event->gallery) > 0)
-                                    <div class="mt-3">
-                                        <h6>الصور الحالية:</h6>
-                                        <div class="row g-2">
-                                            @foreach($event->gallery as $image)
-                                            <div class="col-4">
-                                                <div class="position-relative">
-                                                    <img src="{{ asset('storage/'.$image) }}" class="img-thumbnail" style="height: 80px; object-fit: cover;">
-                                                    <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 remove-gallery-image" data-image="{{ $image }}">
-                                                        <i class="fas fa-times"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            @endforeach
-                                        </div>
-                                        <input type="hidden" name="removed_gallery_images" id="removedGalleryImages" value="">
-                                    </div>
-                                    @endif
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -251,7 +267,7 @@
                             <button type="reset" class="btn btn-outline-danger me-2">
                                 <i class="fas fa-undo me-2"></i> إعادة تعيين
                             </button>
-                            <button type="submit" class="btn btn-primary" id="submitBtn">
+                            <button type="submit" class="btn" id="submitBtn" style="background-color: #3cc88f; color: #fff;">
                                 <i class="fas fa-save me-2"></i> حفظ التعديلات
                             </button>
                         </div>
@@ -266,7 +282,7 @@
 <div class="modal fade" id="mapModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
+            <div class="modal-header  text-white" style="background-color: #3cc88f;">
                 <h5 class="modal-title">تحديد موقع الحدث على الخريطة</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -280,7 +296,7 @@
                             <label for="searchLocation" class="form-label">بحث عن موقع:</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" id="searchLocation" placeholder="أدخل اسم المكان">
-                                <button class="btn btn-primary" type="button" id="searchButton">
+                                <button class="btn" type="button" id="searchButton" style="background-color: #3cc88f; color: white;">
                                     <i class="fas fa-search"></i>
                                 </button>
                             </div>
@@ -312,7 +328,7 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     <i class="fas fa-times me-2"></i> إلغاء
                 </button>
-                <button type="button" class="btn btn-primary" id="saveLocation">
+                <button type="button" class="btn " id="saveLocation" style="background-color: #3cc88f; color: white;">
                     <i class="fas fa-save me-2"></i> حفظ الموقع
                 </button>
             </div>
@@ -323,42 +339,89 @@
 
 @push('styles')
 <style>
-    .nav-tabs .nav-link {
-        font-weight: 500;
-        border: none;
-        padding: 0.75rem 1.25rem;
-        color: #6c757d;
-    }
+:root {
+    --primary-color: #3cc88f;
+    --primary-hover: #34b181;
+}
 
-    .nav-tabs .nav-link.active {
-        color: #0d6efd;
-        border-bottom: 3px solid #0d6efd;
-        background: transparent;
-    }
+.nav-tabs .nav-link {
+    font-weight: 500;
+    border: none;
+    padding: 0.75rem 1.25rem;
+    color: #6c757d;
+}
 
-    .bg-gradient-primary {
-        background: linear-gradient(87deg, #5e72e4 0, #825ee4 100%) !important;
-    }
+.nav-tabs .nav-link.active {
+    color: var(--primary-color);
+    border-bottom: 3px solid var(--primary-color);
+    background: transparent;
+}
 
-    .img-thumbnail {
-        max-width: 100%;
-        height: auto;
-    }
+.card-header.bg-primary {
+    background-color: var(--primary-color) !important;
+}
 
-    #map, #mapPreview {
-        border-radius: 0.25rem;
-        border: 1px solid #dee2e6;
-    }
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
 
-    .remove-gallery-image {
-        padding: 0.15rem 0.3rem;
-        border-radius: 50%;
-        transform: translate(50%, -50%);
-    }
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+}
 
-    .leaflet-top, .leaflet-bottom {
-        z-index: 999 !important;
-    }
+.btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.page-title {
+    color: var(--primary-color);
+}
+
+.breadcrumb-item.active {
+    color: var(--primary-color);
+}
+
+.invalid-feedback {
+    color: #dc3545;
+    font-size: 0.875rem;
+}
+
+.is-invalid {
+    border-color: #dc3545;
+}
+
+.img-thumbnail {
+    max-width: 100%;
+    height: auto;
+}
+
+#map, #mapPreview, #miniMap {
+    border-radius: 0.25rem;
+    border: 1px solid #dee2e6;
+}
+
+.remove-gallery-image {
+    padding: 0.15rem 0.3rem;
+    border-radius: 50%;
+    transform: translate(50%, -50%);
+}
+
+.leaflet-top, .leaflet-bottom {
+    z-index: 999 !important;
+}
+
+.swal2-popup {
+    text-align: right !important;
+    direction: rtl !important;
+}
 </style>
 @endpush
 
@@ -366,29 +429,120 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.js"></script>
+
+<script>
+    function checkWordAndCharCount(textarea) {
+        let words = textarea.value.trim().split(/\s+/);
+        let wordCount = words.length;
+        let maxWordLength = 15;
+        const errorMessage = document.getElementById("error-message");
+
+        // التحقق من عدد الكلمات وأقصى طول للكلمة
+        let maxWordExceeded = words.some(word => word.length > maxWordLength);
+
+        if (wordCount > 20 || maxWordExceeded) {
+            // إذا تجاوز عدد الكلمات 20 أو كان هناك كلمة أطول من 15 حرفًا
+            textarea.classList.add("is-invalid");  // إضافة الكلاس لإظهار التنسيق الأحمر
+            errorMessage.style.display = "block";   // إظهار رسالة الخطأ
+
+            // تقليص النص إذا كان عدد الكلمات أكبر من 20 أو هناك كلمة طويلة
+            if (wordCount > 20) {
+                textarea.value = words.slice(0, 20).join(" ");
+            }
+            // تقليص النص إذا كانت هناك كلمة أطول من 15 حرف
+            textarea.value = textarea.value.trim().split(/\s+/).map(word =>
+                word.length > maxWordLength ? word.slice(0, maxWordLength) : word
+            ).join(" ");
+        } else {
+            // إذا كانت الشروط صحيحة، إخفاء رسالة الخطأ
+            textarea.classList.remove("is-invalid");
+            errorMessage.style.display = "none";
+        }
+    }
+</script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize mini map if coordinates exist
+    @if($event->latitude && $event->longitude)
+    const miniMap = L.map('miniMap').setView([{{ $event->latitude }}, {{ $event->longitude }}], 15);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(miniMap);
+
+    L.marker([{{ $event->latitude }}, {{ $event->longitude }}]).addTo(miniMap);
+    @endif
+
     // Form Validation
     const form = document.getElementById('eventForm');
     form.addEventListener('submit', function(e) {
-        if (!form.checkValidity()) {
-            e.preventDefault();
-            e.stopPropagation();
+        let isValid = true;
+        let errorMessage = '';
 
-            // Show error messages and switch to first invalid tab
-            const invalidFields = form.querySelectorAll(':invalid');
-            if (invalidFields.length > 0) {
-                const firstInvalid = invalidFields[0];
-                const tabPane = firstInvalid.closest('.tab-pane');
-                const tabId = tabPane ? tabPane.id : 'basic-info';
+        // Check required fields
+        const requiredFields = form.querySelectorAll('[required]');
+        requiredFields.forEach(field => {
+            if (!field.value.trim()) {
+                field.classList.add('is-invalid');
+                isValid = false;
+                const fieldName = field.closest('.form-group')?.querySelector('.form-label')?.textContent?.trim() || 'حقل';
+                errorMessage += `- ${fieldName} مطلوب<br>`;
+            } else {
+                field.classList.remove('is-invalid');
+            }
+        });
 
-                // Switch to the tab containing the first invalid field
-                document.querySelector(`[data-bs-target="#${tabId}"]`).click();
+        // Validate image file if new one is uploaded
+        const imageInput = document.getElementById('image');
+        if (imageInput.files.length > 0) {
+            const file = imageInput.files[0];
+            const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+
+            if (!validTypes.includes(file.type)) {
+                imageInput.classList.add('is-invalid');
+                isValid = false;
+                errorMessage += '- نوع الملف غير مسموح به (يجب أن يكون صورة)<br>';
+            }
+
+            if (file.size > 2 * 1024 * 1024) {
+                imageInput.classList.add('is-invalid');
+                isValid = false;
+                errorMessage += '- حجم الصورة يجب أن لا يتجاوز 2MB<br>';
             }
         }
 
-        form.classList.add('was-validated');
-    }, false);
+        // Validate URL format
+        const urlInput = document.getElementById('location_url');
+        if (urlInput.value && !/^https?:\/\/.+\..+/.test(urlInput.value)) {
+            urlInput.classList.add('is-invalid');
+            isValid = false;
+            errorMessage += '- رابط الموقع غير صحيح<br>';
+        }
+
+        if (!isValid) {
+            e.preventDefault();
+
+            // Switch to the first tab with errors
+            const firstInvalid = form.querySelector(':invalid');
+            if (firstInvalid) {
+                const tabPane = firstInvalid.closest('.tab-pane');
+                if (tabPane) {
+                    const tabId = tabPane.id;
+                    document.querySelector(`[data-bs-target="#${tabId}"]`).click();
+                }
+            }
+
+            Swal.fire({
+                title: 'خطأ في الإدخال',
+                html: errorMessage || 'الرجاء تعبئة جميع الحقول المطلوبة بشكل صحيح',
+                icon: 'error',
+                confirmButtonColor: '#3cc88f',
+                confirmButtonText: 'حسناً',
+                customClass: {
+                    popup: 'text-right'
+                }
+            });
+        }
+    });
 
     // Image Preview and Removal
     const imageInput = document.getElementById('image');
@@ -422,7 +576,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 cancelButtonColor: '#6c757d',
                 confirmButtonText: 'نعم، احذف!',
                 cancelButtonText: 'إلغاء',
-                reverseButtons: true
+                reverseButtons: true,
+                customClass: {
+                    popup: 'text-right'
+                }
             }).then((result) => {
                 if (result.isConfirmed) {
                     removeImage.value = '1';
@@ -430,7 +587,15 @@ document.addEventListener('DOMContentLoaded', function() {
                         currentImage.style.display = 'none';
                     }
                     this.disabled = true;
-                    Swal.fire('تم الحذف!', 'تم تحديد الصورة للحذف', 'success');
+                    Swal.fire({
+                        title: 'تم الحذف!',
+                        text: 'تم تحديد الصورة للحذف',
+                        icon: 'success',
+                        confirmButtonColor: '#3cc88f',
+                        customClass: {
+                            popup: 'text-right'
+                        }
+                    });
                 }
             });
         });
@@ -454,13 +619,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 cancelButtonColor: '#6c757d',
                 confirmButtonText: 'نعم، احذف!',
                 cancelButtonText: 'إلغاء',
-                reverseButtons: true
+                reverseButtons: true,
+                customClass: {
+                    popup: 'text-right'
+                }
             }).then((result) => {
                 if (result.isConfirmed) {
                     this.closest('.position-relative').style.display = 'none';
                     removedImages.push(image);
                     removedGalleryImages.value = JSON.stringify(removedImages);
-                    Swal.fire('تم الحذف!', 'تم تحديد الصورة للحذف', 'success');
+                    Swal.fire({
+                        title: 'تم الحذف!',
+                        text: 'تم تحديد الصورة للحذف',
+                        icon: 'success',
+                        confirmButtonColor: '#3cc88f',
+                        customClass: {
+                            popup: 'text-right'
+                        }
+                    });
                 }
             });
         });
@@ -496,6 +672,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     // Initialize geocoder
                     geocoder = L.Control.Geocoder.nominatim();
+
+                    // Add search control
                     L.Control.geocoder({
                         defaultMarkGeocode: false,
                         position: 'topright',
@@ -505,15 +683,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     })
                     .on('markgeocode', function(e) {
                         const { center, name } = e.geocode;
-                        map.setView(center, 15);
-                        if (marker) {
-                            marker.setLatLng(center);
-                        } else {
-                            marker = L.marker(center).addTo(map);
-                        }
-                        document.getElementById('modalLatitude').value = center.lat.toFixed(6);
-                        document.getElementById('modalLongitude').value = center.lng.toFixed(6);
-                        document.getElementById('locationName').value = name;
+                        updateMapLocation(center.lat, center.lng, name);
                     })
                     .addTo(map);
 
@@ -522,15 +692,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     // Handle map clicks
                     map.on('click', function(e) {
-                        if (marker) {
-                            marker.setLatLng(e.latlng);
-                        } else {
-                            marker = L.marker(e.latlng).addTo(map);
-                        }
-
-                        // Update coordinates
-                        document.getElementById('modalLatitude').value = e.latlng.lat.toFixed(6);
-                        document.getElementById('modalLongitude').value = e.latlng.lng.toFixed(6);
+                        updateMapLocation(e.latlng.lat, e.latlng.lng);
 
                         // Reverse geocode to get location name
                         geocoder.reverse(e.latlng, map.options.crs.scale(map.getZoom()), function(results) {
@@ -552,6 +714,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Function to update map location
+    function updateMapLocation(lat, lng, name = '') {
+        if (marker) {
+            marker.setLatLng([lat, lng]);
+        } else {
+            marker = L.marker([lat, lng]).addTo(map);
+        }
+
+        // Update coordinates
+        document.getElementById('modalLatitude').value = lat.toFixed(6);
+        document.getElementById('modalLongitude').value = lng.toFixed(6);
+
+        // Update location name if provided
+        if (name) {
+            document.getElementById('locationName').value = name;
+        }
+    }
+
     // Search Location Functionality
     const searchButton = document.getElementById('searchButton');
     if (searchButton) {
@@ -562,17 +742,17 @@ document.addEventListener('DOMContentLoaded', function() {
             geocoder.geocode(query, function(results) {
                 if (results && results.length > 0) {
                     const { center, name } = results[0];
-                    map.setView(center, 15);
-                    if (marker) {
-                        marker.setLatLng(center);
-                    } else {
-                        marker = L.marker(center).addTo(map);
-                    }
-                    document.getElementById('modalLatitude').value = center.lat.toFixed(6);
-                    document.getElementById('modalLongitude').value = center.lng.toFixed(6);
-                    document.getElementById('locationName').value = name;
+                    updateMapLocation(center.lat, center.lng, name);
                 } else {
-                    Swal.fire('خطأ', 'لم يتم العثور على الموقع المطلوب', 'error');
+                    Swal.fire({
+                        title: 'خطأ',
+                        text: 'لم يتم العثور على الموقع المطلوب',
+                        icon: 'error',
+                        confirmButtonColor: '#3cc88f',
+                        customClass: {
+                            popup: 'text-right'
+                        }
+                    });
                 }
             });
         });
@@ -587,7 +767,15 @@ document.addEventListener('DOMContentLoaded', function() {
             const locationName = document.getElementById('locationName').value;
 
             if (!lat || !lng) {
-                Swal.fire('خطأ', 'الرجاء تحديد موقع على الخريطة', 'error');
+                Swal.fire({
+                    title: 'خطأ',
+                    text: 'الرجاء تحديد موقع على الخريطة',
+                    icon: 'error',
+                    confirmButtonColor: '#3cc88f',
+                    customClass: {
+                        popup: 'text-right'
+                    }
+                });
                 return;
             }
 
@@ -595,74 +783,107 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('longitude').value = lng;
             document.getElementById('location').value = locationName;
 
-            // Update map preview
-            const mapPreview = document.getElementById('mapPreview');
-            if (mapPreview) {
-                mapPreview.innerHTML = `
-                    <img src="https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=15&size=600x300&maptype=roadmap&markers=color:red%7C${lat},${lng}&key=YOUR_API_KEY"
-                         alt="موقع الحدث" style="width: 100%; height: 100%; object-fit: cover; border-radius: 0.25rem;">
-                `;
-            }
+            // Update mini map preview
+            @if($event->latitude && $event->longitude)
+            miniMap.setView([lat, lng], 15);
+            miniMap.eachLayer(function(layer) {
+                if (layer instanceof L.Marker) {
+                    layer.setLatLng([lat, lng]);
+                }
+            });
+            @endif
 
             mapModal.hide();
-            Swal.fire('تم الحفظ!', 'تم تحديث موقع الحدث بنجاح', 'success');
+            Swal.fire({
+                title: 'تم الحفظ!',
+                text: 'تم تحديث موقع الحدث بنجاح',
+                icon: 'success',
+                confirmButtonColor: '#3cc88f',
+                customClass: {
+                    popup: 'text-right'
+                }
+            });
         });
     }
 
     // Submit Confirmation
     const submitBtn = document.getElementById('submitBtn');
-    submitBtn.addEventListener('click', function(e) {
-        e.preventDefault();
+    if (submitBtn) {
+        submitBtn.addEventListener('click', function(e) {
+            e.preventDefault();
 
-        const form = document.getElementById('eventForm');
-        const originalText = submitBtn.innerHTML;
+            const form = document.getElementById('eventForm');
+            const originalText = submitBtn.innerHTML;
 
-        if (!form.checkValidity()) {
-            form.classList.add('was-validated');
-            return;
-        }
-
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> جاري الحفظ...';
-
-        Swal.fire({
-            title: 'تأكيد التعديلات',
-            text: "هل أنت متأكد من أنك تريد حفظ التعديلات على هذا الحدث؟",
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'نعم، احفظ التعديلات',
-            cancelButtonText: 'إلغاء',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.isConfirmed) {
-                form.submit();
-            } else {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalText;
+            if (!form.checkValidity()) {
+                form.classList.add('was-validated');
+                return;
             }
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> جاري الحفظ...';
+
+            Swal.fire({
+                title: 'تأكيد التعديلات',
+                text: "هل أنت متأكد من أنك تريد حفظ التعديلات على هذا الحدث؟",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3cc88f',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'نعم، احفظ التعديلات',
+                cancelButtonText: 'إلغاء',
+                reverseButtons: true,
+                customClass: {
+                    popup: 'text-right'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                } else {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                }
+            });
         });
-    });
+    }
 
     // Show success/error messages
     @if(session('success'))
-        Swal.fire({
-            icon: 'success',
-            title: 'تم بنجاح',
-            text: '{{ session('success') }}',
-            timer: 3000,
-            showConfirmButton: false
-        });
+    Swal.fire({
+        title: 'تم بنجاح',
+        text: '{{ session('success') }}',
+        icon: 'success',
+        confirmButtonColor: '#3cc88f',
+        customClass: {
+            popup: 'text-right'
+        }
+    });
     @endif
 
     @if(session('error'))
-        Swal.fire({
-            icon: 'error',
-            title: 'خطأ',
-            text: '{{ session('error') }}',
-            timer: 3000
-        });
+    Swal.fire({
+        title: 'خطأ',
+        text: '{{ session('error') }}',
+        icon: 'error',
+        confirmButtonColor: '#3cc88f',
+        customClass: {
+            popup: 'text-right'
+        }
+    });
+    @endif
+
+    @if($errors->any())
+    Swal.fire({
+        title: 'خطأ',
+        html: `@foreach ($errors->all() as $error)
+                <div>- {{ $error }}</div>
+              @endforeach`,
+        icon: 'error',
+        confirmButtonColor: '#3cc88f',
+        customClass: {
+            popup: 'text-right'
+        }
+    });
     @endif
 });
 </script>

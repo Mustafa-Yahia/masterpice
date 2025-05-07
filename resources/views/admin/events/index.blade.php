@@ -20,6 +20,70 @@
             </div>
         </div>
 
+        <!-- Stats Cards -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card shadow-sm border-start border-primary border-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="text-muted mb-1">الأحداث القادمة</h6>
+                                <h4 class="mb-0">{{ $upcomingEventsCount }}</h4>
+                            </div>
+                            <div class=" bg-opacity-10 p-3 rounded" style="background-color: rgba(0, 123, 255, 0.1);">
+                                <i class="fas fa-calendar-check text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card shadow-sm border-start border-success border-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="text-muted mb-1">الأحداث المنتهية</h6>
+                                <h4 class="mb-0">{{ $pastEventsCount }}</h4>
+                            </div>
+                            <div class="bg-success bg-opacity-10 p-3 rounded">
+                                <i class="fas fa-calendar-times text-success"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card shadow-sm border-start border-info border-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="text-muted mb-1">إجمالي الأحداث</h6>
+                                <h4 class="mb-0">{{ $totalEventsCount }}</h4>
+                            </div>
+                            <div class="bg-info bg-opacity-10 p-3 rounded">
+                                <i class="fas fa-calendar-alt text-info"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card shadow-sm border-start border-warning border-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="text-muted mb-1">متطوعون مسجلون</h6>
+                                <h4 class="mb-0">{{ $totalVolunteers }}</h4>
+                            </div>
+                            <div class="bg-warning bg-opacity-10 p-3 rounded">
+                                <i class="fas fa-users text-warning"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Filters Card -->
         <div class="card shadow-sm mb-4">
             <div class="card-header bg-gradient-primary text-white">
@@ -36,7 +100,7 @@
                         <!-- Search Field -->
                         <div class="col-md-4">
                             <div class="input-group">
-                                <span class="input-group-text bg-primary text-white">
+                                <span class="input-group-text  text-white" style="background-color: #3cc88f;">
                                     <i class="fas fa-search"></i>
                                 </span>
                                 <input type="text" class="form-control" name="search" value="{{ request('search') }}" placeholder="ابحث بالعنوان أو الوصف...">
@@ -46,11 +110,20 @@
                         <!-- Location Filter -->
                         <div class="col-md-4">
                             <div class="input-group">
-                                <span class="input-group-text bg-primary text-white">
+                                <span class="input-group-text  text-white" style="background-color: #3cc88f;">
                                     <i class="fas fa-map-marker-alt"></i>
                                 </span>
                                 <input type="text" class="form-control" name="location" value="{{ request('location') }}" placeholder="ابحث بالموقع...">
                             </div>
+                        </div>
+
+                        <!-- Status Filter -->
+                        <div class="col-md-4">
+                            <select class="form-select" name="status">
+                                <option value="">حالة الحدث</option>
+                                <option value="upcoming" {{ request('status') == 'upcoming' ? 'selected' : '' }}>قادمة</option>
+                                <option value="past" {{ request('status') == 'past' ? 'selected' : '' }}>منتهية</option>
+                            </select>
                         </div>
 
                         <!-- Volunteers Filter -->
@@ -64,18 +137,18 @@
                         </div>
 
                         <!-- Date Range -->
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="input-group">
-                                <span class="input-group-text bg-primary text-white">
+                                <span class="input-group-text  text-white" style="background-color: #3cc88f;">
                                     <i class="fas fa-calendar-day"></i>
                                 </span>
                                 <input type="date" class="form-control" name="start_date" value="{{ request('start_date') }}" placeholder="من تاريخ">
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="input-group">
-                                <span class="input-group-text bg-primary text-white">
+                                <span class="input-group-text  text-white" style="background-color: #3cc88f;">
                                     <i class="fas fa-calendar-day"></i>
                                 </span>
                                 <input type="date" class="form-control" name="end_date" value="{{ request('end_date') }}" placeholder="إلى تاريخ">
@@ -85,7 +158,7 @@
                         <!-- Filter Buttons -->
                         <div class="col-12">
                             <div class="d-flex justify-content-between">
-                                <button type="submit" class="btn btn-primary px-4">
+                                <button type="submit" class="btn  px-4" style="background-color: #3cc88f; color: white;">
                                     <i class="fas fa-filter me-2"></i> تطبيق الفلتر
                                 </button>
                                 <a href="{{ route('admin.events.index') }}" class="btn btn-outline-secondary">
@@ -102,9 +175,14 @@
         <div class="card shadow-sm">
             <div class="card-header d-flex justify-content-between align-items-center bg-white">
                 <h5 class="mb-0">قائمة الأحداث</h5>
-                <a href="{{ route('admin.events.create') }}" class="btn btn-success">
-                    <i class="fas fa-plus me-2"></i> إضافة حدث جديد
-                </a>
+                <div>
+                    <a href="#" class="btn btn-outline-info me-2" data-bs-toggle="tooltip" title="تصدير إلى Excel">
+                        <i class="fas fa-file-excel"></i>
+                    </a>
+                    <a href="{{ route('admin.events.create') }}" class="btn text-white" style="background-color: #3cc88f; color: white;" data-bs-toggle="tooltip" title="إضافة حدث جديد">
+                        <i class="fas fa-plus me-2"></i> إضافة حدث جديد
+                    </a>
+                </div>
             </div>
 
             <div class="card-body">
@@ -114,10 +192,10 @@
                             <tr>
                                 <th width="5%">#</th>
                                 <th>العنوان</th>
-                                <th>التاريخ</th>
-                                <th>الوقت</th>
+                                <th>التاريخ والوقت</th>
                                 <th>الموقع</th>
                                 <th>المتطوعون</th>
+                                <th>الحالة</th>
                                 <th width="15%">الإجراءات</th>
                             </tr>
                         </thead>
@@ -142,14 +220,23 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>{{ \Carbon\Carbon::parse($event->date)->format('Y-m-d') }}</td>
-                                <td>{{ $event->time }}</td>
+                                <td>
+                                    <div>{{ \Carbon\Carbon::parse($event->date)->translatedFormat('l، j F Y') }}</div>
+                                    <small class="text-muted">{{ \Carbon\Carbon::parse($event->time)->format('h:i A') }}</small>
+                                </td>
                                 <td>{{ $event->location }}</td>
                                 <td>
-                                    <span class="badge bg-primary rounded-pill">
+                                    <span class="badge  rounded-pill" style="background-color: #3cc88f;">
                                         <i class="fas fa-users me-1"></i>
                                         {{ $event->volunteers_needed }}
                                     </span>
+                                </td>
+                                <td>
+                                    @if($event->date > now())
+                                        <span class="badge bg-success">قادم</span>
+                                    @else
+                                        <span class="badge bg-secondary">منتهي</span>
+                                    @endif
                                 </td>
                                 <td>
                                     <div class="d-flex gap-2">
@@ -188,8 +275,13 @@
 
                 <!-- Pagination -->
                 @if($events->hasPages())
-                <div class="d-flex justify-content-center mt-4">
-                    {{ $events->withQueryString()->links() }}
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                    <div class="text-muted">
+                        عرض <span class="fw-bold">{{ $events->firstItem() }}</span> إلى <span class="fw-bold">{{ $events->lastItem() }}</span> من <span class="fw-bold">{{ $events->total() }}</span> نتيجة
+                    </div>
+                    <div>
+                        {{ $events->withQueryString()->links() }}
+                    </div>
                 </div>
                 @endif
             </div>
@@ -248,10 +340,20 @@
 .page-link {
     color: var(--primary);
 }
+
+/* Stats Cards */
+.border-3 {
+    border-width: 3px !important;
+}
+
+.bg-opacity-10 {
+    background-color: rgba(var(--bs-primary-rgb), 0.1) !important;
+}
 </style>
 @endpush
 
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize tooltips
@@ -262,7 +364,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Delete confirmation with SweetAlert2
+    // Enhanced Delete confirmation with SweetAlert2
     document.querySelectorAll('.delete-form').forEach(form => {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -276,43 +378,92 @@ document.addEventListener('DOMContentLoaded', function() {
                 cancelButtonColor: '#6c757d',
                 confirmButtonText: 'نعم، احذف!',
                 cancelButtonText: 'إلغاء',
-                reverseButtons: true
+                reverseButtons: true,
+                customClass: {
+                    confirmButton: 'btn btn-danger mx-2',
+                    cancelButton: 'btn btn-secondary mx-2'
+                },
+                buttonsStyling: false
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire({
+                    // Show loading indicator
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        customClass: {
+                            confirmButton: 'btn btn-success mx-2',
+                            cancelButton: 'btn btn-danger mx-2'
+                        },
+                        buttonsStyling: false
+                    });
+
+                    swalWithBootstrapButtons.fire({
                         title: 'جاري الحذف...',
-                        allowOutsideClick: false,
+                        html: 'الرجاء الانتظار بينما نقوم بحذف الحدث',
+                        timer: 2000,
+                        timerProgressBar: true,
                         didOpen: () => {
                             Swal.showLoading();
+                        },
+                        willClose: () => {
+                            // Submit the form after showing loading
+                            form.submit();
                         }
                     });
-                    this.submit();
                 }
             });
         });
     });
 
     // Auto submit filter form when some fields change
-    const autoFilterFields = ['volunteers_needed'];
+    const autoFilterFields = ['status', 'volunteers_needed'];
     autoFilterFields.forEach(field => {
-        document.querySelector(`[name="${field}"]`).addEventListener('change', function() {
-            document.getElementById('filterForm').submit();
-        });
-    });
-
-    // Collapse filter panel toggle
-    const filterCollapse = document.getElementById('filterCollapse');
-    const filterToggle = document.querySelector('[data-bs-target="#filterCollapse"]');
-    filterToggle.addEventListener('click', function() {
-        const icon = this.querySelector('i');
-        if (filterCollapse.classList.contains('show')) {
-            icon.classList.remove('fa-sliders-h');
-            icon.classList.add('fa-filter');
-        } else {
-            icon.classList.remove('fa-filter');
-            icon.classList.add('fa-sliders-h');
+        const element = document.querySelector(`[name="${field}"]`);
+        if (element) {
+            element.addEventListener('change', function() {
+                document.getElementById('filterForm').submit();
+            });
         }
     });
+
+    // Collapse filter panel toggle with animation
+    const filterCollapse = document.getElementById('filterCollapse');
+    const filterToggle = document.querySelector('[data-bs-target="#filterCollapse"]');
+    if (filterToggle) {
+        filterToggle.addEventListener('click', function() {
+            const icon = this.querySelector('i');
+            if (filterCollapse.classList.contains('show')) {
+                icon.classList.remove('fa-sliders-h');
+                icon.classList.add('fa-filter');
+            } else {
+                icon.classList.remove('fa-filter');
+                icon.classList.add('fa-sliders-h');
+            }
+        });
+    }
+
+    // Show success message if exists
+    @if(session('success'))
+    Swal.fire({
+        title: 'نجاح!',
+        text: '{{ session('success') }}',
+        icon: 'success',
+        confirmButtonText: 'حسناً',
+        timer: 3000,
+        timerProgressBar: true,
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false
+    });
+    @endif
+
+    // Show error message if exists
+    @if(session('error'))
+    Swal.fire({
+        title: 'خطأ!',
+        text: '{{ session('error') }}',
+        icon: 'error',
+        confirmButtonText: 'حسناً'
+    });
+    @endif
 });
 </script>
 @endpush

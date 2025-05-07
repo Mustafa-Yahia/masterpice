@@ -6,81 +6,92 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class AdminEventController extends Controller
 {
+
     public function index()
-    {
-        $events = Event::query()
-            ->when(request('search'), function($query) {
-                $query->where('title', 'like', '%' . request('search') . '%')
-                      ->orWhere('description', 'like', '%' . request('search') . '%');
-            })
-            ->when(request('location'), function($query) {
-                $query->where('location', 'like', '%' . request('location') . '%');
-            })
-            ->when(request('volunteers_needed'), function($query) {
-                $range = request('volunteers_needed');
-                if ($range == '1-10') {
-                    $query->whereBetween('volunteers_needed', [1, 10]);
-                } elseif ($range == '10-50') {
-                    $query->whereBetween('volunteers_needed', [10, 50]);
-                } elseif ($range == '50+') {
-                    $query->where('volunteers_needed', '>', 50);
-                }
-            })
-            ->when(request('start_date'), function($query) {
-                $query->whereDate('date', '>=', request('start_date'));
-            })
-            ->when(request('end_date'), function($query) {
-                $query->whereDate('date', '<=', request('end_date'));
-            })
-            ->orderBy('date', 'asc')
-            ->paginate(10);
+{
+    // استعلام الأحداث مع التصفيات
+    $events = Event::query()
+        ->when(request('search'), function($query) {
+            $query->where('title', 'like', '%' . request('search') . '%')
+                  ->orWhere('description', 'like', '%' . request('search') . '%');
+        })
+        ->when(request('location'), function($query) {
+            $query->where('location', 'like', '%' . request('location') . '%');
+        })
+        ->when(request('volunteers_needed'), function($query) {
+            $range = request('volunteers_needed');
+            if ($range == '1-10') {
+                $query->whereBetween('volunteers_needed', [1, 10]);
+            } elseif ($range == '10-50') {
+                $query->whereBetween('volunteers_needed', [10, 50]);
+            } elseif ($range == '50+') {
+                $query->where('volunteers_needed', '>', 50);
+            }
+        })
+        ->when(request('start_date'), function($query) {
+            $query->whereDate('date', '>=', request('start_date'));
+        })
+        ->when(request('end_date'), function($query) {
+            $query->whereDate('date', '<=', request('end_date'));
+        })
+        ->orderBy('date', 'asc')
+        ->paginate(10);
 
-        return view('admin.events.index', compact('events'));
-    }
+    // الإحصائيات المطلوبة للبطاقات العلوية
+    $totalEventsCount = Event::count();
+    $upcomingEventsCount = Event::where('date', '>=', Carbon::today())->count();
+    $pastEventsCount = Event::where('date', '<', Carbon::today())->count();
 
-    public function create()
-    {
-        return view('admin.events.create');
-    }
+    // مجموع المتطوعين المطلوبين في جميع الأحداث
+    $totalVolunteers = Event::sum('volunteers_needed');
 
-    public function store(Request $request)
+    return view('admin.events.index', compact(
+        'events',
+        'totalEventsCount',
+        'upcomingEventsCount',
+        'pastEventsCount',
+        'totalVolunteers'
+    ));
+}
+
+public function create()
+{
+    return view('admin.events.create');
+}
+
+public function store(Request $request)
 {
     $validated = $request->validate([
         'title' => 'required|string|max:255',
         'description' => 'required|string',
         'date' => 'required|date',
         'time' => 'required',
-        'location' => 'required|string|max:255',
+        'end_time' => 'nullable',
+        'location' => 'required|string',
         'location_url' => 'nullable|url',
         'latitude' => 'nullable|numeric',
         'longitude' => 'nullable|numeric',
+        'mission' => 'nullable|string',
+        'mission_point_1' => 'nullable|string',
+        'mission_point_2' => 'nullable|string',
+        'mission_point_3' => 'nullable|string',
         'volunteers_needed' => 'required|integer|min:1',
-        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        'mission' => 'required|string',
-        'mission_point_1' => 'nullable|string|max:255',
-        'mission_point_2' => 'nullable|string|max:255',
-        'mission_point_3' => 'nullable|string|max:255',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
     ]);
 
-    // حفظ الصورة في المجلد الصحيح
     if ($request->hasFile('image')) {
-        $imagePath = $request->file('image')->store('events', 'public');
-        $validated['image'] = $imagePath; // سيحفظ المسار كـ 'events/filename.jpg'
+        $validated['image'] = $request->file('image')->store('events', 'public');
     }
 
     Event::create($validated);
 
     return redirect()->route('admin.events.index')
-                     ->with('swal', [
-                         'icon' => 'success',
-                         'title' => 'نجاح',
-                         'text' => 'تم إضافة الحدث بنجاح'
-                     ]);
+                     ->with('success', 'تم إنشاء الحدث بنجاح');
 }
-
     public function show(Event $event)
     {
         return view('admin.events.show', compact('event'));

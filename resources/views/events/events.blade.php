@@ -16,18 +16,16 @@
     </div>
 </section>
 
-
 <section class="events-section">
     <div class="auto-container">
         <div class="row clearfix">
-            @foreach($events as $event)
+            @forelse($events as $event)
                 <div class="event-block-three col-lg-4 col-md-6 col-sm-12">
                     <div class="inner-box wow fadeInUp" data-wow-delay="0ms">
                         <div class="image-box">
                             <figure class="image">
                                 <a href="{{ route('event.show', $event->id) }}">
                                     <img class="lazy-image" src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->title }}">
-
                                 </a>
                             </figure>
                             <div class="date">{{ \Carbon\Carbon::parse($event->date)->format('d') }} <span class="month">{{ \Carbon\Carbon::parse($event->date)->format('M') }}</span></div>
@@ -38,7 +36,7 @@
                                 <li><span class="icon fa fa-map-marker-alt"></span> {{ $event->location }}</li>
                                 <li><span class="icon far fa-clock"></span> {{ \Carbon\Carbon::parse($event->time)->format('h:i A') }}</li>
                             </ul>
-                            <p class="description">{{ $event->description }}</p>
+                            <p class="description">{{ Str::limit($event->description, 120) }}</p>
                             <div class="link-boxx">
                                 <a href="{{ route('event.show', $event->id) }}" class="theme-btn btn-style-two">
                                     <span class="btn-title">قراءة المزيد</span>
@@ -47,16 +45,101 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
+            @empty
+                <div class="col-12 text-center py-5">
+                    <div class="empty-events-state">
+                        <i class="fas fa-calendar-times fa-3x text-muted mb-4"></i>
+                        <h4 class="text-secondary">لا توجد أحداث قادمة حالياً</h4>
+                        <p class="text-muted">سنقوم بإضافة أحداث جديدة قريباً، تفضل بزيارتنا لاحقاً</p>
+                        <div class="text-center mt-5">
+                            <a href="{{ route('index') }}" class="btn btn-primary rounded-pill view-more-btn">
+العودة الى الرئيسية
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            @endforelse
         </div>
     </div>
 </section>
 
 
 <style>
+
+.empty-events-state {
+        background-color: #f8f9fa;
+        padding: 40px 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .empty-events-state i {
+        opacity: 0.7;
+    }
+
+    .event-block-three {
+        transition: transform 0.3s ease;
+    }
+
+    .event-block-three:hover {
+        transform: translateY(-5px);
+    }
     .events-section {
     padding: 60px 0;
 }
+
+
+
+    /* Read More Button */
+    .read-more-btn {
+        border: 2px solid #3cc88f;
+        color: #3cc88f;
+        font-weight: 600;
+        padding: 10px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .read-more-btn:hover {
+        background-color: #3cc88f;
+        color: white;
+        box-shadow: 0 5px 15px rgba(60, 200, 143, 0.3);
+    }
+
+    .read-more-btn .transition-all {
+        transition: all 0.3s ease;
+    }
+
+    .read-more-btn:hover .transition-all {
+        transform: translateX(-5px);
+    }
+
+  /* View More Button */
+  .view-more-btn {
+        background: linear-gradient(90deg, #3cc88f 0%, #2da578 100%);
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        font-weight: 600;
+        box-shadow: 0 5px 20px rgba(60, 200, 143, 0.3);
+        transition: all 0.3s ease;
+    }
+
+    .view-more-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(60, 200, 143, 0.4);
+        color: white;
+    }
+
+    .view-more-btn i {
+        transition: transform 0.3s ease;
+    }
+
+    .view-more-btn:hover i {
+        transform: translateX(-5px);
+    }
+
 
 .auto-container {
     max-width: 1200px;

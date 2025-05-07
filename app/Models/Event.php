@@ -27,6 +27,7 @@ class Event extends Model
         'mission_point_2',
         'mission_point_3',
         'volunteers_needed',
+        'end_time', // إضافة حقل الوقت النهائي
     ];
 
     /**
@@ -55,7 +56,7 @@ class Event extends Model
                     ->withTimestamps(); // إضافة تلقائية لتواريخ الإنشاء والتحديث
     }
 
-    
+
 
     /**
      * علاقة مع المنظمين (إذا كانت لديك علاقة منفصلة)

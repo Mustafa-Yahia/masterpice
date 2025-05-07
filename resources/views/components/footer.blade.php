@@ -11,9 +11,11 @@
                     <p class="footer-cta-text">فريق دعم العملاء متاح 24/7 للإجابة على استفساراتك</p>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    <a href="" class="btn btn-light btn-lg rounded-pill">
+                    <a href="#" class="btn btn-light btn-lg rounded-pill" data-bs-toggle="modal" data-bs-target="#contactModal">
                         <i class="fas fa-headset me-2"></i> اتصل بنا الآن
                     </a>
+
+
                 </div>
             </div>
         </div>
@@ -49,7 +51,7 @@
                     <div class="footer-widget">
                         <h4 class="widget-title">روابط سريعة</h4>
                         <ul class="footer-links">
-                            <li><a href="{{ route('home') }}">الرئيسية</a></li>
+                            <li><a href="{{ route('index') }}">الرئبسية</a></li>
                             <li><a href="">عن الجمعية</a></li>
                             <li><a href="">مشاريعنا</a></li>
                             <li><a href="">التطوع</a></li>
@@ -162,9 +164,32 @@
     <button class="back-to-top" aria-label="Back to top">
         <i class="fas fa-arrow-up"></i>
     </button>
+
+
+    <!-- Contact Info Modal -->
+<div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true" dir="rtl">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-end">
+        <div class="modal-header">
+          <h5 class="modal-title" id="contactModalLabel">معلومات الاتصال</h5>
+          <button type="button" class="btn-close ms-0" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="card p-3">
+            <p><strong>📍 العنوان:</strong> عمان، المملكة الأردنية الهاشمية</p>
+            <p><strong>📞 الهاتف:</strong> <a href="tel:+962780211175">+962 780 211 175</a></p>
+            <p><strong>📧 البريد الإلكتروني:</strong> <a href="mailto:mustafayahia120@example.com">mustafayahia120@example.com</a></p>
+            <p><strong>⏰ ساعات العمل:</strong> الأحد - الخميس: 8 صباحاً - 5 مساءً</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </footer>
 
 <style>
+
     /* Professional Footer Styles */
     .professional-footer {
         font-family: 'Tajawal', sans-serif;
@@ -373,7 +398,6 @@
     /*  */
 
     .fa-envelope:before {
-    color: #3cc88f;
     content: "\f0e0";
 }
 
@@ -485,6 +509,7 @@
         }
     }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
     // Back to Top Button

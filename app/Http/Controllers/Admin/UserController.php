@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Donation;
 use App\Models\Event;
+use Illuminate\Support\Facades\Validator;
+
 
 class UserController extends Controller
 {
@@ -38,27 +40,55 @@ class UserController extends Controller
         return view('admin.users.create');
     }
 
-    // حفظ مستخدم جديد
     public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
-            'phone' => 'required|string',
-            'role' => 'required|in:donor,admin',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
+{
+    $validator = Validator::make($request->all(), [
+        'name' => [
+            'required',
+            'string',
+            'min:3',
+            'regex:/^[\p{Arabic}\s]+$/u',
+            function ($attribute, $value, $fail) {
+                $segments = preg_split('/\s+/', trim($value));
 
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'role' => $request->role,
-            'password' => Hash::make($request->password),
-        ]);
+                // التحقق من وجود 3 مقاطع
+                if (count($segments) < 3) {
+                    $fail('يجب أن يتكون الاسم من ثلاثة مقاطع (مثال: أحمد محمد عبدالله)');
+                    return;
+                }
 
-        return redirect()->route('admin.users.index')->with('success', 'تم إضافة المستخدم بنجاح');
+                // التحقق من أن كل مقطع يحتوي على 3 أحرف على الأقل
+                foreach ($segments as $segment) {
+                    if (mb_strlen($segment) < 3) {
+                        $fail('يجب أن يحتوي كل مقطع من الاسم على 3 أحرف على الأقل');
+                        return;
+                    }
+                }
+            }
+        ],
+        'email' => 'required|email|unique:users',
+        'phone' => 'required|string',
+        'role' => 'required|in:donor,admin',
+        'password' => 'required|string|min:8|confirmed',
+    ]);
+
+    if ($validator->fails()) {
+        return redirect()->back()
+            ->withErrors($validator)
+            ->withInput();
     }
+
+    User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'phone' => $request->phone,
+        'role' => $request->role,
+        'password' => Hash::make($request->password),
+    ]);
+
+    return redirect()->route('admin.users.index')->with('success', 'تم إضافة المستخدم بنجاح');
+}
+
 
     // عرض صفحة تعديل مستخدم
     public function edit(User $user)
@@ -66,15 +96,44 @@ class UserController extends Controller
         return view('admin.users.edit', compact('user'));
     }
 
-    public function update(Request $request, User $user)
+
+public function update(Request $request, User $user)
 {
-    $request->validate([
-        'name' => 'required',
+    $validator = Validator::make($request->all(), [
+        'name' => [
+            'required',
+            'string',
+            'min:3',
+            'regex:/^[\p{Arabic}\s]+$/u',
+            function ($attribute, $value, $fail) {
+                $segments = preg_split('/\s+/', trim($value));
+
+                // التحقق من وجود 3 مقاطع
+                if (count($segments) < 3) {
+                    $fail('يجب أن يتكون الاسم من ثلاثة مقاطع (مثال: أحمد محمد عبدالله)');
+                    return;
+                }
+
+                // التحقق من أن كل مقطع يحتوي على 3 أحرف على الأقل
+                foreach ($segments as $segment) {
+                    if (mb_strlen($segment) < 3) {
+                        $fail('يجب أن يحتوي كل مقطع من الاسم على 3 أحرف على الأقل');
+                        return;
+                    }
+                }
+            }
+        ],
         'email' => 'required|email|unique:users,email,'.$user->id,
         'phone' => 'required',
-        'role' => 'required|in:donor,admin', // تأكد من تطابق القيم مع قاعدة البيانات
+        'role' => 'required|in:donor,admin',
         'password' => 'nullable|string|min:8|confirmed',
     ]);
+
+    if ($validator->fails()) {
+        return redirect()->back()
+            ->withErrors($validator)
+            ->withInput();
+    }
 
     $updateData = [
         'name' => $request->name,

@@ -118,7 +118,7 @@
     </div>
 </section>
     <!-- Causes Section -->
-<section class="causes-section-two py-5">
+{{-- <section class="causes-section-two py-5">
     <div class="auto-container">
         <div class="sec-title centered mb-5">
             <h2 style="font-family: 'Cairo', sans-serif; font-weight: 600; text-align:center">كن سببًا في تغيير حياة الآخرين</h2>
@@ -216,14 +216,117 @@
             </a>
         </div>
     </div>
+</section> --}}
+<section class="causes-section-two py-5">
+    <div class="auto-container">
+        <div class="sec-title centered mb-5">
+            <h2 style="font-family: 'Cairo', sans-serif; font-weight: 600; text-align:center">كن سببًا في تغيير حياة الآخرين</h2>
+            <div class="text" style="font-family: 'Cairo', sans-serif; font-size: 16px; line-height: 1.5;">تبرعك اليوم يمكن أن يصنع فرقًا كبيرًا في حياة محتاج، لا تتردد في أن تكون سببًا في الأمل.</div>
+        </div>
+
+        <div id="causes-list" class="row gy-4">
+            @forelse($causes->take(6) as $cause)
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card shadow-sm h-100 border-0 rounded-4 overflow-hidden d-flex flex-column cause-card">
+                        <!-- Badge for urgent causes -->
+                        @if($cause->is_urgent)
+                        <div class="urgent-badge">
+                            <span class="badge bg-danger py-2 px-3 rounded-pill pulse-animation">
+                                <i class="fas fa-exclamation-circle me-1"></i> حملة عاجلة
+                            </span>
+                        </div>
+                        @endif
+
+                        <!-- Image with hover effect -->
+                        <div class="cause-image-container">
+                            <img src="{{ asset('storage/' . $cause->image) }}"
+                                 alt="{{ $cause->title }}"
+                                 class="cause-image">
+                            <div class="image-overlay">
+                                <a href="{{ route('cause.show', $cause->id) }}" class="view-btn">
+                                    <i class="fas fa-eye"></i>
+                                    عرض التفاصيل
+                                </a>
+                            </div>
+                            <div class="category-badge">
+                                <i class="fas fa-tag"></i>
+                                {{ $cause->category }}
+                            </div>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="card-body d-flex flex-column justify-content-between flex-grow-1">
+                            <div>
+                                <h5 class="card-title text-primary">{{ $cause->title }}</h5>
+                                <p class="card-text text-muted">{{ Str::limit($cause->description, 100) }}</p>
+
+                                <div class="d-flex justify-content-between mt-3 small text-secondary">
+                                    <span><i class="fa fa-tag me-1"></i> {{ $cause->category }}</span>
+                                    <span><i class="fa fa-map-marker-alt me-1"></i> {{ $cause->location }}</span>
+                                </div>
+
+                                <!-- Progress with animation -->
+                                <div class="mt-3 progress-container">
+                                    @php
+                                        $percentage = $cause->goal_amount > 0
+                                            ? ($cause->raised_amount / $cause->goal_amount) * 100
+                                            : 0;
+                                    @endphp
+
+                                    <div class="progress position-relative" style="height: 20px; background-color: #f1f1f1;">
+                                        <div class="progress-bar bg-success progress-animate"
+                                             role="progressbar"
+                                             style="width: 0;"
+                                             data-percentage="{{ $percentage }}"
+                                             aria-valuenow="{{ $cause->raised_amount }}"
+                                             aria-valuemin="0"
+                                             aria-valuemax="{{ $cause->goal_amount }}">
+                                            {{ convertToArabic(number_format($percentage, 0)) }}%
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mt-2 small">
+                                        <span><strong>تم جمع:</strong> {{ convertToArabic(number_format($cause->raised_amount)) }} د.أ</span>
+                                        <span><strong>الهدف:</strong> {{ convertToArabic(number_format($cause->goal_amount)) }} د.أ</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Button with hover effect -->
+                            <div class="mt-4 mt-auto">
+                                <a href="{{ route('cause.show', $cause->id) }}"
+                                   class="btn w-100 rounded-pill read-more-btn">
+                                    اقرأ المزيد
+                                    <i class="fas fa-arrow-left ms-2 transition-all"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @empty
+                <div class="col-12 text-center py-5">
+                    <div class="empty-state">
+                        <i class="fas fa-heart-broken fa-3x text-muted mb-4"></i>
+                        <h4 class="text-secondary" style="text-align: center">لا توجد حملات متاحة حالياً</h4>
+                        <p class="text-muted" style="text-align: center">سنقوم بإضافة حملات جديدة قريباً، تفضل بزيارتنا لاحقاً</p>
+                    </div>
+                </div>
+            @endforelse
+        </div>
+
+        <!-- View More Button - Only show if there are causes -->
+        @if($causes->count() > 0)
+            <div class="text-center mt-5">
+                <a href="{{ route('cause.index') }}" class="btn btn-primary rounded-pill view-more-btn">
+                    عرض المزيد من الحملات
+                    <i class="fas fa-arrow-left ms-2"></i>
+                </a>
+            </div>
+        @endif
+    </div>
 </section>
 
-
-
-
-
 <style>
-
 
     /* Read More Button */
     .read-more-btn {
@@ -586,6 +689,7 @@
     }
 
     .card-title {
+        text-align: center;
         font-family: 'Cairo', sans-serif;
         font-weight: 700;
         color: #2a2a2a;
@@ -610,7 +714,11 @@
     }
 
     /* Progress Bar - نفس النمط المطلوب */
-    .progress-container {
+      /* Progress Bar Animation */
+      .progress-animate {
+        transition: width 1.5s ease-in-out;
+    }
+    /* .progress-container {
         margin-top: 20px;
     }
 
@@ -655,7 +763,7 @@
 
     .read-more-btn:hover .transition-all {
         transform: translateX(-5px);
-    }
+    } */
 
     /* View More Button */
     .view-more-btn {

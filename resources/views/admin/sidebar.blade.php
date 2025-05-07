@@ -72,7 +72,7 @@
         </form>
         <div class="user-profile">
             <div class="avatar">
-                <img src="https://ui-avatars.com/api/?name=Admin&background=4e73df&color=fff" alt="Admin">
+                <img src="https://ui-avatars.com/api/?name=Admin&background=3cc88f&color=fff" alt="Admin">
             </div>
             <div class="user-info">
                 <span class="user-name">الإدارة</span>
@@ -81,6 +81,256 @@
         </div>
     </div>
 </div>
+
+<style>
+:root {
+    --sidebar-color: #3cc88f;
+    --sidebar-dark: #34b181;
+    --sidebar-light: #4ad49a;
+    --sidebar-text: #ffffff;
+    --sidebar-hover: #2a9d70;
+}
+
+.admin-sidebar {
+    background-color: var(--sidebar-color);
+    color: var(--sidebar-text);
+    transition: all 0.3s ease;
+    height: 100vh;
+    position: fixed;
+    width: 280px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header {
+    padding: 20px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--sidebar-dark);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-icon {
+    font-size: 24px;
+    color: var(--sidebar-text);
+}
+
+.logo-text {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    color: var(--sidebar-text);
+}
+
+.sidebar-toggle {
+    background: transparent;
+    border: none;
+    color: var(--sidebar-text);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.sidebar-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-menu {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px 0;
+}
+
+.menu-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-item {
+    position: relative;
+}
+
+.menu-link {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: var(--sidebar-text);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.menu-link:hover {
+    background-color: var(--sidebar-hover);
+}
+
+.menu-link.active {
+    background-color: var(--sidebar-dark);
+    border-left: 4px solid var(--sidebar-text);
+}
+
+.menu-icon {
+    margin-left: 10px;
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+}
+
+.menu-title {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.menu-badge {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.menu-arrow {
+    transition: transform 0.3s ease;
+}
+
+.has-submenu.active .menu-arrow {
+    transform: rotate(180deg);
+}
+
+.submenu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: var(--sidebar-dark);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.has-submenu.active .submenu {
+    max-height: 500px;
+}
+
+.submenu li a {
+    display: block;
+    padding: 10px 20px 10px 50px;
+    color: var(--sidebar-text);
+    text-decoration: none;
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+.submenu li a:hover {
+    background-color: var(--sidebar-hover);
+}
+
+.sidebar-footer {
+    background-color: var(--sidebar-dark);
+    padding: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logout-btn {
+    background-color: transparent;
+    border: none;
+    color: var(--sidebar-text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.logout-btn:hover {
+    background-color: var(--sidebar-hover);
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.user-role {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+    .admin-sidebar {
+        transform: translateX(-100%);
+        z-index: 1000;
+    }
+
+    .admin-sidebar.active {
+        transform: translateX(0);
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Toggle sidebar on mobile
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const adminSidebar = document.getElementById('adminSidebar');
+
+    if (sidebarToggle && adminSidebar) {
+        sidebarToggle.addEventListener('click', function() {
+            adminSidebar.classList.toggle('active');
+        });
+    }
+
+    // Handle submenu toggle
+    const submenuItems = document.querySelectorAll('.has-submenu > .menu-link');
+
+    submenuItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            if (window.innerWidth > 992) {
+                e.preventDefault();
+                const parent = this.parentElement;
+                parent.classList.toggle('active');
+            }
+        });
+    });
+});
+</script>
 {{-- <!-- Sidebar -->
 <div class="sidebar" style="width: 250px; background: #2c3e50; height: 100vh; position: fixed; right: 0; top: 0; padding: 20px; color: white; text-align: right;">
     <h2 style="color: #ecf0f1;">لوحة التحكم</h2>
