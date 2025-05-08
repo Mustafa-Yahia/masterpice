@@ -46,11 +46,13 @@
             </ul>
         </form>
    <!-- عرض الحملات -->
-<div id="causes-list" class="row gy-4">
+   <div id="causes-list" class="row gy-4">
     @forelse($causes as $cause)
+        <!-- عرض الحملة -->
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card shadow-sm h-100 border-0 rounded-4 overflow-hidden d-flex flex-column cause-card">
-                <!-- Badge for urgent causes -->
+
+                <!-- الشريط العاجل إذا كانت الحملة عاجلة -->
                 @if($cause->is_urgent)
                 <div class="urgent-badge">
                     <span class="badge bg-danger py-2 px-3 rounded-pill pulse-animation">
@@ -59,7 +61,7 @@
                 </div>
                 @endif
 
-                <!-- Image with hover effect -->
+                <!-- رابط الصورة مع تأثير -->
                 <a href="{{ route('cause.show', $cause->id) }}" class="cause-image-link">
                     <img class="card-img-top cause-image" src="{{ asset('storage/' . $cause->image) }}" alt="{{ $cause->title }}" loading="lazy">
                     <div class="image-overlay">
@@ -67,18 +69,20 @@
                     </div>
                 </a>
 
-                <!-- Content -->
+                <!-- جسم البطاقة -->
                 <div class="card-body d-flex flex-column justify-content-between flex-grow-1">
                     <div>
+                        <!-- عنوان الحملة ووصفها -->
                         <h5 class="card-title text-primary">{{ $cause->title }}</h5>
                         <p class="card-text text-muted">{{ Str::limit($cause->description, 100) }}</p>
 
+                        <!-- معلومات إضافية -->
                         <div class="d-flex justify-content-between mt-3 small text-secondary">
                             <span><i class="fa fa-tag me-1"></i> {{ $cause->category }}</span>
                             <span><i class="fa fa-map-marker-alt me-1"></i> {{ $cause->location }}</span>
                         </div>
 
-                        <!-- Progress with animation -->
+                        <!-- شريط التقدم -->
                         <div class="mt-3 progress-container">
                             @php
                                 $percentage = $cause->goal_amount > 0
@@ -89,7 +93,7 @@
                             <div class="progress position-relative" style="height: 20px; background-color: #f1f1f1;">
                                 <div class="progress-bar bg-success progress-animate"
                                      role="progressbar"
-                                     style="width: 0;"
+                                     style="width: {{ $percentage }}%;"
                                      data-percentage="{{ $percentage }}"
                                      aria-valuenow="{{ $cause->raised_amount }}"
                                      aria-valuemin="0"
@@ -105,7 +109,7 @@
                         </div>
                     </div>
 
-                    <!-- Button with hover effect -->
+                    <!-- زر اقرأ المزيد -->
                     <div class="mt-4 mt-auto">
                         <a href="{{ route('cause.show', $cause->id) }}"
                            class="btn w-100 rounded-pill read-more-btn">
@@ -117,17 +121,25 @@
             </div>
         </div>
     @empty
-        <div class="col-12 text-center text-muted py-5 empty-state">
-            <i class="far fa-folder-open fa-3x mb-3"></i>
-            <h4 class="mb-3">لا توجد حملات تطابق الفلتر المحدد</h4>
-            <a href="{{ route('causes.index') }}" class="btn btn-outline-primary rounded-pill">
-                عرض جميع الحملات
-            </a>
+        <div class="col-12">
+            <div class="empty-causes-state text-center p-5 rounded-4 bg-light position-relative overflow-hidden">
+                <!-- تأثيرات زخرفية خلفية -->
+                <div class="position-absolute top-0 start-0 w-100 h-100 opacity-10">
+                    <div class="pattern-dots-md" style="color: #0d6efd;"></div>
+                </div>
+
+                <div class="col-12 text-center py-5">
+                    <div class="empty-state">
+                        <i class="fas fa-heart-broken fa-3x text-muted mb-4"></i>
+                        <h4 class="text-secondary" style="text-align: center">لا توجد حملات متاحة حالياً</h4>
+                        <p class="text-muted" style="text-align: center">سنقوم بإضافة حملات جديدة قريباً، تفضل بزيارتنا لاحقاً</p>
+                    </div>
+                </div>
+            </div>
         </div>
     @endforelse
 </div>
 
-<!-- Pagination with style -->
 @if($causes->hasPages())
 <div class="mt-5">
     <nav aria-label="Page navigation">
@@ -137,40 +149,32 @@
 @endif
 
 <style>
-    /* Base Styles */
-    .cause-card {
+      /* أنماط مخصصة للحملات */
+      .cause-card {
         transition: all 0.3s ease;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        position: relative;
+        border: 1px solid rgba(0,0,0,0.05);
     }
 
-    .card-title {
-        text-align: center;
-        font-family: 'Cairo', sans-serif;
-        font-weight: 700;
-        color: #2a2a2a;
-        font-size: 1.3rem;
-        margin-bottom: 12px;
-    }
     .cause-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+        border-color: rgba(13, 110, 253, 0.2);
     }
 
-    /* Image Styles */
     .cause-image-link {
-        position: relative;
         display: block;
         overflow: hidden;
-        height: 230px;
+        position: relative;
     }
 
     .cause-image {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
         transition: transform 0.5s ease;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .cause-image-link:hover .cause-image {
+        transform: scale(1.05);
     }
 
     .image-overlay {
@@ -179,14 +183,78 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(60, 200, 143, 0.7);
+        background: rgba(0,0,0,0.3);
+        opacity: 0;
+        transition: opacity 0.3s ease;
         display: flex;
         align-items: center;
         justify-content: center;
-        opacity: 0;
-        transition: opacity 0.3s ease;
     }
 
+    .cause-image-link:hover .image-overlay {
+        opacity: 1;
+    }
+
+    .view-details-btn {
+        color: white;
+        padding: 8px 16px;
+        border: 1px solid white;
+        border-radius: 50px;
+        font-size: 14px;
+    }
+
+    /* أنماط الحالة الفارغة */
+    .empty-causes-state {
+        background-color: #f8f9fa;
+        border: 2px dashed #e9ecef;
+        transition: all 0.3s ease;
+        min-height: 400px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .empty-causes-state:hover {
+        background-color: #fff;
+        border-color: #0d6efd;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+    }
+
+    .empty-icon {
+        color: #6c757d;
+        transition: all 0.3s ease;
+    }
+
+    .empty-causes-state:hover .empty-icon {
+        transform: scale(1.1);
+        color: #0d6efd;
+    }
+
+    /* تأثيرات النص */
+    .text-muted {
+        transition: color 0.3s ease;
+    }
+
+    .empty-causes-state:hover .text-muted {
+        color: #495057 !important;
+    }
+
+    /* تأثير النبض للعاجل */
+    .pulse-animation {
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    /* تأثير شريط التقدم */
+    .progress-animate {
+        transition: width 1.5s ease-in-out;
+    }
     .view-details-btn {
         color: white;
         font-weight: bold;
@@ -293,7 +361,25 @@
         color: #2da876;
     }
 </style>
+<script>
+    // تفعيل تأثير شريط التقدم عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', function() {
+        const progressBars = document.querySelectorAll('.progress-animate');
 
+        progressBars.forEach(bar => {
+            const percentage = bar.dataset.percentage;
+            bar.style.width = `${percentage}%`;
+        });
+
+        // تفعيل تأثيرات الصور الكسولة
+        if ('loading' in HTMLImageElement.prototype) {
+            const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+            lazyImages.forEach(img => {
+                img.loading = 'lazy';
+            });
+        }
+    });
+</script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Animate progress bars on scroll

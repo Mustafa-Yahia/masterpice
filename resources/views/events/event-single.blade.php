@@ -71,15 +71,17 @@
                                             <!-- الوقت -->
                                             <div class="d-flex align-items-center" style="background: #f8faf9; padding: 6px 12px; border-radius: 20px; border-right: 2px solid #3cc88f;">
                                                 <i class="far fa-clock ml-2" style="color: #3cc88f; font-size: 13px;"></i>
-                                                <span style="font-size: 13px; font-weight: 500;">
-                                                    {{ \Carbon\Carbon::parse($event->time)->format('h:i A') }}
-                                                    <span style="color: #3cc88f; margin: 0 3px;">←</span>
+                                                <span style="font-size: 13px; font-weight: 500; display: flex; justify-content: flex-start; direction: ltr;">
                                                     @if($event->end_time)
                                                         {{ \Carbon\Carbon::parse($event->end_time)->format('h:i A') }}
                                                     @else
                                                         {{ \Carbon\Carbon::parse($event->time)->addHours(2)->format('h:i A') }}
                                                     @endif
+                                                    <span style="color: #3cc88f; margin: 0 3px;">←</span>
+                                                    {{ \Carbon\Carbon::parse($event->time)->format('h:i A') }}
                                                 </span>
+
+
                                             </div>
 
                                             <!-- التاريخ -->

@@ -238,7 +238,7 @@
                         @endif
 
                         <!-- Image with hover effect -->
-                        <div class="cause-image-container">
+                        {{-- <div class="cause-image-container">
                             <img src="{{ asset('storage/' . $cause->image) }}"
                                  alt="{{ $cause->title }}"
                                  class="cause-image">
@@ -252,8 +252,14 @@
                                 <i class="fas fa-tag"></i>
                                 {{ $cause->category }}
                             </div>
-                        </div>
+                        </div> --}}
 
+                        <a href="{{ route('cause.show', $cause->id) }}" class="cause-image-link">
+                            <img class="card-img-top cause-image" src="{{ asset('storage/' . $cause->image) }}" alt="{{ $cause->title }}" loading="lazy">
+                            <div class="image-overlay">
+                                <span class="view-details-btn">عرض التفاصيل</span>
+                            </div>
+                        </a>
                         <!-- Content -->
                         <div class="card-body d-flex flex-column justify-content-between flex-grow-1">
                             <div>
@@ -353,6 +359,13 @@
         transform: translateX(-5px);
     }
 
+    .view-details-btn {
+        color: white;
+        padding: 8px 16px;
+        border: 1px solid white;
+        border-radius: 50px;
+        font-size: 14px;
+    }
   /* View More Button */
   .view-more-btn {
         background: linear-gradient(90deg, #3cc88f 0%, #2da578 100%);
@@ -500,28 +513,38 @@
     }
 
     .image-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(60, 200, 143, 0.7);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        transition: opacity 0.3s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+}
+
+
+    .cause-image-link:hover .cause-image {
+        transform: scale(1.05);
     }
 
-    .view-details-btn {
-        color: white;
-        font-weight: bold;
-        padding: 8px 16px;
-        border: 2px solid white;
-        border-radius: 30px;
-        transform: scale(0.9);
-        transition: all 0.3s ease;
+    .cause-image-link:hover .image-overlay {
+        opacity: 1;
     }
+
+    .cause-image-link:hover .view-details-btn {
+        transform: scale(1);
+    }
+
+    /* Progress Bar Animation */
+    .progress-animate {
+        transition: width 1.5s ease-in-out;
+    }
+
 
 
 
@@ -634,29 +657,9 @@
         transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
-    .image-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(60, 200, 143, 0.85);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
 
-    .view-details-btn {
-        color: white;
-        font-weight: 600;
-        padding: 8px 20px;
-        border: 2px solid white;
-        border-radius: 30px;
-        transform: scale(0.9);
-        transition: all 0.3s ease;
-    }
+
+
 
     .cause-card:hover .cause-image {
         transform: scale(1.08);
@@ -666,9 +669,6 @@
         opacity: 1;
     }
 
-    .cause-card:hover .view-details-btn {
-        transform: scale(1);
-    }
 
     /* Category Label */
     .category-label {

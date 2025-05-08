@@ -52,8 +52,9 @@
                         <h4 class="widget-title">روابط سريعة</h4>
                         <ul class="footer-links">
                             <li><a href="{{ route('index') }}">الرئبسية</a></li>
-                            <li><a href="">عن الجمعية</a></li>
-                            <li><a href="">مشاريعنا</a></li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('about') }}">عن الجمعية</a>
+                            </li>                            <li><a href="">مشاريعنا</a></li>
                             <li><a href="">التطوع</a></li>
                             <li><a href="">المدونة</a></li>
                             {{-- <li><a href="">اتصل بنا</a></li> --}}

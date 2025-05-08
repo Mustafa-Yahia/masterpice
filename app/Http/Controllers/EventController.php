@@ -7,92 +7,62 @@ use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
-    // عرض جميع الأحداث
     public function index()
     {
-        // جلب جميع الأحداث من قاعدة البيانات
-        $events = Event::all();
+        $events = Event::withCount('volunteers')
+                     ->orderBy('date', 'asc')
+                     ->get();
 
-        // عرض الأحداث في صفحة events
         return view('events.events', compact('events'));
     }
 
-    // عرض تفاصيل الحدث
     public function show($id)
     {
-        // جلب الحدث بناءً على الـ id
-        $event = Event::findOrFail($id);
+        $event = Event::with(['volunteers' => function($query) {
+                        $query->select('users.id', 'name');
+                     }])
+                     ->findOrFail($id);
 
-        // عرض تفاصيل الحدث في صفحة event-single
-        return view('events.event-single', compact('event'));
+        $isRegistered = auth()->check() ? $event->volunteers->contains(auth()->id()) : false;
+
+        return view('events.event-single', compact('event', 'isRegistered'));
     }
-
 
     public function subscribe($eventId)
     {
-        $event = Event::find($eventId); // جلب الحدث حسب الـ ID
-        $user = auth()->user(); // الحصول على المستخدم المسجل دخوله
+        $event = Event::findOrFail($eventId);
+        $user = auth()->user();
 
-        if ($event && $event->volunteers_needed > $event->volunteer_count) {
-            // زيادة عدد المتطوعين
-            $event->volunteer_count += 1;
-            $event->save();
-
-            // إضافة المتطوع إلى جدول متطوعين (إذا كان لديك جدول لتخزين المتطوعين)
-            $event->volunteers()->attach($user->id);
-
-            // إرسال رسالة نجاح
-            return redirect()->back()->with('message', 'تم الاشتراك في الحدث بنجاح!');
+        if ($event->volunteers()->where('user_id', $user->id)->exists()) {
+            return redirect()->back()->with('warning', 'أنت مسجل بالفعل في هذه الحملة.');
         }
 
-        // إذا تم استكمال عدد المتطوعين
-        return redirect()->back()->with('message', 'لقد تم استكمال عدد المتطوعين.');
+        if ($event->volunteer_count >= $event->volunteers_needed) {
+            return redirect()->back()->with('error', 'عذراً، لقد تم استكمال عدد المتطوعين المطلوب.');
+        }
+
+        \DB::transaction(function() use ($event, $user) {
+            $event->volunteers()->attach($user->id);
+            $event->increment('volunteer_count');
+        });
+
+        return redirect()->back()->with('success', 'تم تسجيلك في الحملة التطوعية بنجاح!');
     }
 
+    public function unsubscribe($eventId)
+    {
+        $event = Event::findOrFail($eventId);
+        $user = auth()->user();
 
+        if (!$event->volunteers()->where('user_id', $user->id)->exists()) {
+            return redirect()->back()->with('error', 'أنت غير مسجل في هذه الحملة.');
+        }
 
-    // // اشتراك المستخدم في الحدث
-    // public function subscribe($id)
-    // {
-    //     // تحقق مما إذا كان المستخدم مسجلاً في الجلسة
-    //     if (!Auth::check()) {
-    //         return redirect()->route('login')->with('error', 'يرجى تسجيل الدخول للاشتراك في الحدث');
-    //     }
+        \DB::transaction(function() use ($event, $user) {
+            $event->volunteers()->detach($user->id);
+            $event->decrement('volunteer_count');
+        });
 
-    //     // جلب الحدث بناءً على الـ id
-    //     $event = Event::findOrFail($id);
-
-    //     // التحقق مما إذا كان المستخدم قد اشترك مسبقًا في الحدث
-    //     $user = Auth::user();
-    //     if ($user->events->contains($event)) {
-    //         // إذا كان المستخدم قد اشترك مسبقًا
-    //         return redirect()->route('event.show', $id)->with('info', 'لقد قمت بالاشتراك في هذا الحدث مسبقًا.');
-    //     }
-
-    //     // إضافة المستخدم إلى الحدث مع حالة "قيد الانتظار"
-    //     $user->events()->attach($event, ['status' => 'pending']); // الاشتراك يكون في حالة "قيد الانتظار"
-
-    //     // إعادة توجيه المستخدم إلى تفاصيل الحدث مع رسالة نجاح
-    //     return redirect()->route('event.show', $id)->with('success', 'تم الاشتراك في الحدث بنجاح! طلبك قيد الانتظار.');
-    // }
-
-    // // تحديث حالة الاشتراك (موافقة / رفض)
-    // public function updateSubscriptionStatus($eventId, $userId, $status)
-    // {
-    //     // التحقق من أن الحالة صحيحة
-    //     if (!in_array($status, ['pending', 'approved', 'rejected'])) {
-    //         return redirect()->route('event.show', $eventId)->with('error', 'الحالة غير صالحة');
-    //     }
-
-    //     // العثور على الحدث والمستخدم
-    //     $event = Event::findOrFail($eventId);
-    //     $user = User::findOrFail($userId);
-
-    //     // تحديث حالة الاشتراك
-    //     $event->users()->updateExistingPivot($user->id, ['status' => $status]);
-
-    //     // إعادة توجيه مع رسالة
-    //     return redirect()->route('event.show', $eventId)->with('success', 'تم تحديث حالة الاشتراك.');
-    // }
-
+        return redirect()->back()->with('success', 'تم إلغاء تسجيلك من الحملة التطوعية.');
+    }
 }
