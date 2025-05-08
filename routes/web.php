@@ -14,6 +14,9 @@ use App\Http\Controllers\Admin\AdminDonationController;
 use App\Http\Controllers\Admin\AdminCauseController;
 use App\Http\Controllers\Admin\AdminEventController;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\Admin\About\TimelineController;
+use App\Http\Controllers\Admin\About\TeamController;
+
 
 
 
@@ -162,3 +165,10 @@ Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPass
 
 Route::get('/about', [App\Http\Controllers\PageController::class, 'about'])
     ->name('about');
+
+
+    Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+        Route::resource('about/timeline', TimelineController::class);
+    });
+
+    Route::get('/admin/about/team', [TeamController::class, 'index'])->name('admin.about.team');

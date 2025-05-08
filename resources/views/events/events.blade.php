@@ -31,7 +31,7 @@
                                 </div>
                             </div>
                             <div class="hero-cta animate__animated animate__fadeInUp animate__delay-2s">
-                                <a href="#events" class="btn btn-primary btn-lg me-3">
+                                <a href="#events" class="btn  btn-lg me-3" style="background: #3cc88f; color: #FFF;">
                                     <i class="fas fa-calendar-alt me-2"></i> تصفح الفعاليات
                                 </a>
                                 <a href="#subscribe" class="btn btn-outline-light btn-lg">
@@ -292,9 +292,9 @@
                                     @endif
                                 @endif
                             @else
-                                <a href="{{ route('login') }}" class="btn btn-outline-primary">
-                                    <i class="fas fa-sign-in-alt me-2"></i> سجل الدخول للتطوع
-                                </a>
+                            <a href="{{ route('login') }}" class="btn btn-outline-custom">
+                                <i class="fas fa-sign-in-alt me-2"></i> سجل الدخول للتطوع
+                            </a>
                             @endif
                         </div>
                     </div>
@@ -307,7 +307,7 @@
                         </div>
                         <h3 class="mb-3">لا توجد حملات تطوعية حالياً</h3>
                         <p class="text-muted mb-4">يمكنك متابعتنا لمعرفة أحدث الحملات التطوعية القادمة</p>
-                        <a href="{{ route('index') }}" class="btn btn-primary px-4">
+                        <a href="{{ route('index') }}" class="btn  px-4" style="background: #3cc88f; color: #FFF;">
                             <i class="fas fa-home me-2"></i> العودة للرئيسية
                         </a>
                     </div>
@@ -318,6 +318,16 @@
 </section>
 
 <style>
+    .btn-outline-custom {
+    border-color: #3cc88f;
+    color: #3cc88f;
+}
+
+.btn-outline-custom:hover {
+    background-color: #3cc88f;
+    color: #fff;
+}
+
 .volunteer-events-section {
     background-color: #f8fafc;
 }
