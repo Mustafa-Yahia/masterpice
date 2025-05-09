@@ -53,21 +53,23 @@
                             @endauth
                         </div>
                     </div>
-
                     <!-- Main Menu -->
-                    <nav class="main-menu navbar-expand-md navbar-light">
-                        <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
-                            <ul class="navigation clearfix ">
-                                {{-- <li><a href="{{ route('volunteer.form') }}" class="{{ Route::is('volunteer.form') ? 'active' : '' }}"><i class="fas fa-hands-helping"></i> التأثير والتغيير</a></li> --}}
-                                <li><a href="{{ route('cause.index') }}" class="{{ Route::is('cause.index') ? 'active' : '' }}"><i class="fas fa-heart"></i> تبرع</a></li>
+                    <nav class="main-menu navbar-expand-md navbar-center">
+    <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
+        <ul class="navigation clearfix">
+            <li><a href="{{ route('about') }}" class="{{ Route::is('about') ? 'active' : '' }}"><i class="fas fa-info-circle"></i> عن الجمعية</a></li>
+            {{-- <li><a href="{{ route('volunteer.form') }}" class="{{ Route::is('volunteer.form') ? 'active' : '' }}"><i class="fas fa-hands-helping"></i> التأثير والتغيير</a></li> --}}
+            <li><a href="{{ route('cause.index') }}" class="{{ Route::is('cause.index') ? 'active' : '' }}"><i class="fas fa-heart"></i> تبرع</a></li>
 
-                                <!-- رابط "الأحداث" الجديد -->
-                                <li><a href="{{ route('event.index') }}" class="{{ Route::is('event.index') ? 'active' : '' }}"><i class="fas fa-hands-helping"></i>تطوع</a></li>
+            <li><a href="{{ route('event.index') }}" class="{{ Route::is('event.index') ? 'active' : '' }}"><i class="fas fa-hands-helping"></i> تطوع</a></li>
 
-                                <li><a href="/" class="{{ Route::is('home') ? 'active' : '' }}"><i class="fas fa-home"></i> الرئيسية</a></li>
-                            </ul>
-                        </div>
-                    </nav>
+            <li><a href="/" class="{{ Route::is('home') ? 'active' : '' }}"><i class="fas fa-home"></i> الرئيسية</a></li>
+
+
+        </ul>
+    </div>
+</nav>
+
                 </div>
             </div>
         </div>

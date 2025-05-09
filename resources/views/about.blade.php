@@ -2,13 +2,77 @@
 
 @section('content')
 
+<section class="about-hero">
+    <div class="hero-container">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-7">
+                        <div class="hero-text">
+                            <div class="badge mb-3 animate__animated animate__fadeIn">
+                                <span class="badge-text">من نحن</span>
+                            </div>
+                            <h1 class="hero-title animate__animated animate__fadeInDown text-white">
+                                <span class="highlight">قصتنا</span> وإنجازاتنا
+                            </h1>
+                            <p class="hero-subtitle animate__animated animate__fadeInUp animate__delay-1s text-white">
+                                نؤمن بقوة العمل الإنساني في تغيير المجتمعات وبناء مستقبل أفضل للجميع
+                            </p>
+                            <div class="hero-stats d-flex mb-4 animate__animated animate__fadeIn animate__delay-1s">
+                                <div class="stat-item me-4">
+                                    <div class="stat-number">+10</div>
+                                    <div class="stat-label">سنوات خبرة</div>
+                                </div>
+                                <div class="stat-item me-4">
+                                    <div class="stat-number">500+</div>
+                                    <div class="stat-label">مشروع ناجح</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">1M+</div>
+                                    <div class="stat-label">مستفيد</div>
+                                </div>
+                            </div>
+                            <div class="hero-cta animate__animated animate__fadeInUp animate__delay-2s">
+                                <a href="#our-story" class="btn btn-primary btn-lg me-3">
+                                    <i class="fas fa-book-open me-2"></i> تعرف على قصتنا
+                                </a>
+                                <a href="#team" class="btn btn-outline-light btn-lg">
+                                    <i class="fas fa-users me-2"></i> فريق العمل
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 d-none d-lg-block">
+                        <div class="hero-image-container animate__animated animate__fadeInRight animate__delay-1s">
+                            <div class="hero-image">
+                                <img src="{{ asset('images/background/Background-events.jpeg') }}" alt="من نحن" class="img-fluid rounded-3 shadow-lg">
+                            </div>
+                            <div class="floating-icons">
+                                <div class="icon-1"><i class="fas fa-star"></i></div>
+                                <div class="icon-2"><i class="fas fa-medal"></i></div>
+                                <div class="icon-3"><i class="fas fa-trophy"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- <div class="hero-wave">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 150">
+                <path fill="#fff" fill-opacity="1" d="M0,96L48,90C96,85,192,75,288,69.3C384,64,480,64,576,80C672,96,768,128,864,128C960,128,1056,96,1152,85.3C1248,75,1344,85,1392,90.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div> --}}
+    </div>
+</section>
+
 <!-- History Timeline -->
 <section class="timeline-section bg-light py-7">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-8 text-center mb-6">
-                <h2 class="section-title mb-3">مسيرتنا عبر السنوات</h2>
-                <p class="section-subtitle text-muted" style="text-align: center">رحلة العطاء والإنجازات منذ تأسيس الجمعية</p>
+            <div class="col-lg-8 text-center mb-6 mt-5">
+                <h2 id="our-story" class="section-title mb-3">مسيرتنا عبر السنوات</h2>
+                <p class="section-subtitle text-muted" style="text-align:center">رحلة العطاء والإنجازات منذ تأسيس الجمعية</p>
             </div>
         </div>
 
@@ -140,12 +204,12 @@
     </div>
 </section> --}}
 <!-- Team Section -->
-<section class="team-section py-7">
+<section class="team-section py-5">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center mb-6">
-                <h2 class="section-title mb-3">فريق القيادة</h2>
-                <p class="section-subtitle text-muted">الطاقم الإداري الذي يقود جهود الجمعية</p>
+                <h2 id="team" class="section-title mb-3 ">فريق القيادة</h2>
+                <p class="section-subtitle text-muted" style="text-align: center">الطاقم الإداري الذي يقود جهود الجمعية</p>
             </div>
         </div>
 
@@ -180,7 +244,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center mb-6">
-                <h2 class="section-title mb-3">شركاؤنا في العطاء</h2>
+                <h2 class="section-title mb-3 mt-3">شركاؤنا في العطاء</h2>
                 <p class="section-subtitle text-muted" style="text-align: center">نعمل معاً لتحقيق أهداف التنمية المستدامة</p>
             </div>
         </div>
@@ -258,6 +322,276 @@
 
 
 <style>
+    .about-hero {
+    position: relative;
+    background: linear-gradient(90deg, #2da578 100%, #2da578 100%);
+    color: #fff;
+    padding: 120px 0 0;
+    overflow: hidden;
+}
+
+.about-hero .hero-container {
+    position: relative;
+}
+
+.about-hero .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.about-hero .hero-content {
+    position: relative;
+    z-index: 2;
+    padding-bottom: 80px;
+}
+
+.about-hero .badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    padding: 8px 20px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.about-hero .badge-text {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.about-hero .hero-title {
+    font-size: 48px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    line-height: 1.3;
+}
+
+.about-hero .hero-title .highlight {
+    color: #ffd700;
+    position: relative;
+    display: inline-block;
+}
+
+.about-hero .hero-title .highlight:after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.3);
+    z-index: -1;
+    border-radius: 3px;
+}
+
+.about-hero .hero-subtitle {
+    font-size: 18px;
+    margin-bottom: 30px;
+    max-width: 600px;
+    line-height: 1.8;
+    opacity: 0.9;
+}
+
+.about-hero .hero-stats {
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.about-hero .stat-item {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    padding: 15px 25px;
+    border-radius: 10px;
+    min-width: 120px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.about-hero .stat-item:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* how to  */
+.about-hero .stat-number {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+    background: #ffd700;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.about-hero .stat-label {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-top: 5px;
+}
+
+.about-hero .hero-cta .btn {
+    padding: 12px 25px;
+    font-weight: 600;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.about-hero .hero-cta .btn-primary {
+    background: #3cc88f;
+    border-color: #3cc88f;
+    box-shadow: 0 5px 15px rgba(60, 200, 143, 0.3);
+}
+
+.about-hero .hero-cta .btn-primary:hover {
+    background: #2fa578;
+    border-color: #2fa578;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(60, 200, 143, 0.4);
+}
+
+.about-hero .hero-cta .btn-outline-light {
+    border-width: 2px;
+}
+
+.about-hero .hero-cta .btn-outline-light:hover {
+    color: #FFF;
+    background: #ffd700;
+    transform: translateY(-3px);
+}
+
+.about-hero .hero-image-container {
+    position: relative;
+}
+
+.about-hero .hero-image {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    transform: perspective(1000px) rotateY(-10deg);
+    transition: all 0.5s ease;
+}
+
+.about-hero .hero-image:hover {
+    transform: perspective(1000px) rotateY(0deg);
+}
+
+.about-hero .floating-icons {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.about-hero .floating-icons div {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3cc88f;
+    font-size: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    animation: floating 5s infinite ease-in-out;
+}
+
+.about-hero .floating-icons .icon-1 {
+    top: 20%;
+    left: -15px;
+    animation-delay: 0s;
+}
+
+.about-hero .floating-icons .icon-2 {
+    top: 60%;
+    right: -20px;
+    animation-delay: 1s;
+}
+
+.about-hero .floating-icons .icon-3 {
+    bottom: 10%;
+    left: 30%;
+    animation-delay: 2s;
+}
+
+.about-hero .hero-wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    z-index: 3;
+}
+
+/* Animations */
+@keyframes floating {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(5deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    .about-hero {
+        padding: 100px 0 0;
+    }
+
+    .about-hero .hero-title {
+        font-size: 36px;
+    }
+
+    .about-hero .hero-stats {
+        gap: 15px;
+    }
+
+    .about-hero .stat-item {
+        padding: 12px 20px;
+        min-width: 100px;
+    }
+
+    .about-hero .stat-number {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 767px) {
+    .about-hero {
+        padding: 80px 0 0;
+        text-align: center;
+    }
+
+    .about-hero .hero-title {
+        font-size: 28px;
+    }
+
+    .about-hero .hero-subtitle {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .about-hero .hero-stats {
+        justify-content: center;
+    }
+
+    .about-hero .hero-cta {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .about-hero .hero-cta .btn {
+        width: 100%;
+        margin-right: 0 !important;
+    }
+}
     /* Global Styles */
     :root {
         --primary-color: #2c786c;
@@ -335,7 +669,7 @@
 
     .stat-label {
         font-size: 0.9rem;
-        color: var(--text-muted);
+        color: #fff;
     }
 
     .hero-image-container {
@@ -714,7 +1048,7 @@
 
     .stat-label {
         font-size: 1.2rem;
-        color: var(--secondary-color);
+        color: #fff;
         font-weight: 600;
     }
 
@@ -938,6 +1272,8 @@
         }
     }
 </style>
+<!-- Animate.css -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
 <!-- Libraries -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />

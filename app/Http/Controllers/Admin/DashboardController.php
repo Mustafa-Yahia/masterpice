@@ -56,7 +56,7 @@ class DashboardController extends Controller
             'donationsByCategory'
         ));
     }
-    
+
 }
 // namespace App\Http\Controllers\Admin;
 

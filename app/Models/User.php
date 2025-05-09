@@ -23,7 +23,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $dates = ['deleted_at'];  // تحديد الحقول التي يجب أن تكون تواريخ
+    protected $dates = ['deleted_at'];
 
 
     public function donations()
@@ -32,10 +32,7 @@ class User extends Authenticatable
 }
 
 
-//     public function subscriptions()
-// {
-//     return $this->hasMany(Subscription::class);
-// }
+
 
 public function events()
 {

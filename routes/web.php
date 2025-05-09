@@ -172,3 +172,13 @@ Route::get('/about', [App\Http\Controllers\PageController::class, 'about'])
     });
 
     Route::get('/admin/about/team', [TeamController::class, 'index'])->name('admin.about.team');
+
+  Route::middleware(['auth', 'can:view_dashboard'])->group(function () {
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/dashboard/chart-data', [DashboardController::class, 'chartData'])->name('admin.dashboard.chart-data');
+});
+
+
+Route::get('/designer/dashboard', [DesignerController::class, 'dashboard'])
+    ->name('designer.dashboard')
+    ->middleware('auth', 'role:designer'); // افترض أن لديك middleware للصلاحيات
