@@ -102,7 +102,7 @@
                             </li>
                             <li class="contact-item">
                                 <div class="contact-icon">
-                                    <i class="fas fa-envelope"></i>
+                                    <i class="fas fa-envelope" style="color: #3cc88f"></i>
                                 </div>
                                 <div class="contact-text">
                                     <span>البريد الإلكتروني:</span>
