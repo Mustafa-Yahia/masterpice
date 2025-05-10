@@ -14,9 +14,10 @@ use App\Http\Controllers\Admin\AdminDonationController;
 use App\Http\Controllers\Admin\AdminCauseController;
 use App\Http\Controllers\Admin\AdminEventController;
 use App\Http\Controllers\ForgotPasswordController;
-use App\Http\Controllers\Admin\About\TimelineController;
-use App\Http\Controllers\Admin\About\TeamController;
-
+use App\Http\Controllers\Designer\DesignerController;
+use App\Http\Controllers\Designer\DesignerTimelineController;
+use App\Http\Controllers\Designer\DesignerTeamController;
+use App\Http\Controllers\about\AboutController;
 
 
 
@@ -163,15 +164,43 @@ Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPa
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
+
+Route::get('/about', [TeamController::class, 'index'])->name('about');
+
+
 Route::get('/about', [App\Http\Controllers\PageController::class, 'about'])
     ->name('about');
 
+Route::prefix('designer')->group(function () {
+    Route::resource('timeline', TimelineController::class);
+});
 
-    Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
-        Route::resource('about/timeline', TimelineController::class);
-    });
+
 
     Route::get('/admin/about/team', [TeamController::class, 'index'])->name('admin.about.team');
+    Route::get('/admin/about/timeline', [TeamController::class, 'index'])->name('admin.about.timeline');
+
+
+
+
+Route::prefix('designer')->group(function () {
+    Route::resource('timeline', TimelineController::class);
+});
+
+Route::prefix('designer')->middleware(['auth'])->group(function () {
+    // لوحة تحكم المصمم الرئيسية
+    Route::get('/dashboard', [DesignerController::class, 'index'])->name('designer.dashboard');
+    // روابط أحداث الجدول الزمني (Timeline Events)
+    Route::prefix('timeline')->group(function () {
+        Route::get('/create', [DesignerController::class, 'createTimelineEvent'])->name('designer.timeline.create');
+        Route::post('/store', [DesignerController::class, 'storeTimelineEvent'])->name('designer.timeline.store');
+        Route::get('/{id}/edit', [DesignerController::class, 'editTimelineEvent'])->name('designer.timeline.edit');
+        Route::put('/{id}/update', [DesignerController::class, 'updateTimelineEvent'])->name('designer.timeline.update');
+        Route::delete('/{id}/delete', [DesignerController::class, 'destroyTimelineEvent'])->name('designer.timeline.destroy');
+    });
+
+    // ... (يمكن إضافة روابط أخرى للـ Team هنا إذا كانت موجودة)
+});
 
   Route::middleware(['auth', 'can:view_dashboard'])->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -179,6 +208,30 @@ Route::get('/about', [App\Http\Controllers\PageController::class, 'about'])
 });
 
 
-Route::get('/designer/dashboard', [DesignerController::class, 'dashboard'])
-    ->name('designer.dashboard')
-    ->middleware('auth', 'role:designer'); // افترض أن لديك middleware للصلاحيات
+
+Route::prefix('designer')->group(function () {
+    Route::get('/about', [AboutController::class, 'index'])->name('designer.about');
+    Route::resource('/timeline', TimelineController::class);
+    Route::get('/team', [TeamController::class, 'index'])->name('designer.team');
+    Route::get('/statistics', [StatsController::class, 'index'])->name('designer.statistics');
+});
+
+Route::prefix('designer')->name('designer.')->group(function () {
+    Route::get('timeline', [DesignerTimelineController::class, 'index'])->name('timeline.index');
+    Route::get('timeline/create', [DesignerTimelineController::class, 'create'])->name('timeline.create');
+    Route::post('timeline', [DesignerTimelineController::class, 'store'])->name('timeline.store');
+    Route::get('timeline/{timeline}/edit', [DesignerTimelineController::class, 'edit'])->name('timeline.edit');
+    Route::put('timeline/{timeline}', [DesignerTimelineController::class, 'update'])->name('timeline.update');
+    Route::delete('timeline/{timeline}', [DesignerTimelineController::class, 'destroy'])->name('timeline.destroy');
+});
+
+
+
+Route::prefix('designer')->name('designer.')->group(function () {
+    Route::resource('team', DesignerTeamController::class);
+});
+
+
+Route::get('/about', [AboutController::class, 'index'])->name('about');
+
+

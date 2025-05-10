@@ -10,16 +10,16 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up()
-    {
-        Schema::create('timeline_events', function (Blueprint $table) {
-            $table->id();
-            $table->string('year');
-            $table->string('title');
-            $table->text('description');
-            $table->timestamps();
-        });
-    }
-
+{
+    Schema::create('timeline_events', function (Blueprint $table) {
+        $table->id();
+        $table->year('year'); // تغيير من string إلى نوع year
+        $table->string('title', 255); // تحديد طول الحقل
+        $table->text('description');
+        $table->timestamps();
+        $table->softDeletes(); // لحذف البيانات بشكل مؤقت
+    });
+}
 
     /**
      * Reverse the migrations.

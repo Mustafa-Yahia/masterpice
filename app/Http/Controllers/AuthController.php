@@ -16,48 +16,47 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function login(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email|exists:users,email',  // تحقق من وجود البريد في قاعدة البيانات
-            'password' => 'required|min:6', // تحقق من وجود كلمة مرور صحيحة
-        ], [
-            'email.exists' => 'البريد الإلكتروني غير مسجل في قاعدة البيانات.',
-            'password.min' => 'يجب أن تكون كلمة المرور على الأقل 6 أحرف.',
-        ]);
+   public function login(Request $request)
+{
+    $request->validate([
+        'email' => 'required|email|exists:users,email',
+        'password' => 'required|min:6',
+    ], [
+        'email.exists' => 'البريد الإلكتروني غير مسجل في قاعدة البيانات.',
+        'password.min' => 'يجب أن تكون كلمة المرور على الأقل 6 أحرف.',
+    ]);
 
-        // التحقق من البيانات
-        $credentials = $request->only('email', 'password');
-        $remember = $request->has('remember'); // التحقق من وجود الخيار "تذكرني"
+    $credentials = $request->only('email', 'password');
+    $remember = $request->has('remember');
 
-        // محاولة تسجيل الدخول
-        if (Auth::attempt($credentials, $remember)) {
-            if ($remember) {
-                // تخزين البريد الإلكتروني وكلمة المرور في الكوكي
-                Cookie::queue('remember_email', $request->email, 43200);  // تخزين البريد الإلكتروني في الكوكي
-                Cookie::queue('remember_password', $request->password, 43200);  // تخزين كلمة المرور في الكوكي
-            } else {
-                // مسح الكوكي عند عدم تفعيل "تذكرني"
-                Cookie::queue(Cookie::forget('remember_email'));
-                Cookie::queue(Cookie::forget('remember_password'));
-            }
+    if (Auth::attempt($credentials, $remember)) {
+        if ($remember) {
+            Cookie::queue('remember_email', $request->email, 43200);
+            Cookie::queue('remember_password', $request->password, 43200);
+        } else {
+            Cookie::queue(Cookie::forget('remember_email'));
+            Cookie::queue(Cookie::forget('remember_password'));
+        }
 
-            // التحقق من دور المستخدم
-            if (Auth::user()->role == 'admin') {
-                // إذا كان المستخدم أدمن، توجيهه إلى لوحة التحكم الخاصة بالأدمن
-                return redirect()->route('admin.dashboard');
-            }
+        $user = Auth::user();
 
-            // إذا كان المستخدم ليس أدمن، توجيهه إلى الصفحة الرئيسية أو صفحة أخرى
+        if ($user->role == 'admin') {
+            return redirect()->route('admin.dashboard');
+        }
+        elseif ($user->role == 'designer') {
+            return redirect()->route('designer.dashboard');
+        }
+        elseif ($user->role == 'donor') {
             return redirect()->intended('/');
         }
 
-        // إذا كانت البيانات غير صحيحة
-        return back()->withErrors([
-            'email' => 'البريد الإلكتروني أو كلمة المرور غير صحيحة.',
-        ])->withInput($request->only('email'));
+        return redirect()->intended('/');
     }
 
+    return back()->withErrors([
+        'email' => 'البريد الإلكتروني أو كلمة المرور غير صحيحة.',
+    ])->withInput($request->only('email'));
+}
 
     // عرض صفحة التسجيل
     public function showRegistrationForm()

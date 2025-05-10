@@ -58,16 +58,11 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="hero-wave">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 150">
-                <path fill="#fff" fill-opacity="1" d="M0,96L48,90C96,85,192,75,288,69.3C384,64,480,64,576,80C672,96,768,128,864,128C960,128,1056,96,1152,85.3C1248,75,1344,85,1392,90.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-            </svg>
-        </div> --}}
     </div>
 </section>
 
 <!-- History Timeline -->
-<section class="timeline-section bg-light py-7">
+{{-- <section class="timeline-section bg-light py-7">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center mb-6 mt-5">
@@ -117,6 +112,33 @@
                         <p>تأسيس جمعية عون الخيرية بترخيص من وزارة التنمية الاجتماعية.</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</section> --}}
+<section class="timeline-section bg-light py-7">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center mb-6 mt-5">
+                <h2 id="our-story" class="section-title mb-3">مسيرتنا عبر السنوات</h2>
+                <p class="section-subtitle text-muted" style="text-align:center">رحلة العطاء والإنجازات منذ تأسيس الجمعية</p>
+            </div>
+        </div>
+
+        <div class="timeline-wrapper">
+            <div class="timeline">
+                <?php
+                $events = \App\Models\TimelineEvent::orderBy('year', 'desc')->get();
+                ?>
+                @foreach($events as $event)
+                    <div class="timeline-item">
+                        <div class="timeline-date">{{ $event->year }}</div>
+                        <div class="timeline-content">
+                            <h4>{{ $event->title }}</h4>
+                            <p>{{ $event->description }}</p>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>
@@ -203,41 +225,57 @@
         </div>
     </div>
 </section> --}}
-<!-- Team Section -->
-<section class="team-section py-5">
+
+<section class="team-section py-7">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center mb-6">
-                <h2 id="team" class="section-title mb-3 ">فريق القيادة</h2>
-                <p class="section-subtitle text-muted" style="text-align: center">الطاقم الإداري الذي يقود جهود الجمعية</p>
+                <h2 class="section-title mb-3">فريق القيادة</h2>
+                <p class="section-subtitle text-muted">الطاقم الإداري الذي يقود جهود الجمعية</p>
             </div>
         </div>
 
         <div class="row g-4">
-            <?php
-            $teams = \App\Models\Team::all();
-            ?>
             @foreach($teams as $member)
             <div class="col-lg-3 col-md-6">
-                    <div class="team-card">
-                        <div class="team-img">
-                            <img src="{{ asset('images/team/' . $member->image) }}" class="img-fluid" alt="{{ $member->name }}">
-                            <div class="social-links" style="display: flex; justify-content: center;">
-                                <a href="{{ $member->twitter }}"><i class="fab fa-twitter"></i></a>
-                                <a href="{{ $member->linkedin }}"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="mailto:{{ $member->email }}"><i class="fas fa-envelope"></i></a>
-                            </div>
-                        </div>
-                        <div class="team-info">
-                            <h4 class="team-name">{{ $member->name }}</h4>
-                            <p class="team-position">{{ $member->position }}</p>
+                <div class="team-card">
+                    <div class="team-img">
+                        @if($member->image)
+                            <img src="{{ asset('storage/' . $member->image) }}"
+                                 class="img-fluid"
+                                 alt="{{ $member->name }}"
+                                 style="width: 100%; height: 250px; object-fit: cover;">
+                        @else
+                            <img src="{{ asset('images/default-member.png') }}"
+                                 class="img-fluid"
+                                 alt="صورة افتراضية"
+                                 style="width: 100%; height: 250px; object-fit: cover;">
+                        @endif
+                        <div class="social-links" style="display: flex; justify-content: center; margin-top: 10px;">
+                            @if($member->twitter)
+                            <a href="{{ $member->twitter }}" target="_blank" style="margin: 0 8px;"><i class="fab fa-twitter"></i></a>
+                            @endif
+
+                            @if($member->linkedin)
+                            <a href="{{ $member->linkedin }}" target="_blank" style="margin: 0 8px;"><i class="fab fa-linkedin-in"></i></a>
+                            @endif
+
+                            @if($member->email)
+                            <a href="mailto:{{ $member->email }}" style="margin: 0 8px;"><i class="fas fa-envelope"></i></a>
+                            @endif
                         </div>
                     </div>
+                    <div class="team-info mt-3">
+                        <h4 class="team-name">{{ $member->name }}</h4>
+                        <p class="team-position text-muted">{{ $member->position }}</p>
+                    </div>
                 </div>
+            </div>
             @endforeach
         </div>
     </div>
 </section>
+<!-- Team Section -->
 
 <!-- Partners Section -->
 <section class="partners-section bg-light py-7">
@@ -841,6 +879,7 @@
     transition: transform 0.3s ease;
     will-change: transform;
     backface-visibility: hidden;
+    margin-bottom: 30px;
 }
 
 .team-card:hover {
