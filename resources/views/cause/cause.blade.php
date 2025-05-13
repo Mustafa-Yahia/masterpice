@@ -73,7 +73,7 @@
                 <div class="card-body d-flex flex-column justify-content-between flex-grow-1">
                     <div>
                         <!-- عنوان الحملة ووصفها -->
-                        <h5 class="card-title text-primary">{{ $cause->title }}</h5>
+                        <h5 class="card-title text-primary" style="text-align: center">{{ $cause->title }}</h5>
                         <p class="card-text text-muted">{{ Str::limit($cause->description, 100) }}</p>
 
                         <!-- معلومات إضافية -->
@@ -90,7 +90,7 @@
                                     : 0;
                             @endphp
 
-                            <div class="progress position-relative" style="height: 20px; background-color: #f1f1f1;">
+                            <div class="progress position-relative" style="height: 20px; background-color: #cbcbcb;">
                                 <div class="progress-bar bg-success progress-animate"
                                      role="progressbar"
                                      style="width: {{ $percentage }}%;"

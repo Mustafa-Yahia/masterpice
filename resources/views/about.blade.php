@@ -231,7 +231,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center mb-6">
                 <h2 class="section-title mb-3">فريق القيادة</h2>
-                <p class="section-subtitle text-muted">الطاقم الإداري الذي يقود جهود الجمعية</p>
+                <p class="section-subtitle text-muted" style="text-align: center ">الطاقم الإداري الذي يقود جهود الجمعية</p>
             </div>
         </div>
 

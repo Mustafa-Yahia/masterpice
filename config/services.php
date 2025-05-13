@@ -13,6 +13,11 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
+    'openai' => [
+    'key' => env('OPENAI_API_KEY'),
+    'timeout' => 30,
+    'retry_times' => 3,
+],
 
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),

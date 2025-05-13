@@ -46,10 +46,6 @@ class AuthController extends Controller
         elseif ($user->role == 'designer') {
             return redirect()->route('designer.dashboard');
         }
-        elseif ($user->role == 'donor') {
-            return redirect()->intended('/');
-        }
-
         return redirect()->intended('/');
     }
 

@@ -34,9 +34,9 @@
                                 <a href="#events" class="btn  btn-lg me-3" style="background: #3cc88f; color: #FFF;">
                                     <i class="fas fa-calendar-alt me-2"></i> تصفح الفعاليات
                                 </a>
-                                <a href="#subscribe" class="btn btn-outline-light btn-lg">
+                                {{-- <a href="#subscribe" class="btn btn-outline-light btn-lg">
                                     <i class="fas fa-bell me-2"></i> اشترك للتنبيهات
-                                </a>
+                                </a> --}}
                             </div>
                         </div>
                     </div>
@@ -63,115 +63,6 @@
     </div>
 </section>
 
-{{-- <section class="volunteer-events-section py-5">
-    <div class="container">
-        <div class="row g-4">
-            @forelse($events as $event)
-                <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
-                    <div class="volunteer-card h-100">
-                        <div class="card-header position-relative">
-                            <a href="{{ route('event.show', $event->id) }}">
-                                <img class="card-img-top" src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->title }}">
-                            </a>
-                            <div class="event-date-badge">
-                                <span class="day">{{ \Carbon\Carbon::parse($event->date)->format('d') }}</span>
-                                <span class="month">{{ \Carbon\Carbon::parse($event->date)->format('M') }}</span>
-                            </div>
-                            @if($event->volunteers_needed > 0)
-                            <div class="volunteer-progress">
-                                <div class="progress-text">
-                                    المتطوعون: {{ $event->volunteer_count }}/{{ $event->volunteers_needed }}
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar"
-                                         role="progressbar"
-                                         style="width: {{ ($event->volunteer_count / $event->volunteers_needed) * 100 }}%"
-                                         aria-valuenow="{{ $event->volunteer_count }}"
-                                         aria-valuemin="0"
-                                         aria-valuemax="{{ $event->volunteers_needed }}">
-                                    </div>
-                                </div>
-                            </div>
-                            @endif
-                        </div>
-                        <div class="card-body">
-                            <h3 class="card-title" style="text-align: center" >
-                                <a href="{{ route('event.show', $event->id) }}">{{ $event->title }}</a>
-                            </h3>
-                            <div class="event-meta d-flex flex-wrap gap-2">
-                                <!-- الموقع -->
-                                <div class="d-flex align-items-center meta-item" style="background: #f8faf9; padding: 6px 12px; border-radius: 20px; border-right: 2px solid #3cc88f;">
-                                    <i class="fas fa-map-marker-alt ml-2" style="color: #3cc88f; font-size: 13px;"></i>
-                                    <span style="font-size: 13px; font-weight: 500;">{{ $event->location }}</span>
-                                </div>
-
-                                <!-- الوقت -->
-                                <div class="d-flex align-items-center meta-item" style="background: #f8faf9; padding: 6px 12px; border-radius: 20px; border-right: 2px solid #3cc88f;">
-                                    <i class="far fa-clock ml-2" style="color: #3cc88f; font-size: 13px;"></i>
-                                    <span style="font-size: 13px; font-weight: 500; display: flex; justify-content: flex-start; direction: ltr;">
-                                        @if($event->end_time)
-                                            {{ \Carbon\Carbon::parse($event->end_time)->format('h:i A') }}
-                                        @else
-                                            {{ \Carbon\Carbon::parse($event->time)->addHours(2)->format('h:i A') }}
-                                        @endif
-                                        <span style="color: #3cc88f; margin: 0 3px;">←</span>
-                                        {{ \Carbon\Carbon::parse($event->time)->format('h:i A') }}
-                                    </span>
-                                </div>
-
-                                <!-- التصنيف (إذا موجود) -->
-                                @if($event->category)
-                                <div class="d-flex align-items-center meta-item" style="background: #f8faf9; padding: 6px 12px; border-radius: 20px; border-right: 2px solid #3cc88f;">
-                                    <i class="fas fa-tag ml-2" style="color: #3cc88f; font-size: 13px;"></i>
-                                    <span style="font-size: 13px; font-weight: 500;">{{ $event->category }}</span>
-                                </div>
-                                @endif
-                            </div>
-                            <p class="card-text">{{ Str::limit($event->description, 100) }}</p>
-                        </div>
-                        <div class="card-footer">
-                            <a href="{{ route('event.show', $event->id) }}" class="btn" style="background: #ffd700; color: white;">
-                                <i class="fas fa-info-circle me-2"></i> التفاصيل
-                            </a>
-                            @if(auth()->check())
-                                @if($event->volunteers->contains(auth()->id()))
-                                    <button class="btn btn-success" disabled>
-                                        <i class="fas fa-check-circle me-2"></i> مسجل بالفعل
-                                    </button>
-                                @elseif($event->volunteer_count < $event->volunteers_needed)
-                                    <a href="{{ route('event.subscribe', $event->id) }}" class="btn btn-outline-primary">
-                                        <i class="fas fa-hand-holding-heart me-2"></i> سجل كمتطوع
-                                    </a>
-                                @else
-                                    <button class="btn btn-secondary" disabled>
-                                        <i class="fas fa-times-circle me-2"></i> اكتمل العدد
-                                    </button>
-                                @endif
-                            @else
-                                <a href="{{ route('login') }}" class="btn btn-outline-primary">
-                                    <i class="fas fa-sign-in-alt me-2"></i> سجل الدخول للتطوع
-                                </a>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-            @empty
-                <div class="col-12">
-                    <div class="empty-events-state text-center py-5">
-                        <div class="empty-icon mb-4">
-                            <i class="fas fa-calendar-plus fa-4x text-primary"></i>
-                        </div>
-                        <h3 class="mb-3">لا توجد حملات تطوعية حالياً</h3>
-                        <p class="text-muted mb-4">يمكنك متابعتنا لمعرفة أحدث الحملات التطوعية القادمة</p>
-                        <a href="{{ route('index') }}" class="btn btn-primary px-4">
-                            <i class="fas fa-home me-2"></i> العودة للرئيسية
-                        </a>
-                    </div>
-                </div>
-            @endforelse
-        </div>
-    </div>
-</section> --}}
 
 <section class="volunteer-events-section py-5">
     <div class="container">
@@ -305,8 +196,8 @@
                         <div class="empty-icon mb-4">
                             <i class="fas fa-calendar-plus fa-4x text-primary"></i>
                         </div>
-                        <h3 class="mb-3">لا توجد حملات تطوعية حالياً</h3>
-                        <p class="text-muted mb-4">يمكنك متابعتنا لمعرفة أحدث الحملات التطوعية القادمة</p>
+                        <h3 class="mb-3" style="text-align: center">لا توجد حملات تطوعية حالياً</h3>
+                        <p class="text-muted mb-4" style="text-align:center">يمكنك متابعتنا لمعرفة أحدث الحملات التطوعية القادمة</p>
                         <a href="{{ route('index') }}" class="btn  px-4" style="background: #3cc88f; color: #FFF;">
                             <i class="fas fa-home me-2"></i> العودة للرئيسية
                         </a>

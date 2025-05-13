@@ -67,7 +67,7 @@
             minDate: "today",   // تحديد الحد الأدنى للتاريخ ليكون اليوم
         });
 
-      
+
         // تأكد من تنفيذ SweetAlert2 عندما يكون هناك session status
         $(document).ready(function() {
             if ('{{ session('status') }}') {

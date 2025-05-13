@@ -18,6 +18,7 @@ use App\Http\Controllers\Designer\DesignerController;
 use App\Http\Controllers\Designer\DesignerTimelineController;
 use App\Http\Controllers\Designer\DesignerTeamController;
 use App\Http\Controllers\about\AboutController;
+use App\Http\Controllers\AIController;
 
 
 
@@ -135,7 +136,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 
 });
 
-Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
+Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
     Route::prefix('events')->name('events.')->group(function () {
         Route::get('/', [AdminEventController::class, 'index'])->name('index');
         Route::get('/create', [AdminEventController::class, 'create'])->name('create');
@@ -202,10 +203,10 @@ Route::prefix('designer')->middleware(['auth'])->group(function () {
     // ... (يمكن إضافة روابط أخرى للـ Team هنا إذا كانت موجودة)
 });
 
-  Route::middleware(['auth', 'can:view_dashboard'])->group(function () {
-    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-    Route::get('/admin/dashboard/chart-data', [DashboardController::class, 'chartData'])->name('admin.dashboard.chart-data');
-});
+//   Route::middleware(['auth', 'can:view_dashboard'])->group(function () {
+//     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+//     Route::get('/admin/dashboard/chart-data', [DashboardController::class, 'chartData'])->name('admin.dashboard.chart-data');
+// });
 
 
 
@@ -233,5 +234,8 @@ Route::prefix('designer')->name('designer.')->group(function () {
 
 
 Route::get('/about', [AboutController::class, 'index'])->name('about');
+
+Route::post('/chatbot', [ChatbotController::class, 'handleMessage']);
+Route::post('/api/chatbot', [ChatbotController::class, 'handleMessage']);
 
 
