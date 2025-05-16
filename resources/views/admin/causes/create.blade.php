@@ -5,7 +5,7 @@
     <!-- Page Header -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">
-            <i class="fas fa-plus-circle text-primary me-2"></i> إنشاء حملة تبرعات جديدة
+            <i class="fas fa-plus-circle me-2" style="color:#3cc88f"></i> إنشاء حملة تبرعات جديدة
         </h1>
         <a href="{{ route('admin.causes.index') }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm">
             <i class="fas fa-times fa-sm text-white-50"></i> إلغاء
@@ -14,7 +14,7 @@
 
     <!-- Form Card -->
     <div class="card shadow mb-4">
-        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-primary">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between" style="background-color: #3cc88f">
             <h6 class="m-0 font-weight-bold text-white">
                 <i class="fas fa-plus-circle me-2"></i> نموذج إنشاء حملة جديدة
             </h6>
@@ -26,7 +26,7 @@
                 <!-- Basic Information Section -->
                 <div class="row mb-5">
                     <div class="col-12 mb-4">
-                        <h5 class="section-title mb-3 text-primary">
+                        <h5 class="section-title mb-3" style="color:#3cc88f">
                             <i class="fas fa-info-circle me-2"></i> المعلومات الأساسية
                         </h5>
                         <div class="section-divider"></div>
@@ -76,7 +76,7 @@
                 <!-- Financial Information Section -->
                 <div class="row mb-5">
                     <div class="col-12 mb-4">
-                        <h5 class="section-title mb-3 text-primary">
+                        <h5 class="section-title mb-3 " style="color:#3cc88f">
                             <i class="fas fa-money-bill-wave me-2"></i> المعلومات المالية
                         </h5>
                         <div class="section-divider"></div>
@@ -111,7 +111,7 @@
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        <div class="text-xs font-weight-bold  text-uppercase mb-1" style="color:#3cc88f">
                                             تقدم الحملة
                                         </div>
                                         <div class="progress mb-2">
@@ -137,7 +137,7 @@
                 <!-- Location & Responsible Section -->
                 <div class="row mb-5">
                     <div class="col-12 mb-4">
-                        <h5 class="section-title mb-3 text-primary">
+                        <h5 class="section-title mb-3 " style="color:#3cc88f">
                             <i class="fas fa-map-marker-alt me-2"></i> الموقع والمسؤول
                         </h5>
                         <div class="section-divider"></div>
@@ -194,7 +194,7 @@
                 <!-- Image & Additional Details Section -->
                 <div class="row">
                     <div class="col-12 mb-4">
-                        <h5 class="section-title mb-3 text-primary">
+                        <h5 class="section-title mb-3" style="color:#3cc88f">
                             <i class="fas fa-image me-2"></i> الصورة والتفاصيل
                         </h5>
                         <div class="section-divider"></div>
@@ -210,10 +210,10 @@
         <label for="image" class="file-upload-label d-flex flex-column align-items-center justify-content-center"
                style="cursor: pointer; height: 100%;">
             <div class="file-upload-icon mb-3">
-                <i class="fas fa-cloud-upload-alt fa-3x text-primary"></i>
+                <i class="fas fa-cloud-upload-alt fa-3x" style="color: #3cc88f"></i>
             </div>
             <div class="file-upload-text text-center">
-                <h5 class="mb-2 text-primary" style="font-weight: 600;">ارفاق صورة</h5>
+                <h5 class="mb-2 " style="font-weight: 600; color:#3cc88f">ارفاق صورة</h5>
                 <p class="text-muted mb-1">اضغط هنا لاختيار صورة</p>
                 <p class="text-muted small">JPEG, PNG - الحد الأقصى 5MB</p>
             </div>
@@ -247,7 +247,7 @@
 
                 <!-- Form Actions -->
                 <div class="d-flex justify-content-end mt-4 pt-3 border-top">
-                    <button type="submit" class="btn btn-primary btn-icon-split">
+                    <button type="submit" class="btn  btn-icon-split" style="background-color: #3cc88f; color: white;">
                         <span class="icon text-white-50">
                             <i class="fas fa-save"></i>
                         </span>

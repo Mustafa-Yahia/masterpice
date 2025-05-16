@@ -144,89 +144,9 @@
     </div>
 </section>
 
-<!-- Team Section -->
-{{-- <section class="team-section py-7">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 text-center mb-6">
-                <h2 class="section-title mb-3">فريق القيادة</h2>
-                <p class="section-subtitle text-muted">الطاقم الإداري الذي يقود جهود الجمعية</p>
-            </div>
-        </div>
 
-        <div class="row g-4">
-            <div class="col-lg-3 col-md-6">
-                <div class="team-card">
-                    <div class="team-img">
-                        <img src="{{ asset('images/team/team-1.jpg') }}" class="img-fluid" alt="د. محمد الخالد">
-                        <div class="social-links" style="display: flex; justify-content: center;">
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
-                    <div class="team-info">
-                        <h4 class="team-name">د. محمد الخالد</h4>
-                        <p class="team-position">رئيس مجلس الإدارة</p>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-lg-3 col-md-6">
-                <div class="team-card">
-                    <div class="team-img">
-                        <img src="{{ asset('images/team/team-2.jpg') }}" class="img-fluid" alt="أ. سارة أحمد">
-                        <div class="social-links" style="display: flex; justify-content: center;">
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
-                    <div class="team-info">
-                        <h4 class="team-name">أ. سارة أحمد</h4>
-                        <p class="team-position">نائب الرئيس</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="team-card">
-                    <div class="team-img">
-                        <img src="{{ asset('images/team/team-3.jpg') }}" class="img-fluid" alt="م. خالد الزعبي">
-                        <div class="social-links" style="display: flex; justify-content: center;">
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
-                    <div class="team-info">
-                        <h4 class="team-name">م. خالد الزعبي</h4>
-                        <p class="team-position">أمين الصندوق</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="team-card">
-                    <div class="team-img">
-                        <img src="{{ asset('images/team/team-4.jpg') }}" class="img-fluid" alt="أ. ليان عبدالله">
-                        <div class="social-links" style="display: flex; justify-content: center;">
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
-                    <div class="team-info">
-                        <h4 class="team-name">أ. ليان عبدالله</h4>
-                        <p class="team-position">مدير البرامج</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> --}}
-
-<section class="team-section py-7">
+<section class="team-section py-4">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center mb-6">
@@ -235,22 +155,17 @@
             </div>
         </div>
 
-        <div class="row g-4">
+        <div  id="team" class="row g-4">
             @foreach($teams as $member)
             <div class="col-lg-3 col-md-6">
                 <div class="team-card">
                     <div class="team-img">
-                        @if($member->image)
-                            <img src="{{ asset('storage/' . $member->image) }}"
-                                 class="img-fluid"
-                                 alt="{{ $member->name }}"
-                                 style="width: 100%; height: 250px; object-fit: cover;">
-                        @else
-                            <img src="{{ asset('images/default-member.png') }}"
-                                 class="img-fluid"
-                                 alt="صورة افتراضية"
-                                 style="width: 100%; height: 250px; object-fit: cover;">
-                        @endif
+                      @if($member->image)
+                         <img src="{{ asset('storage/' . $member->image) }}" alt="{{ $member->name }}" style="width: 100%; height: 250px; object-fit:cover">
+                                   @else
+                                  <!-- صورة افتراضية -->
+                               <img src="{{ asset('images/default-member.jpg') }}" alt="{{ $member->name }}">
+                          @endif
                         <div class="social-links" style="display: flex; justify-content: center; margin-top: 10px;">
                             @if($member->twitter)
                             <a href="{{ $member->twitter }}" target="_blank" style="margin: 0 8px;"><i class="fab fa-twitter"></i></a>
@@ -266,8 +181,8 @@
                         </div>
                     </div>
                     <div class="team-info mt-3">
-                        <h4 class="team-name">{{ $member->name }}</h4>
-                        <p class="team-position text-muted">{{ $member->position }}</p>
+                        <h4 class="team-name" style="text-align: center">{{ $member->name }}</h4>
+                        <p class="team-position text-muted" style="text-align:center">{{ $member->position }}</p>
                     </div>
                 </div>
             </div>
@@ -278,7 +193,7 @@
 <!-- Team Section -->
 
 <!-- Partners Section -->
-<section class="partners-section bg-light py-7">
+<section class="partners-section bg-light py-4">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center mb-6">

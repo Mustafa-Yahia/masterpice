@@ -93,22 +93,36 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label for="time" class="form-label">وقت البدء <span class="text-danger">*</span></label>
-                                    <input type="time" class="form-control @error('time') is-invalid @enderror"
-                                           id="time" name="time" value="{{ old('time', $event->time) }}" required>
-                                    @error('time')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+    <label for="time" class="form-label">وقت البدء <span class="text-danger">*</span></label>
+    <input type="text" class="form-control time-picker @error('time') is-invalid @enderror"
+           id="time" name="time" value="{{ old('time', $event->time ? Carbon\Carbon::parse($event->time)->format('h:i A') : '') }}" required>
+    @error('time')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
 
-                                <div class="col-md-4">
-                                    <label for="end_time" class="form-label">وقت الانتهاء <span class="text-danger">*</span></label>
-                                    <input type="time" class="form-control @error('end_time') is-invalid @enderror"
-                                           id="end_time" name="end_time" value="{{ old('end_time', $event->end_time) }}" required>
-                                    @error('end_time')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+<div class="col-md-4">
+    <label for="end_time" class="form-label">وقت الانتهاء <span class="text-danger">*</span></label>
+    <input type="text" class="form-control time-picker @error('end_time') is-invalid @enderror"
+           id="end_time" name="end_time" value="{{ old('end_time', $event->end_time ? Carbon\Carbon::parse($event->end_time)->format('h:i A') : '') }}" required>
+    @error('end_time')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
+@push('scripts')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+    flatpickr(".time-picker", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "h:i K",
+        time_24hr: false,
+        minuteIncrement: 30
+    });
+</script>
+@endpush
 
                                 <!-- Volunteers -->
                                 <div class="col-md-6">
@@ -429,6 +443,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.js"></script>
+
 
 <script>
     function checkWordAndCharCount(textarea) {

@@ -7,14 +7,41 @@ use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
-    public function index()
-    {
-        $events = Event::withCount('volunteers')
-                     ->orderBy('date', 'asc')
-                     ->get();
+    // public function index()
+    // {
+    //     $events = Event::withCount('volunteers')
+    //                  ->orderBy('date', 'asc')
+    //                  ->get();
 
-        return view('events.events', compact('events'));
-    }
+    //     return view('events.events', compact('events'));
+    // }
+
+ public function index()
+{
+    $now = now();
+    $currentDate = $now->format('Y-m-d');
+    $currentTime = $now->format('H:i:s');
+
+    $events = Event::withCount('volunteers')
+        ->where(function($query) use ($currentDate, $currentTime) {
+            // الأحداث المستقبلية
+            $query->where('date', '>', $currentDate)
+                  // أو الأحداث اليومية التي لم تنته بعد
+                  ->orWhere(function($q) use ($currentDate, $currentTime) {
+                      $q->whereDate('date', '=', $currentDate)
+                        ->where(function($subQuery) use ($currentTime) {
+                            $subQuery->whereNull('end_time')
+                                    ->orWhere('end_time', '>', $currentTime);
+                        });
+                  });
+        })
+        ->orderBy('date', 'asc')
+        ->orderBy('time', 'asc')
+        ->get();
+
+    return view('events.events', compact('events'));
+}
+
 
     public function show($id)
     {

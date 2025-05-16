@@ -40,10 +40,10 @@ class AdminCauseController extends Controller
             }
         }
 
-        // فلتر حالة الحملة (الجزء المعدل)
+        // فلتر حالة الحملة
         if ($request->has('status')) {
             $status = $request->status;
-            $now = now()->format('Y-m-d H:i:s'); // تأكد من تنسيق التاريخ بشكل صحيح
+            $now = now()->format('Y-m-d H:i:s');
 
             if ($status == 'active') {
                 $query->where('end_date', '>=', $now)
@@ -56,7 +56,7 @@ class AdminCauseController extends Controller
             }
         }
 
-        // فلتر التاريخ (الجزء المعدل)
+        // فلتر التاريخ
         if ($request->has('start_date') && !empty($request->start_date)) {
             $query->whereDate('created_at', '>=', $request->start_date);
         }
@@ -74,7 +74,7 @@ class AdminCauseController extends Controller
      */
     public function create()
     {
-        return view('admin.causes.create');  // عرض صفحة إضافة حملة
+        return view('admin.causes.create');
     }
 
     /**
@@ -117,7 +117,6 @@ class AdminCauseController extends Controller
         // إضافة المستخدم الحالي كمسؤول عن الحملة
         $data['user_id'] = Auth::id();
 
-        // إنشاء الحملة مع جميع البيانات
         Cause::create($data);
 
         return redirect()->route('admin.causes.index')
@@ -146,6 +145,7 @@ class AdminCauseController extends Controller
             'responsible_person_email' => 'nullable|email|max:255',
             'additional_details' => 'nullable|string',
             'extra_raised_amount' => 'nullable|numeric',
+            'end_date' => 'nullable|date|after_or_equal:today',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -187,7 +187,6 @@ class AdminCauseController extends Controller
     {
         $cause = Cause::findOrFail($id);
 
-        // حذف الصورة المرتبطة إذا وجدت
         if ($cause->image) {
             Storage::disk('public')->delete($cause->image);
         }
@@ -207,7 +206,7 @@ class AdminCauseController extends Controller
     public function show($id)
     {
         $cause = Cause::findOrFail($id);
-        return view('admin.causes.show', compact('cause'));  // عرض تفاصيل الحملة
+        return view('admin.causes.show', compact('cause'));
     }
 }
 // namespace App\Http\Controllers\Admin;

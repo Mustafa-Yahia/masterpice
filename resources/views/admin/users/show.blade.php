@@ -28,9 +28,9 @@
                 <div class="card shadow-sm h-100" style="border: none; border-radius: 10px;">
                     <div class="card-body text-center" style="padding: 30px;">
                         <div class="avatar-xxl mb-4 mx-auto">
-                            <div class="avatar-img rounded-circle" style="background-color: rgba(60, 200, 143, 0.1); border: 3px solid #3cc88f;">
+                            {{-- <div class="avatar-img rounded-circle" style="background-color: rgba(60, 200, 143, 0.1); border: 3px solid #3cc88f;">
                                 <span class="display-4" style="color: #3cc88f;">{{ strtoupper(substr($user->name, 0, 1)) }}</span>
-                            </div>
+                            </div> --}}
                         </div>
 
                         <h3 class="mb-3" style="color: #2c3e50;">{{ $user->name }}</h3>
@@ -42,22 +42,27 @@
                             </span>
                         </div>
 
-                        <div class="user-details" style="background-color: rgba(60, 200, 143, 0.05); border-radius: 8px; padding: 15px; text-align: right;">
-                            <div class="detail-item mb-3">
-                                <i class="fas fa-envelope me-2" style="color: #3cc88f;"></i>
-                                <span>{{ $user->email }}</span>
-                            </div>
+                        <div class="user-details" style="
+    background-color: rgba(60, 200, 143, 0.05);
+    border-radius: 8px;
+    padding: 5px;
+    text-align: right;
+    min-width: 250px;  ">
+    <div class="detail-item mb-3 d-flex align-items-center">
+        <i class="fas fa-envelope me-3" style="color: #3cc88f;"></i>
+        <span>{{ $user->email }}</span>
+    </div>
 
-                            <div class="detail-item mb-3">
-                                <i class="fas fa-phone me-2" style="color: #3cc88f;"></i>
-                                <span>{{ $user->phone ?? 'غير متوفر' }}</span>
-                            </div>
+    <div class="detail-item mb-3 d-flex align-items-center">
+        <i class="fas fa-phone me-3" style="color: #3cc88f;"></i>
+        <span>{{ $user->phone ?? 'غير متوفر' }}</span>
+    </div>
 
-                            <div class="detail-item">
-                                <i class="fas fa-calendar-alt me-2" style="color: #3cc88f;"></i>
-                                <span>مسجل منذ: {{ $user->created_at->diffForHumans() }}</span>
-                            </div>
-                        </div>
+    <div class="detail-item d-flex align-items-center">
+        <i class="fas fa-calendar-alt me-3" style="color: #3cc88f;"></i>
+        <span>مسجل منذ: {{ $user->created_at->diffForHumans() }}</span>
+    </div>
+</div>
                     </div>
                 </div>
             </div>

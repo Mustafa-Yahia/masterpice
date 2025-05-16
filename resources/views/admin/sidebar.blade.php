@@ -23,14 +23,14 @@
                 <a href="{{ route('admin.users.index') }}" class="menu-link">
                     <span class="menu-icon"><i class="fas fa-users"></i></span>
                     <span class="menu-title">إدارة المستخدمين</span>
-                    <span class="menu-badge">5 جديد</span>
+                    <span class="menu-badge">{{$totalUsers ?? 0}}مسخدمين</span>
                 </a>
             </li>
             <li class="menu-item">
                 <a href="{{ route('admin.causes.index') }}" class="menu-link">
                     <span class="menu-icon"><i class="fas fa-hand-holding-heart"></i></span>
                     <span class="menu-title">إدارة الحملات</span>
-                    <span class="menu-badge">3 نشطة</span>
+        <span class="menu-badge">{{ $activeCauses ?? 0 }} نشطة</span>
                 </a>
             </li>
             <li class="menu-item">

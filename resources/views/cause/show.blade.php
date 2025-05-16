@@ -24,16 +24,14 @@
     </script>
 @endif
 
-<!-- صفحة تفاصيل الحملة -->
 <section class="page-banner">
     <div class="image-layer lazy-image" data-bg="url('{{ asset('images/background/Backgroundlogin.png') }}')"></div>
     <div class="bottom-rotten-curve"></div>
 
     <div class="auto-container" dir="rtl">
-        <!-- العنوان في المنتصف -->
+
         <h1 class="display-5 fw-bold text-white wow fadeInUp text-center">{{ $cause->title }}</h1>
 
-        <!-- المسار مع ترتيب RTL -->
         <ul class="bread-crumb clearfix mt-2 d-flex justify-content-center" style="direction: rtl; gap: 10px; list-style: none;">
             <li class="active">{{ $cause->title }}</li>
             <li><span style="color: #ccc;">›</span></li>
@@ -45,10 +43,8 @@
 <section class="donate-section py-5 bg-light" dir="rtl">
     <div class="auto-container">
         <div class="row gy-5 align-items-start">
-            <!-- تفاصيل الحملة -->
              <div class="col-lg-7">
                 <div class="p-5 rounded-4 bg-white shadow-lg wow fadeInUp text-end" style="border: 1px solid rgba(0,0,0,0.1);">
-                    <!-- العنوان مع أيقونة معدلة -->
                     <div class="d-flex align-items-center mb-4">
                         <div class="icon-box bg-primary-light p-3 rounded-3 me-3">
                             <i class="fas fa-hands-helping text-primary fs-4"></i>
@@ -56,7 +52,6 @@
                         <h2 class="mb-0 text-dark">{{ $cause->title }}</h2>
                     </div>
 
-                    <!-- صورة الحملة مع تأثير هفر -->
                     <div class="overflow-hidden rounded-4 mb-4" style="height: 280px;">
                         <img class="img-fluid w-100 h-100 object-fit-cover transition-scale"
                              src="{{ asset('storage/' . $cause->image) }}"
@@ -64,7 +59,6 @@
                              style="transition: transform 0.5s ease;">
                     </div>
 
-                    <!-- الوصف مع تحسينات التنسيق -->
                     <div class="mb-4">
                         <div class="d-flex align-items-center mb-3">
                             <i class="fas fa-info-circle text-secondary me-2 fs-5"></i>
@@ -75,7 +69,6 @@
                         </p>
                     </div>
 
-                    <!-- التفاصيل الإضافية مع تصميم محسن -->
                     @if(!empty($cause->additional_details))
                         <div class="mb-4">
                             <div class="d-flex align-items-center mb-3">
@@ -89,9 +82,7 @@
                         </div>
                     @endif
 
-                    <!-- معلومات الحملة في كروت منفصلة -->
                     <div class="row g-3 mb-4">
-                        <!-- القسم -->
                         <div class="col-md-4">
                             <div class="p-3 rounded-4 bg-light-hover h-100">
                                 <div class="d-flex align-items-center mb-2">
@@ -102,7 +93,6 @@
                             </div>
                         </div>
 
-                        <!-- الموقع -->
                         <div class="col-md-4">
                             <div class="p-3 rounded-4 bg-light-hover h-100">
                                 <div class="d-flex align-items-center mb-2">
@@ -113,7 +103,6 @@
                             </div>
                         </div>
 
-                        <!-- تاريخ الانتهاء -->
                         <div class="col-md-4">
                             <div class="p-3 rounded-4 bg-light-hover h-100">
                                 <div class="d-flex align-items-center mb-2">
@@ -125,7 +114,6 @@
                         </div>
                     </div>
 
-                    <!-- إحصاءات التبرع مع شريط التقدم المحسن -->
                     <div class="mb-4">
                         <div class="d-flex align-items-center mb-3">
                             <i class="fas fa-hand-holding-heart text-secondary me-2 fs-5"></i>
@@ -169,7 +157,6 @@
             </div>
 
 
-            <!-- معلومات المسؤول + نموذج التبرع -->
             <div class="col-lg-5">
                 <div class="p-4 rounded bg-white border shadow-sm wow fadeInUp text-end" data-wow-delay="0.3s">
                     <h4 class="mb-3" style="text-align:center"><i class="fas fa-user"></i> المسؤول عن الحملة</h4>
@@ -186,7 +173,6 @@
                     </div>
                 </div>
 
-                <!-- التبرع -->
                 <div class="inner p-4 mt-4 bg-white rounded-3 shadow-lg wow fadeInUp text-end" data-wow-delay="0.4s" style="max-width: 600px; margin: 0 auto;">
                     <h4 class="mb-4 text-center text-primary fw-bold">
                         <i class="fas fa-hand-holding-heart me-2"></i>تبرع الآن لدعم قضيتنا
@@ -200,7 +186,6 @@
                         @csrf
                         <input type="hidden" name="cause_id" value="{{ $cause->id }}">
 
-                        <!-- حقل المبلغ -->
                         <div class="form-group mb-4">
                             <label for="amount" class="form-label fw-bold text-secondary" style="text-align: right; direction: rtl; display: block;">
                                 <i class="fas fa-money-bill-wave me-2"></i>المبلغ (دينار أردني)
@@ -215,7 +200,6 @@
                             </div>
                             <div id="amount-error" class="error-message mt-2"></div>
 
-                            <!-- اقتراحات مبالغ سريعة -->
                             <div class="d-flex justify-content-between mt-3 quick-amounts">
                                 <button type="button" class="btn btn-outline-primary rounded-pill" style="border-color: #3cc88f; color: #3cc88f;" onclick="setAmount(5)">5 د.أ</button>
                                 <button type="button" class="btn btn-outline-primary rounded-pill" style="border-color: #3cc88f; color: #3cc88f;" onclick="setAmount(10)">10 د.أ</button>
@@ -225,15 +209,12 @@
 
                         </div>
 
-                        <!-- طريقة الدفع -->
                         <div class="payment-method-container mb-4" style="direction: rtl;">
-                            <!-- العنوان مع أيقونة -->
                             <label for="payment_method_id" class="payment-method-label">
                                 <i class="fas fa-credit-card"></i>
                                 <span class="ms-2">طريقة الدفع</span>
                             </label>
 
-                            <!-- حقل الاختيار -->
                             <div class="payment-method-select-wrapper">
                                 <select name="payment_method_id" id="payment_method_id"
                                         class="payment-method-select" required>
@@ -246,11 +227,9 @@
                                 </div>
                             </div>
 
-                            <!-- رسالة الخطأ -->
                             <div id="payment-method-error" class="payment-method-error"></div>
                         </div>
 
-                        <!-- معلومات البطاقة -->
                         <div class="form-group mb-4">
                             <div class="card border-0 shadow-sm p-3 mb-3 bg-light rounded-3">
                                 <div class="card-body">
@@ -258,7 +237,6 @@
                                        معلومات البطاقة
                                     </h5>
 
-                                    <!-- اسم صاحب البطاقة -->
                                     <div class="mb-3">
                                         <label for="card_holder_name" class="form-label" style="text-align: right; direction: rtl; display: block;">اسم صاحب البطاقة</label>
                                         <input type="text" name="card_holder_name" id="card_holder_name"
@@ -266,7 +244,6 @@
                                         <div id="card-holder-error" class="error-message mt-2"></div>
                                     </div>
 
-                                    <!-- رقم البطاقة -->
                                     <div class="mb-3">
                                         <label for="card_number" class="form-label" style="text-align: right; direction: rtl; display: block;">رقم البطاقة</label>
                                         <div class="input-group">
@@ -280,7 +257,6 @@
                                         <div id="card-number-error" class="error-message mt-2"></div>
                                     </div>
 
-                                    <!-- تاريخ الانتهاء و CVC -->
                                     <div class="row g-3">
                                         <div class="col-md-6">
                                             <label for="card_expiry" class="form-label" style="text-align: right; direction: rtl; display: block;">تاريخ الانتهاء</label>
@@ -304,14 +280,12 @@
                             </div>
                         </div>
 
-                        <!-- زر التبرع -->
                         <div class="form-group mt-4">
                             <button type="submit" class="btn btn-primary btn-lg w-100 py-3 rounded-pill fw-bold shadow">
                                 <i class="fas fa-hand-holding-heart me-2"></i>إتمام التبرع
                             </button>
                         </div>
 
-                        <!-- رسالة تأكيد الأمان -->
                         <div class="text-center mt-3">
                             <small class="text-muted">
                                 <i class="fas fa-lock me-2"></i>بياناتك محمية ومشفرة بالكامل
@@ -320,7 +294,6 @@
                     </form>
                 </div>
 
-                <!-- عرض المبلغ الزائد المتاح -->
                 @if ($cause->extra_raised_amount > 0)
                     <div class="alert alert-info" role="alert">
                         <strong>المبلغ الزائد المتاح: </strong>{{ $cause->extra_raised_amount }} د.أ
@@ -333,650 +306,226 @@
                 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-                {{-- <script>
-                    $(document).ready(function() {
-                        // تفعيل Flatpickr لاختيار تاريخ انتهاء البطاقة
-                        flatpickr("#card_expiry", {
-                            dateFormat: "m/y",
-                            minDate: "today",
-                        });
 
-                        // تنسيق رقم البطاقة تلقائيًا
-                        $('#card_number').on('input', function() {
-                            var cardNumber = $(this).val().replace(/\s+/g, '');
-                            if (cardNumber.length > 0) {
-                                cardNumber = cardNumber.match(/.{1,4}/g).join(' ');
-                                $(this).val(cardNumber);
-                            }
-                        });
-
-                        // تعيين مبالغ سريعة
-                        window.setAmount = function(amount) {
-                            $('#amount').val(amount).trigger('change');
-                            $('.quick-amounts button').removeClass('active');
-                            $(`button[onclick="setAmount(${amount})"]`).addClass('active');
-                        };
-
-                        // التحقق من الصحة عند الإرسال
-                        $('#donation-form').on('submit', function(e) {
-                            e.preventDefault();
-                            $('.error-message').hide();
-
-                            let isValid = true;
-
-                            // التحقق من المبلغ
-                            const amount = parseFloat($('#amount').val());
-                            if (isNaN(amount) || amount <= 0) {
-                                $('#amount-error').text('الرجاء إدخال مبلغ صحيح أكبر من الصفر').show();
-                                isValid = false;
-                            }
-
-                            // التحقق من اسم صاحب البطاقة
-                            const cardHolder = $('#card_holder_name').val().trim();
-                            if (cardHolder.length < 3) {
-                                $('#card-holder-error').text('الرجاء إدخال اسم صاحب البطاقة بالكامل').show();
-                                isValid = false;
-                            }
-
-                            // التحقق من رقم البطاقة (بدون مسافات)
-                            const cardNumber = $('#card_number').val().replace(/\s+/g, '');
-                            if (!/^\d{16}$/.test(cardNumber)) {
-                                $('#card-number-error').text('رقم البطاقة يجب أن يتكون من 16 رقمًا').show();
-                                isValid = false;
-                            }
-
-                            // التحقق من تاريخ الانتهاء
-                            const expiry = $('#card_expiry').val();
-                            if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry)) {
-                                $('#card-expiry-error').text('الرجاء إدخال تاريخ صحيح بتنسيق MM/YY').show();
-                                isValid = false;
-                            }
-
-                            // التحقق من رمز CVC
-                            const cvc = $('#card_cvc').val();
-                            if (!/^\d{3,4}$/.test(cvc)) {
-                                $('#card-cvc-error').text('رمز الأمان يجب أن يتكون من 3 أو 4 أرقام').show();
-                                isValid = false;
-                            }
-
-                            // إذا كانت جميع البيانات صحيحة، قم بالإرسال
-                            if (isValid) {
-                                const formData = $(this).serialize();
-
-                                $.ajax({
-                                    url: $(this).attr('action'),
-                                    method: 'POST',
-                                    data: formData,
-                                    beforeSend: function() {
-                                        $('button[type="submit"]').prop('disabled', true)
-                                            .html('<i class="fas fa-spinner fa-spin me-2"></i>جاري المعالجة...');
-                                    },
-                                    success: function(response) {
-                                        if (response.status === 'success') {
-                                            Swal.fire({
-                                                icon: 'success',
-                                                title: 'شكرًا لتبرعك!',
-                                                text: response.message,
-                                                confirmButtonText: 'تم',
-                                                timer: 3000
-                                            }).then(() => {
-                                                if (response.redirect) {
-                                                    window.location.href = response.redirect;
-                                                } else {
-                                                    window.location.reload();
-                                                }
-                                            });
-                                        } else {
-                                            Swal.fire({
-                                                icon: 'error',
-                                                title: 'خطأ',
-                                                text: response.message,
-                                                confirmButtonText: 'حسنًا'
-                                            });
-                                        }
-                                    },
-                                    error: function(xhr) {
-                                        let errorMessage = 'حدث خطأ غير متوقع';
-                                        if (xhr.responseJSON && xhr.responseJSON.message) {
-                                            errorMessage = xhr.responseJSON.message;
-                                        }
-                                        Swal.fire({
-                                            icon: 'error',
-                                            title: 'خطأ',
-                                            text: errorMessage,
-                                            confirmButtonText: 'حسنًا'
-                                        });
-                                    },
-                                    complete: function() {
-                                        $('button[type="submit"]').prop('disabled', false)
-                                            .html('<i class="fas fa-hand-holding-heart me-2"></i>إتمام التبرع');
-                                    }
-                                });
-                            }
-                        });
-
-                        // إذا تم الوصول إلى الهدف
-                        @if($cause->raised_amount >= $cause->goal_amount)
-                            $('button[type="submit"]').prop('disabled', true)
-                                .html('<i class="fas fa-check-circle me-2"></i>تم الوصول إلى الهدف')
-                                .removeClass('btn-primary')
-                                .addClass('btn-success');
-                        @endif
-                    });
-                </script> --}}
-                {{-- <script>
-                    $(document).ready(function() {
-                        // تفعيل Flatpickr لاختيار تاريخ انتهاء البطاقة
-                        flatpickr("#card_expiry", {
-                            dateFormat: "m/y",
-                            minDate: "today",
-                        });
-
-                        // تنسيق رقم البطاقة تلقائيًا
-                        $('#card_number').on('input', function() {
-                            var cardNumber = $(this).val().replace(/\s+/g, '');
-                            if (cardNumber.length > 0) {
-                                cardNumber = cardNumber.match(/.{1,4}/g).join(' ');
-                                $(this).val(cardNumber);
-                            }
-                        });
-
-                        // تعيين مبالغ سريعة
-                        window.setAmount = function(amount) {
-                            $('#amount').val(amount).trigger('change');
-                            $('.quick-amounts button').removeClass('active');
-                            $(`button[onclick="setAmount(${amount})"]`).addClass('active');
-                        };
-
-                        // التحقق من الصحة عند الإرسال
-                        $('#donation-form').on('submit', function(e) {
-                            e.preventDefault();
-                            $('.error-message').hide();
-
-                            // التحقق أولاً مما إذا كان المستخدم مسجلاً دخول
-                            @if(!auth()->check())
-                                Swal.fire({
-                                    icon: 'warning',
-                                    title: 'يجب تسجيل الدخول',
-                                    text: 'يجب عليك تسجيل الدخول أولاً لإتمام عملية التبرع',
-                                    confirmButtonText: 'تسجيل الدخول',
-                                    showCancelButton: true,
-                                    cancelButtonText: 'إلغاء'
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        window.location.href = "{{ route('login') }}";
-                                    }
-                                });
-                                return false;
-                            @endif
-
-                            let isValid = true;
-
-                            // التحقق من المبلغ
-                            const amount = parseFloat($('#amount').val());
-                            if (isNaN(amount) || amount <= 0) {
-                                $('#amount-error').text('الرجاء إدخال مبلغ صحيح أكبر من الصفر').show();
-                                isValid = false;
-                            }
-
-                            // التحقق من اسم صاحب البطاقة
-                            const cardHolder = $('#card_holder_name').val().trim();
-                            if (cardHolder.length < 3) {
-                                $('#card-holder-error').text('الرجاء إدخال اسم صاحب البطاقة بالكامل').show();
-                                isValid = false;
-                            }
-
-                            // التحقق من رقم البطاقة (بدون مسافات)
-                            const cardNumber = $('#card_number').val().replace(/\s+/g, '');
-                            if (!/^\d{16}$/.test(cardNumber)) {
-                                $('#card-number-error').text('رقم البطاقة يجب أن يتكون من 16 رقمًا').show();
-                                isValid = false;
-                            }
-
-                            // التحقق من تاريخ الانتهاء
-                            const expiry = $('#card_expiry').val();
-                            if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry)) {
-                                $('#card-expiry-error').text('الرجاء إدخال تاريخ صحيح بتنسيق MM/YY').show();
-                                isValid = false;
-                            }
-
-                            // التحقق من رمز CVC
-                            const cvc = $('#card_cvc').val();
-                            if (!/^\d{3,4}$/.test(cvc)) {
-                                $('#card-cvc-error').text('رمز الأمان يجب أن يتكون من 3 أو 4 أرقام').show();
-                                isValid = false;
-                            }
-
-                            // إذا كانت جميع البيانات صحيحة، قم بالإرسال
-                            if (isValid) {
-                                const formData = $(this).serialize();
-
-                                $.ajax({
-                                    url: $(this).attr('action'),
-                                    method: 'POST',
-                                    data: formData,
-                                    beforeSend: function() {
-                                        $('button[type="submit"]').prop('disabled', true)
-                                            .html('<i class="fas fa-spinner fa-spin me-2"></i>جاري المعالجة...');
-                                    },
-                                    success: function(response) {
-                                        if (response.status === 'success') {
-                                            Swal.fire({
-                                                icon: 'success',
-                                                title: 'شكرًا لتبرعك!',
-                                                text: response.message,
-                                                confirmButtonText: 'تم',
-                                                timer: 3000
-                                            }).then(() => {
-                                                if (response.redirect) {
-                                                    window.location.href = response.redirect;
-                                                } else {
-                                                    window.location.reload();
-                                                }
-                                            });
-                                        } else {
-                                            Swal.fire({
-                                                icon: 'error',
-                                                title: 'خطأ',
-                                                text: response.message,
-                                                confirmButtonText: 'حسنًا'
-                                            });
-                                        }
-                                    },
-                                    error: function(xhr) {
-                                        let errorMessage = 'حدث خطأ غير متوقع';
-                                        if (xhr.responseJSON && xhr.responseJSON.message) {
-                                            errorMessage = xhr.responseJSON.message;
-                                        }
-                                        Swal.fire({
-                                            icon: 'error',
-                                            title: 'خطأ',
-                                            text: errorMessage,
-                                            confirmButtonText: 'حسنًا'
-                                        });
-                                    },
-                                    complete: function() {
-                                        $('button[type="submit"]').prop('disabled', false)
-                                            .html('<i class="fas fa-hand-holding-heart me-2"></i>إتمام التبرع');
-                                    }
-                                });
-                            }
-                        });
-
-                        // إذا تم الوصول إلى الهدف
-                        @if($cause->raised_amount >= $cause->goal_amount)
-                            $('button[type="submit"]').prop('disabled', true)
-                                .html('<i class="fas fa-check-circle me-2"></i>تم الوصول إلى الهدف')
-                                .removeClass('btn-primary')
-                                .addClass('btn-success');
-                        @endif
-
-                        // إخفاء حقول معلومات البطاقة إذا لم يكن المستخدم مسجلاً
-                        @if(!auth()->check())
-                            $(document).ready(function() {
-                                $('.card-body').hide();
-                                $('#donation-form').prepend(
-                                    '<div class="alert alert-warning text-center mb-4">' +
-                                    '<i class="fas fa-exclamation-triangle me-2"></i>' +
-                                    'يجب عليك <a href="{{ route('login') }}" class="alert-link">تسجيل الدخول</a> أولاً لإتمام عملية التبرع' +
-                                    '</div>'
-                                );
-                            });
-                        @endif
-                    });
-                </script> --}}
                 <script>
-                    $(document).ready(function() {
-                        // تفعيل Flatpickr لاختيار تاريخ انتهاء البطاقة
-                        flatpickr("#card_expiry", {
-                            dateFormat: "m/y",
-                            minDate: "today",
-                        });
+              $(document).ready(function() {
+    // تهيئة منتقي التاريخ
+    flatpickr("#card_expiry", {
+        dateFormat: "m/y",
+        minDate: "today",
+    });
 
-                        // تنسيق رقم البطاقة تلقائيًا
-                        $('#card_number').on('input', function() {
-                            var cardNumber = $(this).val().replace(/\s+/g, '');
-                            if (cardNumber.length > 0) {
-                                cardNumber = cardNumber.match(/.{1,4}/g).join(' ');
-                                $(this).val(cardNumber);
+    // تنسيق رقم البطاقة (أربعة أرقام ثم مسافة)
+    $('#card_number').on('input', function() {
+        var cardNumber = $(this).val().replace(/\s+/g, '');
+        if (cardNumber.length > 0) {
+            cardNumber = cardNumber.match(/.{1,4}/g).join(' ');
+            $(this).val(cardNumber);
+        }
+    });
+
+    // تعيين المبلغ السريع
+    window.setAmount = function(amount) {
+        $('#amount').val(amount).trigger('change');
+        $('.quick-amounts button').removeClass('active');
+        $(`button[onclick="setAmount(${amount})"]`).addClass('active');
+    };
+
+    // التحقق الفوري من اسم صاحب البطاقة أثناء الكتابة
+    $('#card_holder_name').on('input', function() {
+        const input = $(this);
+        const value = input.val();
+        const errorElement = $('#card-holder-error');
+
+        // تصفية الأحرف غير المسموحة مباشرة
+        const filteredValue = value.replace(/[^a-zA-Z\s\-\.']/g, '');
+        if (value !== filteredValue) {
+            input.val(filteredValue);
+            errorElement.text('مسموح فقط بالأحرف الإنجليزية').show();
+            input.addClass('is-invalid').removeClass('is-valid');
+            return;
+        }
+
+        // التحقق من الشروط عند وجود محتوى كافٍ
+        if (value.length >= 3) {
+            validateFullName(input, value, errorElement);
+        } else {
+            errorElement.hide();
+            input.removeClass('is-invalid').removeClass('is-valid');
+        }
+    });
+
+    // التحقق من النموذج عند الإرسال
+    $('#donation-form').on('submit', function(e) {
+        e.preventDefault();
+        $('.error-message').hide();
+        let isValid = true;
+
+        // التحقق من تسجيل الدخول
+        @if(!auth()->check())
+            Swal.fire({
+                icon: 'warning',
+                title: 'يجب تسجيل الدخول',
+                text: 'يجب عليك تسجيل الدخول أولاً لإتمام عملية التبرع',
+                confirmButtonText: 'تسجيل الدخول',
+                showCancelButton: true,
+                cancelButtonText: 'إلغاء'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "{{ route('login') }}";
+                }
+            });
+            return false;
+        @endif
+
+        // التحقق من المبلغ
+        const amount = parseFloat($('#amount').val());
+        if (isNaN(amount) || amount <= 0) {
+            $('#amount-error').text('الرجاء إدخال مبلغ صحيح أكبر من الصفر').show();
+            isValid = false;
+        }
+
+        // التحقق من اسم صاحب البطاقة
+        const cardHolder = $('#card_holder_name').val().trim();
+        if (!validateFullName($('#card_holder_name'), cardHolder, $('#card-holder-error'))) {
+            isValid = false;
+        }
+
+        // التحقق من رقم البطاقة
+        const cardNumber = $('#card_number').val().replace(/\s+/g, '');
+        if (!/^\d{16}$/.test(cardNumber)) {
+            $('#card-number-error').text('رقم البطاقة يجب أن يتكون من 16 رقمًا').show();
+            isValid = false;
+        }
+
+        // التحقق من تاريخ الانتهاء
+        const expiry = $('#card_expiry').val();
+        if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry)) {
+            $('#card-expiry-error').text('الرجاء إدخال تاريخ صحيح بتنسيق MM/YY').show();
+            isValid = false;
+        }
+
+        // التحقق من رمز الأمان
+        const cvc = $('#card_cvc').val();
+        if (!/^\d{3,4}$/.test(cvc)) {
+            $('#card-cvc-error').text('رمز الأمان يجب أن يتكون من 3 أو 4 أرقام').show();
+            isValid = false;
+        }
+
+        // إذا كان النموذج صالحًا، قم بإرساله
+        if (isValid) {
+            const formData = $(this).serialize();
+
+            $.ajax({
+                url: $(this).attr('action'),
+                method: 'POST',
+                data: formData,
+                beforeSend: function() {
+                    $('button[type="submit"]').prop('disabled', true)
+                        .html('<i class="fas fa-spinner fa-spin me-2"></i>جاري المعالجة...');
+                },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'شكرًا لتبرعك!',
+                            text: response.message,
+                            confirmButtonText: 'تم',
+                            timer: 3000
+                        }).then(() => {
+                            if (response.redirect) {
+                                window.location.href = response.redirect;
+                            } else {
+                                window.location.reload();
                             }
                         });
-
-                        // تعيين مبالغ سريعة
-                        window.setAmount = function(amount) {
-                            $('#amount').val(amount).trigger('change');
-                            $('.quick-amounts button').removeClass('active');
-                            $(`button[onclick="setAmount(${amount})"]`).addClass('active');
-                        };
-
-                        // التحقق من الصحة عند الإرسال
-                        $('#donation-form').on('submit', function(e) {
-                            e.preventDefault();
-                            $('.error-message').hide();
-
-                            // التحقق أولاً مما إذا كان المستخدم مسجلاً دخول
-                            @if(!auth()->check())
-                                Swal.fire({
-                                    icon: 'warning',
-                                    title: 'يجب تسجيل الدخول',
-                                    text: 'يجب عليك تسجيل الدخول أولاً لإتمام عملية التبرع',
-                                    confirmButtonText: 'تسجيل الدخول',
-                                    showCancelButton: true,
-                                    cancelButtonText: 'إلغاء'
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        window.location.href = "{{ route('login') }}";
-                                    }
-                                });
-                                return false;
-                            @endif
-
-                            let isValid = true;
-
-                            // التحقق من المبلغ
-                            const amount = parseFloat($('#amount').val());
-                            if (isNaN(amount) || amount <= 0) {
-                                $('#amount-error').text('الرجاء إدخال مبلغ صحيح أكبر من الصفر').show();
-                                isValid = false;
-                            }
-
-                            // التحقق من اسم صاحب البطاقة
-                            const cardHolder = $('#card_holder_name').val().trim();
-                            if (cardHolder.length < 3) {
-                                $('#card-holder-error').text('الرجاء إدخال اسم صاحب البطاقة بالكامل').show();
-                                isValid = false;
-                            }
-
-                            // التحقق من رقم البطاقة (بدون مسافات)
-                            const cardNumber = $('#card_number').val().replace(/\s+/g, '');
-                            if (!/^\d{16}$/.test(cardNumber)) {
-                                $('#card-number-error').text('رقم البطاقة يجب أن يتكون من 16 رقمًا').show();
-                                isValid = false;
-                            }
-
-                            // التحقق من تاريخ الانتهاء
-                            const expiry = $('#card_expiry').val();
-                            if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry)) {
-                                $('#card-expiry-error').text('الرجاء إدخال تاريخ صحيح بتنسيق MM/YY').show();
-                                isValid = false;
-                            }
-
-                            // التحقق من رمز CVC
-                            const cvc = $('#card_cvc').val();
-                            if (!/^\d{3,4}$/.test(cvc)) {
-                                $('#card-cvc-error').text('رمز الأمان يجب أن يتكون من 3 أو 4 أرقام').show();
-                                isValid = false;
-                            }
-
-                            // إذا كانت جميع البيانات صحيحة، قم بالإرسال
-                            if (isValid) {
-                                const formData = $(this).serialize();
-
-                                $.ajax({
-                                    url: $(this).attr('action'),
-                                    method: 'POST',
-                                    data: formData,
-                                    beforeSend: function() {
-                                        $('button[type="submit"]').prop('disabled', true)
-                                            .html('<i class="fas fa-spinner fa-spin me-2"></i>جاري المعالجة...');
-                                    },
-                                    success: function(response) {
-                                        if (response.status === 'success') {
-                                            Swal.fire({
-                                                icon: 'success',
-                                                title: 'شكرًا لتبرعك!',
-                                                text: response.message,
-                                                confirmButtonText: 'تم',
-                                                timer: 3000
-                                            }).then(() => {
-                                                if (response.redirect) {
-                                                    window.location.href = response.redirect;
-                                                } else {
-                                                    window.location.reload();
-                                                }
-                                            });
-                                        } else {
-                                            Swal.fire({
-                                                icon: 'error',
-                                                title: 'خطأ',
-                                                text: response.message,
-                                                confirmButtonText: 'حسنًا'
-                                            });
-                                        }
-                                    },
-                                    error: function(xhr) {
-                                        let errorMessage = 'حدث خطأ غير متوقع';
-                                        if (xhr.responseJSON && xhr.responseJSON.message) {
-                                            errorMessage = xhr.responseJSON.message;
-                                        }
-                                        Swal.fire({
-                                            icon: 'error',
-                                            title: 'خطأ',
-                                            text: errorMessage,
-                                            confirmButtonText: 'حسنًا'
-                                        });
-                                    },
-                                    complete: function() {
-                                        $('button[type="submit"]').prop('disabled', false)
-                                            .html('<i class="fas fa-hand-holding-heart me-2"></i>إتمام التبرع');
-                                    }
-                                });
-                            }
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'خطأ',
+                            text: response.message,
+                            confirmButtonText: 'حسنًا'
                         });
-
-                        // إذا تم الوصول إلى الهدف
-                        @if($cause->raised_amount >= $cause->goal_amount)
-                            $('button[type="submit"]').prop('disabled', true)
-                                .html('<i class="fas fa-check-circle me-2"></i>تم الوصول إلى الهدف')
-                                .removeClass('btn-primary')
-                                .addClass('btn-success');
-                        @endif
-
-                        // إخفاء كامل قسم الدفع إذا لم يكن المستخدم مسجلاً
-                        @if(!auth()->check())
-                            $(document).ready(function() {
-                                // إخفاء جميع حقول الدفع
-                                $('#amount').closest('.form-group').hide();
-                                $('.quick-amounts').hide();
-                                $('.payment-method-container').hide();
-                                $('.card').hide();
-                                $('button[type="submit"]').closest('.form-group').hide();
-
-                                // إضافة رسالة تسجيل الدخول
-                                $('#donation-form').prepend(
-                                    '<div class="alert alert-warning text-center mb-4 p-4">' +
-                                    '<i class="fas fa-exclamation-triangle fa-2x mb-3"></i>' +
-                                    '<h4 class="alert-heading">يجب تسجيل الدخول</h4>' +
-                                    '<p>يجب عليك تسجيل الدخول أولاً لإتمام عملية التبرع</p>' +
-                                    '<a href="{{ route('login') }}" class="btn btn-primary mt-2">' +
-                                    '<i class="fas fa-sign-in-alt me-2"></i>تسجيل الدخول</a>' +
-                                    '</div>'
-                                );
-                            });
-                        @endif
+                    }
+                },
+                error: function(xhr) {
+                    let errorMessage = 'حدث خطأ غير متوقع';
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMessage = xhr.responseJSON.message;
+                    }
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'خطأ',
+                        text: errorMessage,
+                        confirmButtonText: 'حسنًا'
                     });
-                </script>
+                },
+                complete: function() {
+                    $('button[type="submit"]').prop('disabled', false)
+                        .html('<i class="fas fa-hand-holding-heart me-2"></i>إتمام التبرع');
+                }
+            });
+        }
+    });
 
-                <style>
+    // دالة التحقق من اسم صاحب البطاقة
+    function validateFullName(input, value, errorElement) {
+        const cardHolder = value.trim();
+        const nameParts = cardHolder.split(/\s+/).filter(part => part.length > 0);
 
-                   .quick-amounts .btn:hover {
-                        background-color: #3cc88f;  /* تغيير خلفية الزر إلى اللون المطلوب */
-                        color: white !important;
-                        border-color: #3cc88f;      /* تأكيد أن الحدود تظل بنفس اللون */
-                     }
-                    .payment-method-container {
-                        font-family: 'Tajawal', sans-serif;
-                    }
+        if (nameParts.length < 2) {
+            errorElement.text('الرجاء إدخال الاسم الكامل (اسم أول واسم عائلة)').show();
+            input.addClass('is-invalid').removeClass('is-valid');
+            return false;
+        }
 
-                    .payment-method-label {
-                        text-align: right;
-                        display: block;
-                        margin-bottom: 8px;
-                        font-weight: 600;
-                        color: #2c3e50;
-                        font-size: 1.05rem;
-                    }
+        if (nameParts.some(part => part.length < 3)) {
+            errorElement.text('كل جزء من الاسم يجب أن يكون 3 أحرف على الأقل').show();
+            input.addClass('is-invalid').removeClass('is-valid');
+            return false;
+        }
 
-                    .payment-method-label i {
-                        color: #3cc88f;
-                    }
+        if (!/^[a-zA-Z\s\-\.']+$/.test(cardHolder)) {
+            errorElement.text('يجب أن يحتوي الاسم على أحرف إنجليزية فقط').show();
+            input.addClass('is-invalid').removeClass('is-valid');
+            return false;
+        }
 
-                    .payment-method-select-wrapper {
-                        position: relative;
-                    }
+        errorElement.hide();
+        input.removeClass('is-invalid').addClass('is-valid');
+        return true;
+    }
 
-                    .payment-method-select {
-                        width: 100%;
-                        padding: 12px 45px 12px 15px;
-                        border: 1px solid #ddd;
-                        border-radius: 8px;
-                        background-color: #fff;
-                        font-size: 1rem;
-                        color: #333;
-                        appearance: none;
-                        transition: all 0.3s ease;
-                        cursor: pointer;
-                    }
+    // إدارة حالة الوصول للهدف
+    @if($cause->raised_amount >= $cause->goal_amount)
+        $('button[type="submit"]').prop('disabled', true)
+            .html('<i class="fas fa-check-circle me-2"></i>تم الوصول إلى الهدف')
+            .removeClass('btn-primary')
+            .addClass('btn-success');
+    @endif
 
-                    .payment-method-select:focus {
-                        border-color: #3cc88f;
-                        box-shadow: 0 0 0 3px rgba(1, 255, 77, 0.274);
-                        outline: none;
-                    }
+    // إدارة حالة عدم تسجيل الدخول
+    @if(!auth()->check())
+        $('#amount').closest('.form-group').hide();
+        $('.quick-amounts').hide();
+        $('.payment-method-container').hide();
+        $('.card').hide();
+        $('button[type="submit"]').closest('.form-group').hide();
 
-                    .select-arrow {
-                        position: absolute;
-                        top: 50%;
-                        left: 15px;
-                        transform: translateY(-50%);
-                        color: #7f8c8d;
-                        pointer-events: none;
-                    }
+        $('#donation-form').prepend(
+            '<div class="alert alert-warning text-center mb-4 p-4">' +
+            '<i class="fas fa-exclamation-triangle fa-2x mb-3"></i>' +
+            '<h4 class="alert-heading">يجب تسجيل الدخول</h4>' +
+            '<p>يجب عليك تسجيل الدخول أولاً لإتمام عملية التبرع</p>' +
+            '<a href="{{ route('login') }}" class="btn btn-primary mt-2">' +
+            '<i class="fas fa-sign-in-alt me-2"></i>تسجيل الدخول</a>' +
+            '</div>'
+        );
+    @endif
+});
+       </script>
 
-                    .payment-method-error {
-                        color: #e74c3c;
-                        font-size: 0.85rem;
-                        margin-top: 5px;
-                        padding-right: 5px;
-                        display: none;
-                    }
-
-                    /* تأثيرات عند التحويم */
-                    .payment-method-select:hover {
-                        border-color: #bdc3c7;
-                    }
-
-                    /* تصميم متجاوب */
-                    @media (max-width: 768px) {
-                        .payment-method-select {
-                            padding: 10px 40px 10px 12px;
-                            font-size: 0.95rem;
-                        }
-                    }
-
-                    .rounded-4 {
-                        border-radius: 16px !important;
-                    }
-
-                    .bg-primary-light {
-                        background-color: rgba(60, 200, 143, 0.1) !important;
-                    }
-
-                    .bg-light-hover {
-                        transition: all 0.3s ease;
-                    }
-
-                    .bg-light-hover:hover {
-                        background-color: #f8f9fa !important;
-                        transform: translateY(-3px);
-                    }
-
-                    .bg-primary-gradient {
-                        background: linear-gradient(90deg, #3cc88f 0%, #2a7d5f 100%) !important;
-                    }
-
-                    .transition-scale {
-                        transition: transform 0.5s ease !important;
-                    }
-
-                    .transition-scale:hover {
-                        transform: scale(1.03);
-                    }
-
-                    /* تصميم عام */
-                    .inner {
-                        border: 1px solid #e0e0e0;
-                        transition: all 0.3s ease;
-                    }
-
-                    .inner:hover {
-                        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-                    }
-
-                    /* حقول الإدخال */
-                    .form-control, .form-select {
-                        border-radius: 8px;
-                        border: 1px solid #ddd;
-                        transition: all 0.3s;
-                    }
-
-                    .form-control:focus, .form-select:focus {
-                        border-color: #3cc88f;
-                        box-shadow: 0 0 0 0.25rem rgba(1, 255, 77, 0.274);
-                    }
-
-                    /* رسائل الخطأ */
-                    .error-message {
-                        color: #dc3545;
-                        font-size: 0.85rem;
-                        padding: 5px 10px;
-                        background-color: rgba(220, 53, 69, 0.1);
-                        border-radius: 5px;
-                        display: none;
-                    }
-
-                    /* أزرار المبالغ السريعة */
-                    .quick-amounts button {
-                        flex: 1;
-                        margin: 0 5px;
-                        padding: 8px 0;
-                        transition: all 0.3s;
-                    }
-
-                    .quick-amounts button:hover {
-                        transform: translateY(-2px);
-                    }
-
-                    /* بطاقة معلومات البطاقة */
-                    .card {
-                        background: linear-gradient(to right, #f8f9fa, #ffffff);
-                        border: none;
-                    }
-
-                    /* زر التبرع */
-                    .btn-primary {
-                        background: linear-gradient(to right, #3cc88f, #2a7d5f);
-                        border: none;
-                        transition: all 0.3s;
-                    }
-
-                    .btn-primary:hover {
-                        transform: translateY(-2px);
-                        box-shadow: 0 5px 15px rgba(108, 238, 147, 0.4);
-                    }
-
-                    /* تصميم متجاوب */
-                    @media (max-width: 576px) {
-                        .quick-amounts button {
-                            font-size: 0.8rem;
-                            padding: 5px 0;
-                        }
-
-                        .form-control, .form-select, .btn {
-                            padding: 0.75rem;
-                        }
-                    }
-                </style>
+               <link rel="stylesheet" href="{{ asset('css/cause-show.css') }}">
             </div>
         </div>
     </div>

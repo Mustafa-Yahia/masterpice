@@ -127,7 +127,7 @@
                         </div>
 
                         <!-- Volunteers Filter -->
-                        <div class="col-md-4">
+                        <div class="col-md-4 mt-5">
                             <select class="form-select" name="volunteers_needed">
                                 <option value="">عدد المتطوعين المطلوب</option>
                                 <option value="1-10" {{ request('volunteers_needed') == '1-10' ? 'selected' : '' }}>1 - 10 متطوعين</option>
@@ -138,6 +138,7 @@
 
                         <!-- Date Range -->
                         <div class="col-md-4">
+                                <label for="start_date" class="form-label fw-bold">📅 تاريخ بدء الحملة</label>
                             <div class="input-group">
                                 <span class="input-group-text  text-white" style="background-color: #3cc88f;">
                                     <i class="fas fa-calendar-day"></i>
@@ -147,6 +148,7 @@
                         </div>
 
                         <div class="col-md-4">
+                                <label for="end_date" class="form-label fw-bold">📅 تاريخ انتهاء الحملة</label>
                             <div class="input-group">
                                 <span class="input-group-text  text-white" style="background-color: #3cc88f;">
                                     <i class="fas fa-calendar-day"></i>
@@ -172,126 +174,276 @@
         </div>
 
         <!-- Events Table -->
-        <div class="card shadow-sm">
-            <div class="card-header d-flex justify-content-between align-items-center bg-white">
-                <h5 class="mb-0">قائمة الأحداث</h5>
-                <div>
-                    <a href="#" class="btn btn-outline-info me-2" data-bs-toggle="tooltip" title="تصدير إلى Excel">
-                        <i class="fas fa-file-excel"></i>
-                    </a>
-                    <a href="{{ route('admin.events.create') }}" class="btn text-white" style="background-color: #3cc88f; color: white;" data-bs-toggle="tooltip" title="إضافة حدث جديد">
-                        <i class="fas fa-plus me-2"></i> إضافة حدث جديد
-                    </a>
-                </div>
-            </div>
+      <!-- Events Table -->
+<div class="card shadow-sm">
+    <div class="card-header d-flex justify-content-between align-items-center bg-white">
+        <h5 class="mb-0">قائمة الأحداث</h5>
+        <div>
+{{-- <a href="{{ route('export.excel') }}" class="btn btn-outline-info me-2" data-bs-toggle="tooltip" title="تصدير إلى Excel" id="exportExcelBtn">
+    <i class="fas fa-file-excel"></i>
+</a> --}}
 
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-hover table-striped">
-                        <thead class="table-light">
-                            <tr>
-                                <th width="5%">#</th>
-                                <th>العنوان</th>
-                                <th>التاريخ والوقت</th>
-                                <th>الموقع</th>
-                                <th>المتطوعون</th>
-                                <th>الحالة</th>
-                                <th width="15%">الإجراءات</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($events as $event)
-                            <tr>
-                                <td>{{ $event->id }}</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="avatar me-3">
-                                            @if($event->image)
-                                                <img src="{{ asset('storage/'.$event->image) }}" alt="{{ $event->title }}" class="rounded" width="40" height="40">
-                                            @else
-                                                <div class="bg-primary text-white rounded d-flex align-items-center justify-content-center" style="width:40px;height:40px;">
-                                                    <i class="fas fa-calendar"></i>
-                                                </div>
-                                            @endif
-                                        </div>
-                                        <div>
-                                            <h6 class="mb-0">{{ $event->title }}</h6>
-                                            <small class="text-muted">{{ Str::limit($event->description, 30) }}</small>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>{{ \Carbon\Carbon::parse($event->date)->translatedFormat('l، j F Y') }}</div>
-                                    <small class="text-muted">{{ \Carbon\Carbon::parse($event->time)->format('h:i A') }}</small>
-                                </td>
-                                <td>{{ $event->location }}</td>
-                                <td>
-                                    <span class="badge  rounded-pill" style="background-color: #3cc88f;">
-                                        <i class="fas fa-users me-1"></i>
-                                        {{ $event->volunteers_needed }}
-                                    </span>
-                                </td>
-                                <td>
-                                    @if($event->date > now())
-                                        <span class="badge bg-success">قادم</span>
-                                    @else
-                                        <span class="badge bg-secondary">منتهي</span>
-                                    @endif
-                                </td>
-                                <td>
-                                    <div class="d-flex gap-2">
-                                        <a href="{{ route('admin.events.show', $event->id) }}" class="btn btn-sm btn-outline-info" data-bs-toggle="tooltip" title="عرض التفاصيل">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                        <a href="{{ route('admin.events.edit', $event->id) }}" class="btn btn-sm btn-outline-warning" data-bs-toggle="tooltip" title="تعديل">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <form action="{{ route('admin.events.destroy', $event->id) }}" method="POST" class="d-inline delete-form">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-outline-danger" data-bs-toggle="tooltip" title="حذف">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                            @empty
-                            <tr>
-                                <td colspan="7" class="text-center py-4">
-                                    <div class="empty-state">
-                                        <i class="fas fa-calendar-times fa-3x text-muted mb-3"></i>
-                                        <h5 class="text-muted">لا توجد أحداث مسجلة</h5>
-                                        <a href="{{ route('admin.events.create') }}" class="btn btn-primary mt-3">
-                                            <i class="fas fa-plus me-2"></i> إنشاء حدث جديد
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Pagination -->
-                @if($events->hasPages())
-                <div class="d-flex justify-content-between align-items-center mt-4">
-                    <div class="text-muted">
-                        عرض <span class="fw-bold">{{ $events->firstItem() }}</span> إلى <span class="fw-bold">{{ $events->lastItem() }}</span> من <span class="fw-bold">{{ $events->total() }}</span> نتيجة
-                    </div>
-                    <div>
-                        {{ $events->withQueryString()->links() }}
-                    </div>
-                </div>
-                @endif
-            </div>
+            <a href="{{ route('admin.events.create') }}" class="btn text-white" style="background-color: #3cc88f; color: white;" data-bs-toggle="tooltip" title="إضافة حدث جديد">
+                <i class="fas fa-plus me-2"></i> إضافة حدث جديد
+            </a>
         </div>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                <thead class="table-light">
+                    <tr>
+                        <th width="5%">#</th>
+                        <th>العنوان</th>
+                        <th>التاريخ والوقت</th>
+                        <th>الموقع</th>
+                        <th>المتطوعون</th>
+                        <th>الحالة</th>
+                        <th width="15%">الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($events as $event)
+                    @php
+                        $eventDate = \Carbon\Carbon::parse($event->date);
+                        $startDateTime = \Carbon\Carbon::parse($event->date . ' ' . $event->time);
+                        $endDateTime = \Carbon\Carbon::parse($event->date . ' ' . $event->end_time);
+                        $now = \Carbon\Carbon::now();
+
+                        $isPastEvent = $endDateTime->isPast();
+                        $isTodayEvent = $eventDate->isToday();
+                        $isUpcomingEvent = $startDateTime->isFuture();
+                        $isOngoingEvent = $now->between($startDateTime, $endDateTime);
+                    @endphp
+                    <tr>
+                        <td>{{ $event->id }}</td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="avatar me-3">
+                                    @if($event->image)
+                                        <img src="{{ asset('storage/'.$event->image) }}" alt="{{ $event->title }}" class="rounded" width="40" height="40">
+                                    @else
+                                        <div class="bg-primary text-white rounded d-flex align-items-center justify-content-center" style="width:40px;height:40px;">
+                                            <i class="fas fa-calendar"></i>
+                                        </div>
+                                    @endif
+                                </div>
+                                <div>
+                                    <h6 class="mb-0">{{ $event->title }}</h6>
+                                    <small class="text-muted">{{ Str::limit($event->description, 30) }}</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div>{{ $eventDate->translatedFormat('l، j F Y') }}</div>
+                            <small class="text-muted">
+                                من {{ \Carbon\Carbon::parse($event->time)->format('h:i A') }}
+                                إلى {{ \Carbon\Carbon::parse($event->end_time)->format('h:i A') }}
+                            </small>
+                        </td>
+                        <td>{{ $event->location }}</td>
+                        <td>
+                            <span class="badge rounded-pill" style="background-color: #3cc88f;">
+                                <i class="fas fa-users me-1"></i>
+                                {{ $event->volunteers_needed }}
+                            </span>
+                        </td>
+                        <td>
+                            @if($isPastEvent)
+                                <span class="badge bg-secondary">منتهي</span>
+                            @elseif($isOngoingEvent)
+                                <span class="badge bg-primary">جاري الآن</span>
+                            @elseif($isTodayEvent)
+                                <span class="badge bg-info">قريباً اليوم</span>
+                            @elseif($isUpcomingEvent)
+                                <span class="badge bg-success">قادم</span>
+                            @else
+                                <span class="badge bg-warning">مجدول</span>
+                            @endif
+                        </td>
+                        <td>
+                            <div class="d-flex gap-2">
+                                <a href="{{ route('admin.events.show', $event->id) }}" class="btn btn-sm btn-outline-info" data-bs-toggle="tooltip" title="عرض التفاصيل">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="{{ route('admin.events.edit', $event->id) }}" class="btn btn-sm btn-outline-warning" data-bs-toggle="tooltip" title="تعديل">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <form action="{{ route('admin.events.destroy', $event->id) }}" method="POST" class="d-inline delete-form">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" data-bs-toggle="tooltip" title="حذف">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="7" class="text-center py-4">
+                            <div class="empty-state">
+                                <i class="fas fa-calendar-times fa-3x text-muted mb-3"></i>
+                                <h5 class="text-muted">لا توجد أحداث مسجلة</h5>
+                                <a href="{{ route('admin.events.create') }}" class="btn mt-3" style="background-color: #3cc88f; color: white;">
+                                    <i class="fas fa-plus me-2"></i> إنشاء حدث جديد
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        @if($events->hasPages())
+        <nav aria-label="تصفح النتائج" dir="rtl">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 mt-5">
+                <!-- Pagination Info -->
+                <div class="pagination-info text-center text-md-start">
+                    <p class="text-muted mb-0">
+                        <i class="fas fa-list-ol me-2"></i>
+                        عرض
+                        <span class="fw-semibold">{{ $events->firstItem() }}</span>
+                        إلى
+                        <span class="fw-semibold">{{ $events->lastItem() }}</span>
+                        من
+                        <span class="fw-semibold">{{ $events->total() }}</span>
+                        نتيجة
+                    </p>
+                </div>
+
+                <!-- Pagination Links -->
+                <ul class="pagination justify-content-center mb-0">
+                    <!-- Previous Page -->
+                    <li class="page-item {{ $events->onFirstPage() ? 'disabled' : '' }}">
+                        <a class="page-link"
+                           href="{{ $events->previousPageUrl() }}"
+                           aria-label="السابق"
+                           @if($events->onFirstPage()) tabindex="-1" aria-disabled="true" @endif>
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+
+                    <!-- Page Numbers -->
+                    @foreach($events->getUrlRange(max(1, $events->currentPage() - 2), min($events->lastPage(), $events->currentPage() + 2)) as $page => $url)
+                        <li class="page-item {{ $page == $events->currentPage() ? 'active' : '' }}">
+                            <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                        </li>
+                    @endforeach
+
+                    <!-- Next Page -->
+                    <li class="page-item {{ !$events->hasMorePages() ? 'disabled' : '' }}">
+                        <a class="page-link"
+                           href="{{ $events->nextPageUrl() }}"
+                           aria-label="التالي"
+                           @if(!$events->hasMorePages()) tabindex="-1" aria-disabled="true" @endif>
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        @endif
     </div>
 </div>
 @endsection
 
 @push('styles')
 <style>
+
+    .pagination {
+    --primary-color: #3cc88f;
+    --primary-hover: #2da876;
+    --text-color: #555;
+    --disabled-color: #ddd;
+}
+
+.pagination-info {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.page-item {
+    margin: 0 3px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.page-link {
+    color: var(--text-color);
+    border: 1px solid #e0e0e0;
+    padding: 8px 14px;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    border-radius: 4px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+}
+
+.page-link:hover {
+    background-color: #f5f5f5;
+    border-color: #e0e0e0;
+    color: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.page-item.active .page-link {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 2px 8px rgba(60, 200, 143, 0.3);
+    font-weight: 600;
+}
+
+.page-item.disabled .page-link {
+    color: var(--disabled-color);
+    pointer-events: none;
+    background-color: #f9f9f9;
+    border-color: #e0e0e0;
+}
+
+/* أيقونات الأسهم */
+.page-link span[aria-hidden="true"] {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* تأثيرات إضافية */
+.page-link:focus {
+    box-shadow: 0 0 0 0.25rem rgba(60, 200, 143, 0.25);
+    z-index: 1;
+}
+
+/* للأجهزة الصغيرة */
+@media (max-width: 768px) {
+    .page-link {
+        padding: 6px 10px;
+        font-size: 14px;
+        min-width: 36px;
+    }
+
+    .pagination-info {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .page-item {
+        margin: 0 2px;
+    }
+
+    .page-link {
+        padding: 5px 8px;
+        min-width: 32px;
+    }
+}
 .avatar img {
     object-fit: cover;
 }

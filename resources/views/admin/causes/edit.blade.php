@@ -5,10 +5,10 @@
     <!-- Page Header -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">
-            <i class="fas fa-edit text-primary me-2"></i> تعديل حملة تبرعات
+            <i class="fas fa-edit  me-2" style="color: #3cc88f"></i> تعديل حملة تبرعات
         </h1>
         <div>
-            <a href="{{ route('admin.causes.index') }}" class="btn btn-sm btn-secondary shadow-sm">
+            <a href="{{ route('admin.causes.index') }}" class="btn btn-sm  shadow-sm" style="background-color: #3cc88f; color: white">
                 <i class="fas fa-arrow-right me-1"></i> رجوع للقائمة
             </a>
         </div>
@@ -16,7 +16,7 @@
 
     <!-- Form Card -->
     <div class="card shadow mb-4">
-        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-primary">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between " style="background-color: #3cc88f;">
             <h6 class="m-0 font-weight-bold text-white">
                 <i class="fas fa-edit me-2"></i> تعديل بيانات الحملة: {{ $cause->title }}
             </h6>
@@ -29,7 +29,7 @@
                 <!-- Basic Information Section -->
                 <div class="row mb-5">
                     <div class="col-12 mb-4">
-                        <h5 class="section-title mb-3 text-primary">
+                        <h5 class="section-title mb-3 " style="color: #3cc88f">
                             <i class="fas fa-info-circle me-2"></i> المعلومات الأساسية
                         </h5>
                         <div class="section-divider"></div>
@@ -79,7 +79,7 @@
                 <!-- Financial Information Section -->
                 <div class="row mb-5">
                     <div class="col-12 mb-4">
-                        <h5 class="section-title mb-3 text-primary">
+                        <h5 class="section-title mb-3 " style="color: #3cc88f">
                             <i class="fas fa-money-bill-wave me-2"></i> المعلومات المالية
                         </h5>
                         <div class="section-divider"></div>
@@ -111,40 +111,98 @@
                         <small class="form-text text-muted">يتم تحديث هذا الحقل تلقائياً عند تلقي التبرعات</small>
                     </div>
 
-                    <!-- Progress Bar Preview -->
-                    <div class="col-12 mb-4">
-                        <div class="card border-left-primary shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            تقدم الحملة
-                                        </div>
-                                        <div class="progress mb-2">
-                                            <div class="progress-bar progress-bar-striped"
-                                                 id="progress-preview" role="progressbar"
-                                                 style="width: {{ $cause->progress_percentage }}%">
-                                                <span class="progress-text">{{ round($cause->progress_percentage) }}%</span>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex justify-content-between">
-                                            <small class="text-muted">$<span id="raised-preview">{{ number_format($cause->raised_amount) }}</span> محصل</small>
-                                            <small class="text-muted">$<span id="goal-preview">{{ number_format($cause->goal_amount) }}</span> مطلوب</small>
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
-                            </div>
+          @php
+    $percentage = ($cause->raised_amount / $cause->goal_amount) * 100;
+    $progress = min(max($percentage, 0), 100); // تأكد أن النسبة بين 0 و 100
+    $remaining_amount = max($cause->goal_amount - $cause->raised_amount, 0);
+
+    // تحديد لون الشريط حسب النسبة
+    $progress_class = ($percentage >= 100) ? 'bg-success' :
+                     ($percentage >= 70 ? 'bg-warning' : 'bg-danger');
+
+    // تحديد حالة الحملة (مع الأولوية لتاريخ الانتهاء)
+    $isExpired = $cause->end_date && now()->gt($cause->end_date);
+    $isCompleted = ($percentage >= 100) && !$isExpired;
+@endphp
+
+<div class="col-12 mb-4">
+    <div class="card border-left-primary shadow h-100 py-2 progress-card">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div class="text-xs font-weight-bold text-uppercase" style="color: #6c757d">
+                            تقدم الحملة
+                        </div>
+                        <div class="badge badge-pill {{ $progress_class }} text-white">
+                            {{ round($percentage) }}%
                         </div>
                     </div>
+
+                    <div class="progress mb-3">
+                        <div class="progress-bar progress-bar-striped {{ $isExpired ? '' : 'progress-bar-animated' }} {{ $progress_class }}"
+                             role="progressbar"
+                             style="width: {{ $progress }}%"
+                             aria-valuenow="{{ $progress }}"
+                             aria-valuemin="0"
+                             aria-valuemax="100">
+                            <span class="progress-text">{{ round($percentage) }}%</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-1">
+                        <div>
+                            <span class="font-weight-bold" style="color: #3cc88f">${{ number_format($cause->raised_amount) }}</span>
+                            <small class="text-muted"> محصل</small>
+                        </div>
+                        <div>
+                            <small class="text-muted">مطلوب </small>
+                            <span class="font-weight-bold text-gray-600">${{ number_format($cause->goal_amount) }}</span>
+                        </div>
+                    </div>
+
+                    @if($isExpired)
+                        <div class="text-center">
+                            <small class="text-danger">
+                                <i class="fas fa-times-circle"></i>
+                                انتهت الحملة في {{ \Carbon\Carbon::parse($cause->end_date)->format('Y-m-d') }}
+                            </small>
+                        </div>
+                    @elseif($isCompleted)
+                        <div class="text-center">
+                            <small class="text-success">
+                                <i class="fas fa-check-circle"></i>
+                                @if($percentage > 100)
+                                    تم تجاوز الهدف بنسبة {{ round($percentage - 100) }}%!
+                                @else
+                                    تم تحقيق الهدف بنجاح!
+                                @endif
+                            </small>
+                        </div>
+                    @else
+                        <div class="text-center">
+                            <small class="{{ $percentage >= 70 ? 'text-warning' : 'text-danger' }}">
+                                <i class="fas {{ $percentage >= 70 ? 'fa-exclamation-circle' : 'fa-info-circle' }}"></i>
+                                متبقي ${{ number_format($remaining_amount) }} لتحقيق الهدف
+                            </small>
+                        </div>
+                    @endif
+                </div>
+                <div class="col-auto">
+                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
                 </div>
 
                 <!-- Location & Responsible Section -->
                 <div class="row mb-5">
                     <div class="col-12 mb-4">
-                        <h5 class="section-title mb-3 text-primary">
+                        <h5 class="section-title mb-3" style="color: #3cc88f">
                             <i class="fas fa-map-marker-alt me-2"></i> الموقع والمسؤول
                         </h5>
                         <div class="section-divider"></div>
@@ -200,7 +258,7 @@
                 <!-- Image & Additional Details Section -->
                 <div class="row">
                     <div class="col-12 mb-4">
-                        <h5 class="section-title mb-3 text-primary">
+                        <h5 class="section-title mb-3" style="color: #3cc88f">
                             <i class="fas fa-image me-2"></i> الصورة والتفاصيل
                         </h5>
                         <div class="section-divider"></div>
@@ -216,10 +274,10 @@
                             <label for="image" class="file-upload-label d-flex flex-column align-items-center justify-content-center"
                                    style="cursor: pointer; height: 100%;">
                                 <div class="file-upload-icon mb-3">
-                                    <i class="fas fa-cloud-upload-alt fa-3x text-primary"></i>
+                                    <i class="fas fa-cloud-upload-alt fa-3x" style="color:#3cc88f"></i>
                                 </div>
                                 <div class="file-upload-text text-center">
-                                    <h5 class="mb-2 text-primary" style="font-weight: 600;">ارفاق صورة</h5>
+                                    <h5 class="mb-2 " style="font-weight: 600; color:#3cc88f">ارفاق صورة</h5>
                                     <p class="text-muted mb-1">اضغط هنا لاختيار صورة</p>
                                     <p class="text-muted small">JPEG, PNG - الحد الأقصى 5MB</p>
                                 </div>
@@ -275,7 +333,7 @@
                         <a href="{{ route('admin.causes.index') }}" class="btn btn-secondary">
                             <i class="fas fa-times me-1"></i> إلغاء
                         </a>
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn" style="background-color: #3cc88f; color: #fff;">
                             <i class="fas fa-save me-1"></i> حفظ التعديلات
                         </button>
                     </div>
@@ -319,7 +377,7 @@
         cursor: pointer;
     }
 
-    .progress {
+       .progress {
         height: 1rem;
         border-radius: 0.35rem;
     }
@@ -327,6 +385,9 @@
     .progress-bar {
         position: relative;
         border-radius: 0.35rem;
+        transition: width 1s ease;
+        min-width: 40px;
+        text-align: center;
     }
 
     .progress-text {
@@ -336,19 +397,29 @@
         transform: translateY(-50%);
         font-size: 0.65rem;
         color: white;
+        font-weight: bold;
     }
 
-    /* Color progress bar based on percentage */
-    .progress-bar {
-        background-color: #1cc88a; /* Success color */
+    .progress-card {
+        transition: all 0.3s ease;
     }
-    .progress-bar[style*="width: 100%"] {
-        background-color: #e74a3b; /* Danger color */
-    }
-    .progress-bar[style*="width: 7"] {
-        background-color: #f6c23e; /* Warning color */
+    .progress-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important;
     }
 
+    /* ألوان حسب النسبة المئوية */
+    .bg-success { background-color: #1cc88a !important; }
+    .bg-warning { background-color: #f6c23e !important; }
+    .bg-danger { background-color: #e74a3b !important; }
+
+    /* تأثير التدرج اللوني عند التمرير */
+    .progress-card:hover .progress-bar {
+        background-image: linear-gradient(to right,
+            rgba(255,255,255,0.1),
+            rgba(255,255,255,0.3),
+            rgba(255,255,255,0.1));
+    }
     /* Responsive Adjustments */
     @media (max-width: 768px) {
         .section-title {
@@ -428,22 +499,38 @@
             });
         }
 
-        // Progress bar color based on percentage
-        function updateProgressBarColor() {
-            const progressBar = document.getElementById('progress-preview');
-            const width = parseInt(progressBar.style.width) || 0;
+        // // Progress bar color based on percentage
+        // function updateProgressBarColor() {
+        //     const progressBar = document.getElementById('progress-preview');
+        //     const width = parseInt(progressBar.style.width) || 0;
 
-            if (width >= 100) {
-                progressBar.classList.remove('bg-success', 'bg-warning');
-                progressBar.classList.add('bg-danger');
-            } else if (width >= 70) {
-                progressBar.classList.remove('bg-success', 'bg-danger');
-                progressBar.classList.add('bg-warning');
-            } else {
-                progressBar.classList.remove('bg-warning', 'bg-danger');
-                progressBar.classList.add('bg-success');
-            }
-        }
+        //     if (width >= 100) {
+        //         progressBar.classList.remove('bg-success', 'bg-warning');
+        //         progressBar.classList.add('bg-danger');
+        //     } else if (width >= 70) {
+        //         progressBar.classList.remove('bg-success', 'bg-danger');
+        //         progressBar.classList.add('bg-warning');
+        //     } else {
+        //         progressBar.classList.remove('bg-warning', 'bg-danger');
+        //         progressBar.classList.add('bg-success');
+        //     }
+        // }
+
+        function updateProgressBar(progress) {
+    const bar = document.getElementById('progress-preview');
+    const text = bar.querySelector('.progress-text');
+    if (bar && text) {
+        progress = Math.min(Math.max(progress, 0), 100); // تأكد ضمن 0-100
+        bar.style.width = progress + '%';
+        text.textContent = Math.round(progress) + '%';
+    }
+}
+
+// مثال: تحديث تلقائي بعد 2 ثانية
+setTimeout(() => {
+    updateProgressBar(75); // غيّر الرقم هنا حسب الحاجة
+}, 2000);
+
 
         // Update progress bar when amounts change
         const goalAmountInput = document.getElementById('goal_amount');

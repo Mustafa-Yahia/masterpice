@@ -7,7 +7,6 @@
         <li><a href="{{ route('designer.dashboard') }}">الرئيسية</a></li>
         <li><a href="{{ route('designer.teams.index') }}">فريق العمل</a></li>
         <li><a href="{{ route('designer.profile') }}">الملف الشخصي</a></li>
-        <!-- يمكنك إضافة المزيد من العناصر هنا -->
     </ul>
 </div>
 

@@ -11,6 +11,7 @@ class CauseController extends Controller
     {
         $causes = Cause::paginate(6);
         return view('cause.index', compact('causes'));
+
     }
 
     public function cause(Request $request)

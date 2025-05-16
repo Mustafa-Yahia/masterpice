@@ -5,11 +5,11 @@
     <!-- Page Header -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">
-            <i class="fas fa-info-circle text-primary me-2"></i> تفاصيل الحملة: {{ $cause->title }}
+            <i class="fas fa-info-circle  me-2" style="color: #3cc88f !important"></i> تفاصيل الحملة: {{ $cause->title }}
         </h1>
         <div>
-            <a href="{{ route('admin.causes.index') }}" class="btn btn-sm btn-secondary shadow-sm">
-                <i class="fas fa-arrow-right me-1"></i> رجوع للقائمة
+            <a href="{{ route('admin.causes.index') }}" class="btn btn-sm btn-secondary shadow-sm" style="background-color: #3cc88f !important;">
+                <i class="fas fa-arrow-right me-1" ></i> رجوع للقائمة
             </a>
         </div>
     </div>
@@ -17,8 +17,8 @@
     <!-- Campaign Details Card -->
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-gradient-primary">
-            <h6 class="m-0 font-weight-bold text-white">
-                <i class="fas fa-chart-pie me-2"></i> نظرة عامة على الحملة
+            <h6 class="m-0 font-weight-bold" style="color: #3cc88f">
+                <i class="fas fa-chart-pie me-2" style="color: #3cc88f"></i> نظرة عامة على الحملة
             </h6>
             <div class="dropdown no-arrow">
                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -79,33 +79,58 @@
                     <!-- Progress Card -->
                     <div class="card mb-4 border-left-success">
                         <div class="card-body py-3">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="font-weight-bold text-primary mb-1">تقدم الحملة</h6>
-                                    <div class="progress mb-2" style="height: 10px;">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated"
-                                             role="progressbar"
-                                             style="width: {{ $cause->progress_percentage }}%;"
-                                             aria-valuenow="{{ $cause->progress_percentage }}"
-                                             aria-valuemin="0"
-                                             aria-valuemax="100">
-                                        </div>
-                                    </div>
-                                    <div class="d-flex justify-content-between">
-                                        <small class="text-muted">
-                                            ${{ number_format($cause->raised_amount, 2) }} محصل
-                                        </small>
-                                        <small class="text-muted">
-                                            ${{ number_format($cause->goal_amount, 2) }} مطلوب
-                                        </small>
-                                    </div>
-                                </div>
-                                <div class="text-end">
-                                    <h3 class="font-weight-bold text-success mb-0">
-                                        {{ round($cause->progress_percentage) }}%
-                                    </h3>
-                                </div>
-                            </div>
+                           <div class="d-flex justify-content-between align-items-center">
+    <div>
+        <h6 class="font-weight-bold  mb-1" style="color: #3cc88f">تقدم الحملة</h6>
+        @php
+            $percentage = ($cause->raised_amount / $cause->goal_amount) * 100;
+
+            $isExpired = $cause->end_date && now()->gt($cause->end_date);
+            $isCompleted = $cause->raised_amount >= $cause->goal_amount;
+
+            $progressBarClass = 'progress-bar-striped progress-bar-animated';
+            $progressBarWidth = $percentage; // العرض الحقيقي
+
+            if ($isCompleted) {
+                $progressBarClass = 'bg-success'; // اكتمال: لون أخضر بدون حركة
+                $progressBarWidth = min($percentage, 100); // لا يتجاوز 100% في العرض المرئي
+            } elseif ($isExpired) {
+                $progressBarClass = 'bg-danger'; // انتهاء: لون أحمر بدون حركة
+            }
+        @endphp
+
+        <!-- شريط التقدم (يستخدم المتغيرات أعلاه) -->
+        <div class="progress mb-2" style="height: 10px;">
+            <div class="progress-bar {{ $progressBarClass }}"
+                 role="progressbar"
+                 style="width: {{ $progressBarWidth }}%;"
+                 aria-valuenow="{{ $percentage }}"
+                 aria-valuemin="0"
+                 aria-valuemax="{{ max($cause->goal_amount, $cause->raised_amount) }}">
+            </div>
+        </div>
+
+        <!-- المبالغ المحصلة والمطلوبة -->
+        <div class="d-flex justify-content-between">
+            <small class="text-muted">
+                ${{ number_format($cause->raised_amount, 2) }} محصل
+            </small>
+            <small class="text-muted">
+                ${{ number_format($cause->goal_amount, 2) }} مطلوب
+            </small>
+        </div>
+    </div>
+
+    <!-- عرض النسبة المئوية كبيرة -->
+    <div class="text-end">
+        <h3 class="font-weight-bold
+            @if($isCompleted) text-success
+            @elseif($isExpired) text-danger
+            @else text-primary @endif mb-0">
+            {{ round($percentage) }}%
+        </h3>
+    </div>
+</div>
                         </div>
                     </div>
 
@@ -169,8 +194,8 @@
                 <div class="col-12">
                     <div class="card shadow-sm mb-4">
                         <div class="card-header py-3 bg-light">
-                            <h6 class="m-0 font-weight-bold text-primary">
-                                <i class="fas fa-align-left me-2"></i> وصف الحملة
+                            <h6 class="m-0 font-weight-bold" style="color: #3cc88f">
+                                <i class="fas fa-align-left me-2" style="color: #3cc88f"></i> وصف الحملة
                             </h6>
                         </div>
                         <div class="card-body">
@@ -183,8 +208,8 @@
                     @if($cause->additional_details)
                     <div class="card shadow-sm">
                         <div class="card-header py-3 bg-light">
-                            <h6 class="m-0 font-weight-bold text-primary">
-                                <i class="fas fa-ellipsis-h me-2"></i> تفاصيل إضافية
+                            <h6 class="m-0 font-weight-bold" style="color: #3cc88f">
+                                <i class="fas fa-ellipsis-h me-2" style="color: #3cc88f"></i> تفاصيل إضافية
                             </h6>
                         </div>
                         <div class="card-body">
@@ -207,7 +232,7 @@
                     <a href="{{ route('admin.causes.index') }}" class="btn btn-secondary me-2">
                         <i class="fas fa-times me-1"></i> إلغاء
                     </a>
-                    <a href="{{ route('admin.causes.edit', $cause->id) }}" class="btn btn-primary">
+                    <a href="{{ route('admin.causes.edit', $cause->id) }}" class="btn text-white" style="background-color: #3cc88f !important;">
                         <i class="fas fa-edit me-1"></i> تعديل الحملة
                     </a>
                 </div>

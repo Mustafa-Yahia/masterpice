@@ -48,7 +48,6 @@
                     @method('PUT')
 
                     <div class="row g-3">
-                        <!-- الاسم الكامل -->
                         <div class="col-md-6">
                             <label for="name" class="form-label" style="color: #2c3e50; font-weight: 600;">الاسم الكامل</label>
                             <div class="input-group">
@@ -64,7 +63,6 @@
                             </div>
                         </div>
 
-                        <!-- البريد الإلكتروني -->
                         <div class="col-md-6">
                             <label for="email" class="form-label" style="color: #2c3e50; font-weight: 600;">البريد الإلكتروني</label>
                             <div class="input-group">
@@ -76,7 +74,6 @@
                             </div>
                         </div>
 
-                        <!-- رقم الهاتف -->
                         <div class="col-md-6">
                             <label for="phone" class="form-label" style="color: #2c3e50; font-weight: 600;">رقم الهاتف</label>
                             <div class="input-group">
@@ -90,51 +87,58 @@
                             <small class="text-muted" style="color: #6c757d;">التنسيق المطلوب: +962XXXXXXXXX</small>
                         </div>
                         <!-- الدور -->
+                       <div class="col-md-6">
+    <label for="role" class="form-label" style="color: #2c3e50; font-weight: 600;">نوع المستخدم</label>
+    <select class="form-select" id="role" name="role" required
+        style="border-color: #ddd;"
+        onchange="validateField(this, 'نوع المستخدم مطلوب')">
+        <option value="">اختر نوع المستخدم</option>
+        <option value="donor" {{ old('role', $user->role ?? '') == 'donor' ? 'selected' : '' }}>متبرع</option>
+        <option value="admin" {{ old('role', $user->role ?? '') == 'admin' ? 'selected' : '' }}>مشرف</option>
+        <option value="designer" {{ old('role', $user->role ?? '') == 'designer' ? 'selected' : '' }}>مصمم</option>
+    </select>
+    <div class="invalid-feedback">نوع المستخدم مطلوب</div>
+</div>
                         <div class="col-md-6">
-                            <label for="role" class="form-label" style="color: #2c3e50; font-weight: 600;">نوع المستخدم</label>
-                            <select class="form-select" id="role" name="role" required
-                                style="border-color: #ddd;"
-                                onchange="validateField(this, 'نوع المستخدم مطلوب')">
-                                <option value="">اختر نوع المستخدم</option>
-                                <option value="donor" {{ old('role', $user->role) == 'donor' ? 'selected' : '' }}>متبرع</option>
-                                <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>مشرف</option>
-                            </select>
-                            <div class="invalid-feedback">نوع المستخدم مطلوب</div>
-                        </div>
+    <label for="password" class="form-label" style="color: #2c3e50; font-weight: 600;">كلمة المرور الجديدة (اختياري)</label>
+    <div class="input-group">
+        <span class="input-group-text" style="background-color: #f8f9fa; border-color: #ddd;">
+            <i class="fas fa-lock" style="color: #3cc88f;"></i>
+        </span>
+        <input type="password" class="form-control" id="password" name="password"
+            style="border-color: #ddd; border-radius: 0 5px 5px 0;"
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+            oninput="validatePassword(this)">
+        <button class="btn btn-outline-secondary toggle-password" type="button"
+            style="border-color: #ddd; border-radius: 0 5px 5px 0;">
+            <i class="fas fa-eye" style="color: #3cc88f;"></i>
+        </button>
+    </div>
+    <small class="text-muted" style="color: #6c757d;">
+        يجب أن تحتوي على الأقل على: 8 أحرف، حرف كبير، حرف صغير، رقم ورمز خاص (@$!%*?&)
+    </small>
+    <div class="invalid-feedback">
+        يجب أن تحتوي كلمة المرور على الأقل على: 8 أحرف، حرف كبير، حرف صغير، رقم ورمز خاص (@$!%*?&)
+    </div>
+</div>
 
-                        <!-- كلمة المرور -->
-                        <div class="col-md-6">
-                            <label for="password" class="form-label" style="color: #2c3e50; font-weight: 600;">كلمة المرور الجديدة (اختياري)</label>
-                            <div class="input-group">
-                                <span class="input-group-text" style="background-color: #f8f9fa; border-color: #ddd;"><i class="fas fa-lock" style="color: #3cc88f;"></i></span>
-                                <input type="password" class="form-control" id="password" name="password"
-                                    style="border-color: #ddd; border-radius: 0 5px 5px 0;"
-                                    pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" oninput="validatePassword(this)">
-                                <button class="btn btn-outline-secondary toggle-password" type="button"
-                                    style="border-color: #ddd; border-radius: 0 5px 5px 0;">
-                                    <i class="fas fa-eye" style="color: #3cc88f;"></i>
-                                </button>
-                            </div>
-                            <small class="text-muted" style="color: #6c757d;">يجب أن تحتوي على الأقل على 8 أحرف، حرف ورقم</small>
-                            <div class="invalid-feedback">يجب أن تحتوي كلمة المرور على الأقل على 8 أحرف، حرف ورقم</div>
-                        </div>
 
-                        <!-- تأكيد كلمة المرور -->
-                        <div class="col-md-6">
-                            <label for="password_confirmation" class="form-label" style="color: #2c3e50; font-weight: 600;">تأكيد كلمة المرور</label>
-                            <div class="input-group">
-                                <span class="input-group-text" style="background-color: #f8f9fa; border-color: #ddd;"><i class="fas fa-lock" style="color: #3cc88f;"></i></span>
-                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation"
-                                    style="border-color: #ddd; border-radius: 0 5px 5px 0;"
-                                    oninput="validatePasswordConfirmation(this)">
-                                <button class="btn btn-outline-secondary toggle-password" type="button"
-                                    style="border-color: #ddd; border-radius: 0 5px 5px 0;">
-                                    <i class="fas fa-eye" style="color: #3cc88f;"></i>
-                                </button>
-                            </div>
-                            <div class="invalid-feedback">كلمة المرور غير متطابقة</div>
-                        </div>
-                    </div>
+<div class="col-md-6">
+    <label for="password_confirmation" class="form-label" style="color: #2c3e50; font-weight: 600;">تأكيد كلمة المرور</label>
+    <div class="input-group">
+        <span class="input-group-text" style="background-color: #f8f9fa; border-color: #ddd;">
+            <i class="fas fa-lock" style="color: #3cc88f;"></i>
+        </span>
+        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation"
+            style="border-color: #ddd; border-radius: 0 5px 5px 0;"
+            oninput="validatePasswordConfirmation(this)">
+        <button class="btn btn-outline-secondary toggle-password" type="button"
+            style="border-color: #ddd; border-radius: 0 5px 5px 0;">
+            <i class="fas fa-eye" style="color: #3cc88f;"></i>
+        </button>
+    </div>
+    <div class="invalid-feedback">كلمة المرور غير متطابقة</div>
+</div>
 
                     <!-- أزرار الحفظ والإلغاء -->
                     <div class="d-flex justify-content-end gap-3 mt-4">
@@ -286,7 +290,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }, false);
 });
 
-// دالة للتحقق من الحقول النصية
 function validateField(field, errorMessage) {
     const feedback = field.nextElementSibling;
     if (field.value.trim() === '') {
@@ -318,15 +321,15 @@ function validateEmail(emailField) {
     }
 }
 
-// دالة للتحقق من رقم الهاتف
 function validatePhone(phoneField) {
-    const phoneRegex = /^\+962[0-9]{9}$/;
+    // رقم الهاتف يبدأ بـ +9627 ثم 7 أو 8 أو 9 ثم 7 أرقام أخرى
+    const phoneRegex = /^\+9627(7|8|9)[0-9]{7}$/;
     const feedback = phoneField.nextElementSibling;
 
     if (phoneField.value && !phoneRegex.test(phoneField.value)) {
         phoneField.classList.add('is-invalid');
         phoneField.classList.remove('is-valid');
-        if (feedback) feedback.textContent = 'يجب إدخال رقم هاتف صحيح (يبدأ بـ +962 ويتبعه 9 أرقام)';
+        if (feedback) feedback.textContent = 'يجب إدخال رقم هاتف أردني صحيح يبدأ بـ +9627 ثم 7 أو 8 أو 9 ويتبعه 7 أرقام';
         return false;
     } else {
         phoneField.classList.remove('is-invalid');
@@ -334,41 +337,49 @@ function validatePhone(phoneField) {
         return true;
     }
 }
+ 
 
-// دالة للتحقق من كلمة المرور
 function validatePassword(passwordField) {
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     const feedback = passwordField.parentNode.parentNode.querySelector('.invalid-feedback');
 
-    if (passwordField.value && !passwordRegex.test(passwordField.value)) {
-        passwordField.classList.add('is-invalid');
-        passwordField.classList.remove('is-valid');
-        if (feedback) feedback.style.display = 'block';
-        return false;
-    } else {
-        passwordField.classList.remove('is-invalid');
-        if (passwordField.value) passwordField.classList.add('is-valid');
-        if (feedback && passwordField.value === '') feedback.style.display = 'none';
-        return true;
-    }
-}
+    // إخفاء رسالة الخطأ أولاً
+    if (feedback) feedback.style.display = 'none';
+    passwordField.classList.remove('is-invalid');
+    passwordField.classList.remove('is-valid');
 
-// دالة للتحقق من تطابق كلمة المرور
+    if (passwordField.value) {
+        if (!passwordRegex.test(passwordField.value)) {
+            passwordField.classList.add('is-invalid');
+            if (feedback) feedback.style.display = 'block';
+            return false;
+        } else {
+            passwordField.classList.add('is-valid');
+            return true;
+        }
+    }
+    return true;
+}
 function validatePasswordConfirmation(confirmationField) {
     const passwordField = document.getElementById('password');
     const feedback = confirmationField.parentNode.parentNode.querySelector('.invalid-feedback');
 
-    if (confirmationField.value !== passwordField.value) {
-        confirmationField.classList.add('is-invalid');
-        confirmationField.classList.remove('is-valid');
-        if (feedback) feedback.style.display = 'block';
-        return false;
-    } else {
-        confirmationField.classList.remove('is-invalid');
-        if (confirmationField.value) confirmationField.classList.add('is-valid');
-        if (feedback && confirmationField.value === '') feedback.style.display = 'none';
-        return true;
+    // إخفاء رسالة الخطأ أولاً
+    if (feedback) feedback.style.display = 'none';
+    confirmationField.classList.remove('is-invalid');
+    confirmationField.classList.remove('is-valid');
+
+    if (confirmationField.value) {
+        if (confirmationField.value !== passwordField.value) {
+            confirmationField.classList.add('is-invalid');
+            if (feedback) feedback.style.display = 'block';
+            return false;
+        } else {
+            confirmationField.classList.add('is-valid');
+            return true;
+        }
     }
+    return true;
 }
 </script>
 @endpush

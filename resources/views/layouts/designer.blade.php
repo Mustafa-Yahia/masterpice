@@ -323,8 +323,8 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="{{ route('designer.timeline.index') }}" class="dropdown-item {{ request()->is('designer/timeline*') ? 'active-menu-item' : '' }}"><i class="fas fa-stream"></i> الجدول الزمني</a></li>
-                    <li><a href="#" class="dropdown-item"><i class="fas fa-history"></i> تاريخ الجمعية</a></li>
-                    <li><a href="#" class="dropdown-item"><i class="fas fa-bullseye"></i> أهداف الجمعية</a></li>
+                    {{-- <li><a href="#" class="dropdown-item"><i class="fas fa-history"></i> تاريخ الجمعية</a></li> --}}
+                    {{-- <li><a href="#" class="dropdown-item"><i class="fas fa-bullseye"></i> أهداف الجمعية</a></li> --}}
                     <li><a href="{{ route('designer.team.index') }}" class="dropdown-item"><i class="fas fa-users"></i> أعضاء الجمعية</a></li>
                 </ul>
             </li>
@@ -334,27 +334,28 @@
             <li><a href="#" class="{{ request()->is('designer/clients*') ? 'active-menu-item' : '' }}"><i class="fas fa-users"></i> العملاء <span class="badge bg-white text-primary ms-2">12</span></a></li>
             <li><a href="#" class="{{ request()->is('designer/calendar*') ? 'active-menu-item' : '' }}"><i class="fas fa-calendar-alt"></i> المواعيد</a></li>
             <li><a href="#" class="{{ request()->is('designer/settings*') ? 'active-menu-item' : '' }}"><i class="fas fa-cog"></i> الإعدادات</a></li> --}}
-            <li class="mt-4">
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="btn logout-btn text-start w-100">
-                        <i class="fas fa-sign-out-alt me-2"></i> تسجيل الخروج
-                    </button>
-                </form>
-            </li>
+            <li class="mt-4 ms-auto" style="width: fit-content;">
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit" class="btn logout-btn text-start w-100">
+            <i class="fas fa-sign-out-alt me-2"></i> تسجيل الخروج
+        </button>
+    </form>
+</li>
+
         </ul>
     </div>
 
     <!-- المحتوى الرئيسي -->
     <div class="main-content">
-        <!-- شريط البحث والعنوان -->
+        {{-- <!-- شريط البحث والعنوان -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h3 class="mb-0">@yield('page-title', 'الرئيسية')</h3>
             <div class="search-bar" style="width: 300px;">
                 <input type="text" class="form-control" placeholder="ابحث هنا...">
                 <i class="fas fa-search"></i>
             </div>
-        </div>
+        </div> --}}
 
         @yield('content')
     </div>

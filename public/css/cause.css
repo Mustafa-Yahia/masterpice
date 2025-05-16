@@ -1,100 +1,203 @@
 
-        .goal-achieved {
-            background-color: #d4edda; 
-            border-color: #3cc88f;
-            opacity: 0.7;
+      .cause-card {
+        transition: all 0.3s ease;
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .cause-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+        border-color: rgba(13, 110, 253, 0.2);
+    }
+
+    .cause-image-link {
+        display: block;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .cause-image {
+        transition: transform 0.5s ease;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .cause-image-link:hover .cause-image {
+        transform: scale(1.05);
+    }
+
+    .image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.3);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .cause-image-link:hover .image-overlay {
+        opacity: 1;
+    }
+
+    .view-details-btn {
+        color: white;
+        padding: 8px 16px;
+        border: 1px solid white;
+        border-radius: 50px;
+        font-size: 14px;
+    }
+
+    .empty-causes-state {
+        background-color: #f8f9fa;
+        border: 2px dashed #e9ecef;
+        transition: all 0.3s ease;
+        min-height: 400px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .empty-causes-state:hover {
+        background-color: #fff;
+        border-color: #0d6efd;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+    }
+
+    .empty-icon {
+        color: #6c757d;
+        transition: all 0.3s ease;
+    }
+
+    .empty-causes-state:hover .empty-icon {
+        transform: scale(1.1);
+        color: #0d6efd;
+    }
+
+    .text-muted {
+        transition: color 0.3s ease;
+    }
+
+    .empty-causes-state:hover .text-muted {
+        color: #495057 !important;
+    }
+
+    .pulse-animation {
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    .progress-animate {
+        transition: width 1.5s ease-in-out;
+    }
+    .view-details-btn {
+        color: white;
+        font-weight: bold;
+        padding: 8px 16px;
+        border: 2px solid white;
+        border-radius: 30px;
+        transform: scale(0.9);
+        transition: all 0.3s ease;
+    }
+
+    .cause-image-link:hover .cause-image {
+        transform: scale(1.05);
+    }
+
+    .cause-image-link:hover .image-overlay {
+        opacity: 1;
+    }
+
+    .cause-image-link:hover .view-details-btn {
+        transform: scale(1);
+    }
+
+    .progress-animate {
+        transition: width 1.5s ease-in-out;
+    }
+
+    .read-more-btn {
+        border: 2px solid #3cc88f;
+        color: #3cc88f;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .read-more-btn:hover {
+        background-color: #3cc88f;
+        color: white;
+    }
+
+    .read-more-btn .transition-all {
+        transition: all 0.3s ease;
+    }
+
+    .read-more-btn:hover .transition-all {
+        transform: translateX(-5px);
+    }
+
+    .urgent-badge {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        z-index: 2;
+    }
+
+    .pulse-animation {
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7);
         }
-
-        .goal-achieved-icon {
-            margin-top: 15px;
-            text-align: center;
-            color: #3cc88f;
+        70% {
+            box-shadow: 0 0 0 10px rgba(220, 53, 69, 0);
         }
-
-        .goal-achieved-icon i {
-            margin-right: 5px;
+        100% {
+            box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
         }
+    }
 
-        .btn.custom-btn {
-            background-color: #3cc88f;
-            color: white;
-            border-radius: 8px;
-            padding: 10px 20px;
-            font-size: 16px;
-        }
+    .empty-state {
+        background-color: #f8f9fa;
+        border-radius: 12px;
+        padding: 40px 20px !important;
+    }
 
-        .goal-achieved .btn.custom-btn {
-            background-color: #3cc88f;
-        }
+    .pagination {
+        justify-content: center;
+    }
 
-        .countdown-timer {
-            font-size: 14px;
-            color: #dc3545;
-            font-weight: bold;
-            margin-top: 10px;
-        }
+    .page-item.active .page-link {
+        background-color: #3cc88f;
+        border-color: #3cc88f;
+    }
 
-        /* إضافة تنسيق للأيقونة والنص في المنتصف */
-        .goal-achieved-center, .goal-time-up-center {
-            position: absolute;
-            top: 10%;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            z-index: 1000;
-        }
+    .page-link {
+        color: #3cc88f;
+        margin: 0 5px;
+        border-radius: 50% !important;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-        .read-more-btn:disabled {
-            background-color: #ccc;
-            pointer-events: none;
-        }
-
-
-
-        @keyframes progressMove {
-    0% { background-position: 0 0; }
-    100% { background-position: 100px 100px; } /* تخفيف الحركة */
-}
-
-@keyframes glow {
-    0% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); }
-    50% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.5); }
-    100% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); }
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.02); }
-    100% { transform: scale(1); }
-}
-
-/* تصميم الشريط الرئيسي */
-.progress {
-    height: 15px;
-    border-radius: 20px;
-    overflow: hidden;
-    background-color: #e0e0e0;
-    position: relative;
-    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* تحسين شريط التقدم */
-.progress-bar {
-    height: 100%;
-    background-size: 30px 30px;
-    border-radius: 20px;
-    animation: progressMove 6s linear infinite;
-}
-
-/* ألوان أكثر هدوءًا */
-.progress-bar.red { background: repeating-linear-gradient(45deg, #fff5f5 10%, #ff6b6b 40%); }
-.progress-bar.yellow { background: repeating-linear-gradient(45deg, #fffbe6 10%, #f6c23e 40%); }
-.progress-bar.green { background: repeating-linear-gradient(45deg, #e6fbe6 10%, #28a745 40%); }
-
-/* تأثير ناعم عند الاقتراب من الهدف */
-.progress-bar.near-goal {
-    animation: glow 1.5s infinite alternate;
-}
-
-
+    .page-link:hover {
+        color: #2da876;
+    }
 

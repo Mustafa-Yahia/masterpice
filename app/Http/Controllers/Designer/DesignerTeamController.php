@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\Storage;
 class DesignerTeamController extends Controller
 {
     // عرض قائمة الأعضاء (Index)
-       public function index()
+    public function index()
     {
-        $members = Team::all(); // تم تغيير $teams إلى $members
+        $members = Team::all();
         return view('designer.team.index', compact('members'));
     }
 
@@ -38,8 +38,7 @@ class DesignerTeamController extends Controller
 
         // رفع الصورة إذا وجدت
         if ($request->hasFile('image')) {
-    $data['image'] = $request->file('image')->store('team', 'public');
-            $data['image'] = $imagePath;
+            $data['image'] = $request->file('image')->store('team', 'public');
         }
 
         Team::create($data);
@@ -55,11 +54,11 @@ class DesignerTeamController extends Controller
     }
 
     // عرض نموذج التعديل (Edit)
-  public function edit($id)
-{
-    $member = Team::findOrFail($id); // استخدم findOrFail للتعامل مع الحالات غير الموجودة
-    return view('designer.team.edit', compact('member'));
-}
+    public function edit($id)
+    {
+        $member = Team::findOrFail($id);
+        return view('designer.team.edit', compact('member'));
+    }
 
     // تحديث بيانات العضو (Update)
     public function update(Request $request, Team $team)
@@ -81,8 +80,7 @@ class DesignerTeamController extends Controller
             if ($team->image) {
                 Storage::disk('public')->delete($team->image);
             }
-            $imagePath = $request->file('image')->store('team_images', 'public');
-            $data['image'] = $imagePath;
+            $data['image'] = $request->file('image')->store('team', 'public');
         }
 
         $team->update($data);

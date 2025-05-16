@@ -109,17 +109,24 @@
                                 </td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->phone ?? '--' }}</td>
-                                <td>
-                                    @if($user->role == 'admin')
-                                        <span class="badge  rounded-pill" style="background:#3cc88f;">
-                                            <i class="fas fa-shield-alt me-1"></i> مشرف
-                                        </span>
-                                    @else
-                                        <span class="badge bg-secondary rounded-pill">
-                                            <i class="fas fa-user me-1"></i> متبرع
-                                        </span>
-                                    @endif
-                                </td>
+                               <td>
+    @switch($user->role)
+        @case('admin')
+            <span class="badge rounded-pill" style="background:#3cc88f;">
+                <i class="fas fa-shield-alt me-1"></i> مشرف
+            </span>
+            @break
+        @case('designer')
+            <span class="badge rounded-pill" style="background:#6f42c1;">
+                <i class="fas fa-palette me-1"></i> مصمم
+            </span>
+            @break
+        @default
+            <span class="badge bg-secondary rounded-pill">
+                <i class="fas fa-user me-1"></i> متبرع
+            </span>
+    @endswitch
+</td>
                                 <td>{{ $user->created_at->format('Y-m-d') }}</td>
                                 <td>
                                     <div class="d-flex gap-2">
@@ -155,12 +162,41 @@
                     </table>
                 </div>
 
-                <!-- Pagination -->
-                @if($users->hasPages())
-                <div class="d-flex justify-content-center mt-4">
-                    {{ $users->withQueryString()->links() }}
-                </div>
-                @endif
+@if($users->hasPages())
+<nav aria-label="ترقيم الصفحات" class="mt-5">
+    <ul class="pagination justify-content-center flex-wrap">
+        <li class="page-item {{ $users->onFirstPage() ? 'disabled' : '' }}">
+            <a class="page-link"
+               href="{{ $users->previousPageUrl() }}"
+               aria-label="الصفحة السابقة"
+               @if($users->onFirstPage()) tabindex="-1" aria-disabled="true" @endif>
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+
+        @foreach($users->getUrlRange(1, $users->lastPage()) as $page => $url)
+            @if($page == $users->currentPage())
+                <li class="page-item active" aria-current="page">
+                    <span class="page-link">{{ $page }}</span>
+                </li>
+            @else
+                <li class="page-item">
+                    <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                </li>
+            @endif
+        @endforeach
+
+        <li class="page-item {{ !$users->hasMorePages() ? 'disabled' : '' }}">
+            <a class="page-link"
+               href="{{ $users->nextPageUrl() }}"
+               aria-label="الصفحة التالية"
+               @if(!$users->hasMorePages()) tabindex="-1" aria-disabled="true" @endif>
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+@endif
             </div>
         </div>
     </div>
@@ -201,6 +237,57 @@
 
 .page-link {
     color: var(--primary);
+}
+
+/* تنسيقات الترقيم */
+.pagination {
+    --pagination-color: #3cc88f;
+    --pagination-hover-color: #2da876;
+    --pagination-active-bg: #3cc88f;
+    --pagination-disabled-color: #6c757d;
+}
+
+.page-item {
+    margin: 0 3px;
+}
+
+.page-link {
+    color: var(--pagination-color);
+    border: 1px solid #dee2e6;
+    border-radius: 4px !important;
+    padding: 0.5rem 0.9rem;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+}
+
+.page-link:hover {
+    color: var(--pagination-hover-color);
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+}
+
+.page-item.active .page-link {
+    background-color: var(--pagination-active-bg);
+    border-color: var(--pagination-active-bg);
+    color: white;
+}
+
+.page-item.disabled .page-link {
+    color: var(--pagination-disabled-color);
+    pointer-events: none;
+    background-color: #f8f9fa;
+}
+
+/* للأجهزة الصغيرة */
+@media (max-width: 576px) {
+    .page-link {
+        padding: 0.4rem 0.7rem;
+        min-width: 35px;
+    }
 }
 </style>
 @endpush

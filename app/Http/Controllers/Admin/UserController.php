@@ -14,25 +14,25 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     // عرض جميع المستخدمين
-    public function index(Request $request)
-    {
-        $query = User::query();
+    // public function index(Request $request)
+    // {
+    //     $query = User::query();
 
-        if ($request->filled('search')) {
-            $query->where(function ($q) use ($request) {
-                $q->where('name', 'like', '%'.$request->search.'%')
-                  ->orWhere('email', 'like', '%'.$request->search.'%');
-            });
-        }
+    //     if ($request->filled('search')) {
+    //         $query->where(function ($q) use ($request) {
+    //             $q->where('name', 'like', '%'.$request->search.'%')
+    //               ->orWhere('email', 'like', '%'.$request->search.'%');
+    //         });
+    //     }
 
-        if ($request->filled('role')) {
-            $query->where('role', $request->role);
-        }
+    //     if ($request->filled('role')) {
+    //         $query->where('role', $request->role);
+    //     }
 
-        $users = $query->latest()->paginate(10);
+    //     $users = $query->latest()->paginate(10);
 
-        return view('admin.users.index', compact('users'));
-    }
+    //     return view('admin.users.index', compact('users'));
+    // }
 
     // عرض صفحة إضافة مستخدم
     public function create()
@@ -40,7 +40,101 @@ class UserController extends Controller
         return view('admin.users.create');
     }
 
-    public function store(Request $request)
+//     public function store(Request $request)
+// {
+//     $validator = Validator::make($request->all(), [
+//         'name' => [
+//             'required',
+//             'string',
+//             'min:3',
+//             'regex:/^[\p{Arabic}\s]+$/u',
+//             function ($attribute, $value, $fail) {
+//                 $segments = preg_split('/\s+/', trim($value));
+
+//                 // التحقق من وجود 3 مقاطع
+//                 if (count($segments) < 3) {
+//                     $fail('يجب أن يتكون الاسم من ثلاثة مقاطع (مثال: أحمد محمد عبدالله)');
+//                     return;
+//                 }
+
+//                 // التحقق من أن كل مقطع يحتوي على 3 أحرف على الأقل
+//                 foreach ($segments as $segment) {
+//                     if (mb_strlen($segment) < 3) {
+//                         $fail('يجب أن يحتوي كل مقطع من الاسم على 3 أحرف على الأقل');
+//                         return;
+//                     }
+//                 }
+//             }
+//         ],
+//         'email' => 'required|email|unique:users',
+//         'phone' => 'required|string',
+//         'role' => 'required|in:donor,admin','designer',
+//         'password' => 'required|string|min:8|confirmed',
+//     ]);
+
+//     if ($validator->fails()) {
+//         return redirect()->back()
+//             ->withErrors($validator)
+//             ->withInput();
+//     }
+
+//     User::create([
+//         'name' => $request->name,
+//         'email' => $request->email,
+//         'phone' => $request->phone,
+//         'role' => $request->role,
+//         'password' => Hash::make($request->password),
+//     ]);
+
+//     return redirect()->route('admin.users.index')->with('success', 'تم إضافة المستخدم بنجاح');
+// }
+public function index(Request $request)
+{
+    $query = User::query();
+
+    // البحث
+    if ($request->filled('search')) {
+        $search = $request->search;
+        $query->where(function ($q) use ($search) {
+            $q->where('name', 'like', '%'.$search.'%')
+              ->orWhere('email', 'like', '%'.$search.'%')
+              ->orWhere('phone', 'like', '%'.$search.'%')
+              ->orWhere('username', 'like', '%'.$search.'%');
+        });
+    }
+
+    // التصفية حسب النوع
+    if ($request->filled('role')) {
+        $query->where('role', $request->role);
+    }
+
+    // التصفية حسب الحالة
+    if ($request->filled('status')) {
+        $query->where('is_active', $request->status === 'active');
+    }
+
+    // الترتيب
+    $sortColumn = $request->get('sort', 'created_at');
+    $sortDirection = $request->get('direction', 'asc');
+
+    // التحقق من أسماء الأعمدة المسموح بها للترتيب
+    $validSortColumns = ['name', 'email', 'created_at', 'role'];
+    if (!in_array($sortColumn, $validSortColumns)) {
+        $sortColumn = 'created_at';
+    }
+
+    $query->orderBy($sortColumn, $sortDirection);
+
+    // التقسيم مع الاحتفاظ بمعايير البحث
+    $users = $query->paginate(10)->withQueryString();
+
+    return view('admin.users.index', [
+        'users' => $users,
+        'sortColumn' => $sortColumn,
+        'sortDirection' => $sortDirection,
+    ]);
+}
+public function store(Request $request)
 {
     $validator = Validator::make($request->all(), [
         'name' => [
@@ -51,13 +145,11 @@ class UserController extends Controller
             function ($attribute, $value, $fail) {
                 $segments = preg_split('/\s+/', trim($value));
 
-                // التحقق من وجود 3 مقاطع
                 if (count($segments) < 3) {
                     $fail('يجب أن يتكون الاسم من ثلاثة مقاطع (مثال: أحمد محمد عبدالله)');
                     return;
                 }
 
-                // التحقق من أن كل مقطع يحتوي على 3 أحرف على الأقل
                 foreach ($segments as $segment) {
                     if (mb_strlen($segment) < 3) {
                         $fail('يجب أن يحتوي كل مقطع من الاسم على 3 أحرف على الأقل');
@@ -68,7 +160,7 @@ class UserController extends Controller
         ],
         'email' => 'required|email|unique:users',
         'phone' => 'required|string',
-        'role' => 'required|in:donor,admin',
+        'role' => 'required|in:donor,admin,designer', // تم إصلاح الفاصلة هنا
         'password' => 'required|string|min:8|confirmed',
     ]);
 
@@ -96,67 +188,65 @@ class UserController extends Controller
         return view('admin.users.edit', compact('user'));
     }
 
+ public function update(Request $request, User $user)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => [
+                'required',
+                'string',
+                'min:3',
+                'regex:/^[\p{Arabic}\s]+$/u',
+                function ($attribute, $value, $fail) {
+                    $segments = preg_split('/\s+/', trim($value));
 
-public function update(Request $request, User $user)
-{
-    $validator = Validator::make($request->all(), [
-        'name' => [
-            'required',
-            'string',
-            'min:3',
-            'regex:/^[\p{Arabic}\s]+$/u',
-            function ($attribute, $value, $fail) {
-                $segments = preg_split('/\s+/', trim($value));
-
-                // التحقق من وجود 3 مقاطع
-                if (count($segments) < 3) {
-                    $fail('يجب أن يتكون الاسم من ثلاثة مقاطع (مثال: أحمد محمد عبدالله)');
-                    return;
-                }
-
-                // التحقق من أن كل مقطع يحتوي على 3 أحرف على الأقل
-                foreach ($segments as $segment) {
-                    if (mb_strlen($segment) < 3) {
-                        $fail('يجب أن يحتوي كل مقطع من الاسم على 3 أحرف على الأقل');
+                    if (count($segments) < 3) {
+                        $fail('يجب أن يتكون الاسم من ثلاثة مقاطع (مثال: أحمد محمد عبدالله)');
                         return;
                     }
+
+                    foreach ($segments as $segment) {
+                        if (mb_strlen($segment) < 3) {
+                            $fail('يجب أن يحتوي كل مقطع من الاسم على 3 أحرف على الأقل');
+                            return;
+                        }
+                    }
                 }
-            }
-        ],
-        'email' => 'required|email|unique:users,email,'.$user->id,
-        'phone' => 'required',
-        'role' => 'required|in:donor,admin',
-        'password' => 'nullable|string|min:8|confirmed',
-    ]);
+            ],
+            'email' => 'required|email|unique:users,email,'.$user->id,
+            'phone' => 'required',
+            'role' => 'required|in:donor,admin,designer',
+            'password' => [
+                'nullable',
+                'string',
+                'min:8',
+                'confirmed',
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/'
+            ],
+        ], [
+            'password.regex' => 'يجب أن تحتوي كلمة المرور على الأقل على حرف كبير، حرف صغير، رقم، ورمز خاص (@$!%*?&)'
+        ]);
 
-    if ($validator->fails()) {
-        return redirect()->back()
-            ->withErrors($validator)
-            ->withInput();
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $updateData = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'role' => $request->role,
+        ];
+
+        if ($request->filled('password')) {
+            $updateData['password'] = Hash::make($request->password);
+        }
+
+        $user->update($updateData);
+
+        return redirect()->route('admin.users.index')->with('success', 'تم تحديث المستخدم بنجاح');
     }
-
-    $updateData = [
-        'name' => $request->name,
-        'email' => $request->email,
-        'phone' => $request->phone,
-        'role' => $request->role,
-    ];
-
-    if ($request->filled('password')) {
-        $updateData['password'] = Hash::make($request->password);
-    }
-
-    $user->update($updateData);
-
-    return redirect()->route('admin.users.index')->with('success', 'تم تحديث المستخدم بنجاح');
-}
-    // حذف مستخدم
-    public function destroy(User $user)
-    {
-        $user->delete();
-        return redirect()->route('admin.users.index')->with('success', 'تم حذف المستخدم بنجاح');
-    }
-
 
  // app/Http/Controllers/Admin/UserController.php
 public function show(User $user)

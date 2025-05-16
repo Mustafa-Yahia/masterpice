@@ -238,4 +238,13 @@ Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::post('/chatbot', [ChatbotController::class, 'handleMessage']);
 Route::post('/api/chatbot', [ChatbotController::class, 'handleMessage']);
 
+Route::get('/export-excel', [EventController::class, 'exportToExcel'])
+    ->name('export.excel');
 
+
+    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'admin']], function() {
+    // ... روات أخرى موجودة لديك ...
+
+    Route::get('/dashboard/chart-data', 'DashboardController@getChartData')
+         ->name('dashboard.getChartData');
+});

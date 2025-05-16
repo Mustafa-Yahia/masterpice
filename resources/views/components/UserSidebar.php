@@ -7,7 +7,6 @@ class UserSidebar extends Component
 {
     public $subscriptions;
 
-    // يمكن إضافة بيانات أخرى تحتاجها في الـ Sidebar
     public function __construct($subscriptions)
     {
         $this->subscriptions = $subscriptions;
@@ -15,6 +14,6 @@ class UserSidebar extends Component
 
     public function render()
     {
-        return view('components.user-sidebar'); // تحديد الـ view الذي سيعرض الـ Sidebar
+        return view('components.user-sidebar'); 
     }
 }
